@@ -2,6 +2,7 @@ export const GALLERY_IMAGES = [
   { src: "/images/about/about-1.png" },
   { src: "/images/about/about-2.jpg" },
   { src: "/images/about/about-3.jpg" },
+  { src: "/images/about/about-4.jpg" },
 ] as const;
 
 export const STACK_STYLES = [

@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { SettingsDropdown } from "../SettingsDropdown";
 import { useNavbar } from "./useNavbar";
 
@@ -43,18 +44,37 @@ export function Navbar() {
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
-          {state.navLinks.map((link) => (
-            <Link
-              key={link.key}
-              href={link.href}
-              className="relative font-medium text-sm overflow-hidden group py-2"
-            >
-              <span className="relative z-10 transition-colors group-hover:text-primary">
-                {t(link.key)}
-              </span>
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
-            </Link>
-          ))}
+          {state.navLinks.map((link) => {
+            const isActive = state.activeSection === link.key;
+            
+            return (
+              <Link
+                key={link.key}
+                href={link.href}
+                onClick={(e) => actions.handleNavClick(e, link.href)}
+                className="group relative py-2 font-medium text-sm transition-colors"
+              >
+                <span className={`relative z-10 transition-colors ${
+                  isActive ? "text-primary" : "text-foreground group-hover:text-primary"
+                }`}>
+                  {t(link.key)}
+                </span>
+
+                {/* Active indicator (animates between tabs) */}
+                {isActive && (
+                  <motion.div
+                    layoutId="navbar-active-indicator"
+                    className="absolute bottom-0 left-0 w-full h-[2px] bg-primary pointer-events-none"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+
+                {!isActive && (
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out pointer-events-none" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
@@ -78,16 +98,21 @@ export function Navbar() {
           state.isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {state.navLinks.map((link) => (
-          <Link
-            key={link.key}
-            href={link.href}
-            onClick={actions.closeMobileMenu}
-            className="text-2xl font-bold tracking-tight text-foreground hover:text-primary transition-colors"
-          >
-            {t(link.key)}
-          </Link>
-        ))}
+        {state.navLinks.map((link) => {
+          const isActive = state.activeSection === link.key;
+          return (
+            <Link
+              key={link.key}
+              href={link.href}
+              onClick={(e) => actions.handleNavClick(e, link.href)}
+              className={`text-2xl font-bold tracking-tight transition-colors ${
+                isActive ? "text-primary" : "text-foreground hover:text-primary"
+              }`}
+            >
+              {t(link.key)}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

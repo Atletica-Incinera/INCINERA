@@ -66,45 +66,45 @@ export const AboutSection = () => {
             className="relative w-full max-w-[500px] mx-auto"
             style={{ height: "450px" }}
           >
-            {GALLERY_IMAGES.map((img, index) => (
-              <div
-                key={index}
-                ref={(el) => {
-                  imageRefs.current[index] = el;
-                }}
+            {GALLERY_IMAGES.slice(0, 3).map((img, index) => (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    imageRefs.current[index] = el;
+                  }}
                 className="fire-frame-wrapper absolute cursor-pointer"
                 data-gallery-index={index}
-                style={{
-                  width: "280px",
-                  height: "200px",
+                  style={{
+                    width: "280px",
+                    height: "200px",
                   top: STACK_STYLES[index].top,
                   left: STACK_STYLES[index].left,
                   zIndex: STACK_STYLES[index].zIndex,
                   transform: `rotate(${STACK_STYLES[index].rotate})`,
-                  willChange: "transform",
-                }}
+                    willChange: "transform",
+                  }}
                 onClick={() => openModal(index)}
-                role="button"
-                tabIndex={0}
-                aria-label={t("gallery.expandImage")}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={t("gallery.expandImage")}
                 onKeyDown={(e) => e.key === "Enter" && openModal(index)}
-              >
+                >
                 <div className="fire-frame">
-                  <Image
-                    src={img.src}
-                    alt={t(
-                      `gallery.image${index + 1}Alt` as
-                        | "gallery.image1Alt"
-                        | "gallery.image2Alt"
-                        | "gallery.image3Alt"
-                    )}
-                    fill
+                    <Image
+                      src={img.src}
+                      alt={t(
+                        `gallery.image${index + 1}Alt` as
+                          | "gallery.image1Alt"
+                          | "gallery.image2Alt"
+                          | "gallery.image3Alt"
+                      )}
+                      fill
                     className="object-cover rounded-[calc(var(--radius)-2px)]"
-                    sizes="280px"
-                    loading="lazy"
-                  />
+                      sizes="280px"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-              </div>
             ))}
           </div>
         </div>
@@ -138,12 +138,16 @@ export const AboutSection = () => {
             >
               <Image
                 src={GALLERY_IMAGES[activeIndex].src}
-                alt={t(
-                  `gallery.image${activeIndex + 1}Alt` as
-                    | "gallery.image1Alt"
-                    | "gallery.image2Alt"
-                    | "gallery.image3Alt"
-                )}
+                alt={
+                  activeIndex < 3
+                    ? t(
+                        `gallery.image${activeIndex + 1}Alt` as
+                          | "gallery.image1Alt"
+                          | "gallery.image2Alt"
+                          | "gallery.image3Alt"
+                      )
+                    : t("gallery.expandImage")
+                }
                 width={900}
                 height={600}
                 className="object-contain max-h-[80vh] w-auto"

@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { GALLERY_IMAGES } from "@/data/about";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -15,14 +16,11 @@ export const useAboutSection = () => {
   const bodyRef = useRef<HTMLParagraphElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
-  // Gallery modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Refs for gallery images (GSAP animation)
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Modal handlers
   const openModal = (index: number) => {
     setActiveIndex(index);
     setModalOpen(true);
@@ -32,11 +30,12 @@ export const useAboutSection = () => {
 
   const navigateModal = (direction: "prev" | "next") => {
     setActiveIndex((prev) =>
-      direction === "prev" ? (prev - 1 + 3) % 3 : (prev + 1) % 3
+      direction === "prev"
+        ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
+        : (prev + 1) % GALLERY_IMAGES.length
     );
   };
 
-  // Keyboard navigation for modal (ESC, arrows)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!modalOpen) return;
@@ -58,7 +57,6 @@ export const useAboutSection = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Title reveal
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, y: 50 },
@@ -73,7 +71,6 @@ export const useAboutSection = () => {
         }
       );
 
-      // Subtitle reveal
       gsap.fromTo(
         subtitleRef.current,
         { opacity: 0, x: -30 },
