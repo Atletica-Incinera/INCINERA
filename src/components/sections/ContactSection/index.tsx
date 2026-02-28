@@ -209,12 +209,12 @@ export const ContactSection = () => {
                 type="submit"
                 disabled={isSubmitting}
                 aria-disabled={isSubmitting}
-                className="w-full h-14 text-lg font-bold uppercase tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground group disabled:opacity-70 disabled:cursor-not-allowed transition-opacity"
+                className="w-full h-12 sm:h-14 text-sm sm:text-lg font-bold uppercase tracking-wider sm:tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground group disabled:opacity-70 disabled:cursor-not-allowed transition-opacity"
               >
                 {isSubmitting ? (
                   <>
                     <Loader2
-                      className="mr-2 h-5 w-5 animate-spin"
+                      className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin"
                       aria-hidden="true"
                     />
                     {t("form.submitting")}
@@ -223,7 +223,7 @@ export const ContactSection = () => {
                   <>
                     {t("form.submit")}
                     <Send
-                      className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                      className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                       aria-hidden="true"
                     />
                   </>

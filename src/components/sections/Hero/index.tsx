@@ -25,7 +25,7 @@ export function Hero() {
         {/* Left Side (White/Foreground context) */}
         <div
           ref={refs.leftContent}
-          className="relative md:absolute md:inset-0 w-full flex-1 flex flex-col justify-center px-8 md:pl-[10%] lg:pr-[45%] pt-24 pb-12 z-10 bg-background opacity-0"
+          className="relative md:absolute md:inset-0 w-full flex-1 flex flex-col justify-center px-8 md:pl-[8%] md:pr-[48%] lg:pl-[10%] lg:pr-[45%] pt-24 pb-12 z-10 bg-background opacity-0"
         >
           <div className="max-w-2xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary text-xs font-bold tracking-wider uppercase">
@@ -35,19 +35,19 @@ export function Hero() {
             <div className="flex flex-col tracking-tighter leading-[0.85]">
               <h1
                 ref={refs.titleSplit1}
-                className="text-6xl sm:text-7xl lg:text-8xl font-black text-foreground uppercase drop-shadow-sm"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-foreground uppercase drop-shadow-sm"
               >
                 {t("title1")}
               </h1>
               <h1
                 ref={refs.titleSplit2}
-                className="text-6xl sm:text-7xl lg:text-8xl font-black text-primary uppercase mt-[-0.05em] drop-shadow-md"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-primary uppercase mt-[-0.05em] drop-shadow-md"
               >
                 {t("title2")}
               </h1>
             </div>
 
-            <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-xl">
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium max-w-xl">
               {t("subtitle")}
             </p>
 
@@ -69,11 +69,11 @@ export function Hero() {
         {/* Right Side (Red Background with gradient to dark) */}
         <div
           ref={refs.rightContent}
-          className="relative md:absolute md:inset-0 w-full bg-gradient-to-br from-primary via-primary/80 to-primary/90 flex items-center justify-end overflow-hidden z-20 md:[clip-path:polygon(65%_0,100%_0,100%_100%,50%_100%)] opacity-0"
+          className="relative md:absolute md:inset-0 w-full bg-gradient-to-br from-primary via-primary/80 to-primary/90 flex items-center justify-end overflow-hidden z-20 md:[clip-path:polygon(75%_0,100%_0,100%_100%,55%_100%)] lg:[clip-path:polygon(65%_0,100%_0,100%_100%,50%_100%)] opacity-0"
         >
           {/* subtle noise/gradient map */}
           
-          <div className="relative z-10 w-full max-w-[600px] aspect-square flex items-center justify-center md:mr-[5%] lg:mr-[10%] filter drop-shadow-2xl">
+          <div className="relative z-10 w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl">
             <img
               ref={refs.mascot}
               src="/hero-icon.png"

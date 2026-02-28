@@ -98,6 +98,15 @@ export function Navbar() {
           state.isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        {/* Close Button Mobile Menu */}
+        <button
+          onClick={actions.closeMobileMenu}
+          className="absolute top-6 right-6 p-2 rounded-full bg-accent/20 text-foreground hover:bg-accent transition-colors"
+          aria-label={t("toggleMenu")}
+        >
+          <X size={28} />
+        </button>
+
         {state.navLinks.map((link) => {
           const isActive = state.activeSection === link.key;
           return (

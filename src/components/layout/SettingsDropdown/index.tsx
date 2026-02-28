@@ -31,7 +31,7 @@ export function SettingsDropdown() {
 
       <div
         ref={refs.menuRef}
-        className={`absolute right-0 top-[calc(100%+0.5rem)] w-[320px] p-5 bg-background/80 backdrop-blur-xl border border-primary/20 dark:border-white/10 rounded-[var(--radius-lg)] shadow-2xl transition-all duration-300 origin-top-right z-50 ${
+        className={`absolute right-0 top-[calc(100%+0.5rem)] w-[250px] sm:w-[320px] p-4 sm:p-5 bg-background/80 backdrop-blur-xl border border-primary/20 dark:border-white/10 rounded-[var(--radius-lg)] shadow-2xl transition-all duration-300 origin-top-right z-50 ${
           state.isOpen
             ? "opacity-100 scale-100 pointer-events-auto translate-y-0"
             : "opacity-0 scale-95 pointer-events-none -translate-y-2"

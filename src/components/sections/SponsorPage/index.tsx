@@ -167,13 +167,13 @@ export const SponsorPage = () => {
 
         <div
           ref={heroRef}
-          className="relative z-10 text-center px-6 md:px-12 max-w-5xl mx-auto py-24"
+          className="relative z-10 text-center px-4 sm:px-6 md:px-12 max-w-5xl mx-auto py-20 md:py-24"
         >
           {/* Pill badge */}
-          <div className="hero-animate flex justify-center mb-8">
+          <div className="hero-animate flex justify-center mb-6 md:mb-8">
             <Badge
               variant="outline"
-              className="gap-2 px-4 py-2 text-xs font-bold tracking-widest uppercase border-primary/30 bg-primary/10 text-primary rounded-full"
+              className="gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold tracking-widest uppercase border-primary/30 bg-primary/10 text-primary rounded-full"
             >
               <Flame className="w-3.5 h-3.5" />
               {t("hero.badge")}
@@ -183,7 +183,7 @@ export const SponsorPage = () => {
           {/* Headline */}
           <h1
             id="sponsor-hero-heading"
-            className="hero-animate text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter text-foreground leading-[0.9] mb-6 drop-shadow-2xl"
+            className="hero-animate text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter text-foreground leading-[0.95] md:leading-[0.9] mb-6 drop-shadow-2xl"
           >
             {t("hero.title.line1")}{" "}
             <span className="text-primary">{t("hero.title.highlight")}</span>{" "}
@@ -191,7 +191,7 @@ export const SponsorPage = () => {
           </h1>
 
           {/* Sub */}
-          <p className="hero-animate text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
+          <p className="hero-animate text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 md:mb-12 leading-relaxed">
             {t("hero.subtitle")}
           </p>
 
@@ -201,7 +201,7 @@ export const SponsorPage = () => {
               id="sponsor-hero-cta"
               onClick={scrollToForm}
               size="lg"
-              className="group h-14 px-10 text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/20 dark:shadow-xl dark:shadow-primary/40 hover:shadow-xl hover:shadow-primary/40 dark:hover:shadow-2xl dark:hover:shadow-primary/70 transition-all duration-300"
+              className="group h-12 sm:h-14 px-6 sm:px-10 text-xs sm:text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/20 dark:shadow-xl dark:shadow-primary/40 hover:shadow-xl hover:shadow-primary/40 dark:hover:shadow-2xl dark:hover:shadow-primary/70 transition-all duration-300 w-full sm:w-auto"
             >
               {t("hero.cta")}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -336,15 +336,15 @@ export const SponsorPage = () => {
           ════════════════════════════════════════ */}
       <section
         aria-labelledby="audience-heading"
-        className="w-full py-20 lg:py-28"
+        className="w-full py-16 sm:py-20 lg:py-28"
       >
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="container mx-auto px-4 sm:px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center">
             {/* Left: text */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               <Badge
                 variant="outline"
-                className="gap-2 px-3 py-1.5 text-xs font-bold tracking-widest uppercase border-primary/30 bg-primary/10 text-primary rounded-full"
+                className="gap-2 px-3 py-1.5 text-[10px] sm:text-xs font-bold tracking-widest uppercase border-primary/30 bg-primary/10 text-primary rounded-full"
               >
                 <Target className="w-3 h-3" />
                 {t("audience.badge")}
@@ -352,11 +352,11 @@ export const SponsorPage = () => {
 
               <h2
                 id="audience-heading"
-                className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground leading-none"
+                className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground leading-[0.95] sm:leading-none"
               >
                 {t("audience.title")}
               </h2>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
+              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg">
                 {t("audience.body")}
               </p>
 
@@ -364,7 +364,7 @@ export const SponsorPage = () => {
                 href="https://portosdigital.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary font-semibold group transition-colors"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-primary font-semibold group transition-colors"
               >
                 {t("audience.portDigitalLink")}
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -372,18 +372,18 @@ export const SponsorPage = () => {
             </div>
 
             {/* Right: profile cards following MemberCard spacing pattern */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {profiles.map((profile, i) => {
                 const Icon = profile.icon;
                 return (
                   <div
                     key={i}
-                    className="group flex flex-col items-center gap-3 p-5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 text-center"
+                    className="group flex flex-col items-center gap-2 sm:gap-3 p-4 sm:p-5 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 text-center"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                     </div>
-                    <span className="text-xs font-semibold text-muted-foreground group-hover:text-foreground leading-tight transition-colors">
+                    <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground group-hover:text-foreground leading-tight transition-colors">
                       {t(profile.labelKey as Parameters<typeof t>[0])}
                     </span>
                   </div>
