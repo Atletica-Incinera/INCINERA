@@ -60,7 +60,7 @@ export const directoriesData: Directory[] = [
   {
     id: "marketing",
     name: "Comunicação",
-    image: "/images/directory/placeholder.webp",
+    image: "/images/directory/comunicação.png",
     director: {
       id: "dir-marketing-1",
       name: "Maria Oliveira",
@@ -118,7 +118,7 @@ export const directoriesData: Directory[] = [
   {
     id: "esportes",
     name: "Esportes",
-    image: "/images/directory/placeholder.webp",
+    image: "/images/directory/esportes.png",
     director: {
       id: "dir-esportes-1",
       name: "João Silva",
@@ -148,7 +148,7 @@ export const directoriesData: Directory[] = [
   {
     id: "financeiro",
     name: "Financeiro",
-    image: "/images/directory/placeholder.webp",
+    image: "/images/directory/financeiro.png",
     director: {
       id: "dir-financeiro-1",
       name: "Roberto Mendes",
@@ -189,7 +189,7 @@ export const directoriesData: Directory[] = [
   {
     id: "eventos",
     name: "Eventos",
-    image: "/images/directory/placeholder.webp",
+    image: "/images/directory/eventos.png",
     director: {
       id: "dir-eventos-1",
       name: "Amanda Nunes",
@@ -243,7 +243,7 @@ export const directoriesData: Directory[] = [
   {
     id: "produtos",
     name: "Produtos",
-    image: "/images/directory/placeholder.webp",
+    image: "/images/directory/produtos.png",
     director: {
       id: "dir-produtos-1",
       name: "Bruno Costa",

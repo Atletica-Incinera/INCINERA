@@ -4,9 +4,11 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { useMapSection } from "./useMapSection";
 import { MapPin } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
 export const MapSection = () => {
   const t = useTranslations("Map");
+  const { theme } = useTheme();
   const { sectionRef, cardRef } = useMapSection();
 
   return (
@@ -15,12 +17,15 @@ export const MapSection = () => {
       ref={sectionRef}
       className="relative w-full h-[600px] bg-background overflow-hidden"
     >
-      {/* Map Embed (Dark Styled via CSS filter) */}
+      {/* Map Embed (Dark Styled via CSS filter conditionally) */}
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.3905829656116!2d-34.9535311239922!3d-8.0551000804759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab1969f28a4feb%3A0x3469e38f13f5721!2sCentro%20de%20Inform%C3%A1tica%20(CIn)%20-%20UFPE!5e0!3m2!1spt-BR!2sbr!4v1708980000000!5m2!1spt-BR!2sbr"
         width="100%"
         height="100%"
-        style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%)" }}
+        style={{ 
+          border: 0, 
+          filter: theme === "dark" ? "invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%)" : "none" 
+        }}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

@@ -18,7 +18,6 @@ export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModal
   const tCommon = useTranslations("Common");
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Focus trap & escape key handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -27,7 +26,6 @@ export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModal
     if (isOpen) {
       document.body.style.overflow = "hidden";
       document.addEventListener("keydown", handleKeyDown);
-      // Focus modal
       setTimeout(() => {
         modalRef.current?.focus();
       }, 100);
@@ -113,12 +111,10 @@ export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModal
                         {member.sports.map((sport) => {
                           let translatedSport = sport;
                           try {
-                            // Only try to translate if it looks like a key (no spaces, all lowercase)
                             if (/^[a-z]+$/.test(sport)) {
                               translatedSport = t(`sports.${sport}` as any);
                             }
                           } catch (e) {
-                            // fallback to the string itself if missing or error
                           }
                           return (
                             <li key={sport} className="px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
