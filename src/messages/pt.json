@@ -1,0 +1,387 @@
+{
+  "Metadata": {
+    "title": "Incinera",
+    "titleSuffix": " | Incinera",
+    "description": "A chama que não se apaga. Junte-se à maior força esportiva do Centro de Informática da UFPE."
+  },
+  "Common": {
+    "loading": "Carregando...",
+    "error": "Algo deu errado.",
+    "buttons": {
+      "cta": "Saiba Mais",
+      "submit": "Enviar Mensagem",
+      "backToHome": "Voltar para Início",
+      "close": "Fechar"
+    },
+    "social": {
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "twitter": "Twitter",
+      "github": "GitHub",
+      "email": "E-mail"
+    }
+  },
+  "Hero": {
+    "badge": "Centro de Informática - UFPE",
+    "title1": "Atlética",
+    "title2": "Incinera",
+    "subtitle": "A chama que não se apaga. Junte-se à maior força esportiva do Centro de Informática da UFPE.",
+    "cta": "Conheça a Incinera",
+    "secondaryCta": "Seja Sócio",
+    "mascotAlt": "Mascote Incinera"
+  },
+  "Navigation": {
+    "home": "Início",
+    "about": "Quem Somos",
+    "teams": "Equipes",
+    "directory": "Diretoria",
+    "partners": "Parceiros",
+    "contact": "Contato",
+    "toggleMenu": "Alternar Menu",
+    "logoAlt": "Logotipo INCINERA"
+  },
+  "Settings": {
+    "title": "Configurações",
+    "appearance": "Aparência",
+    "language": "Idioma",
+    "toggleTheme": "Alternar tema"
+  },
+  "Emails": {
+    "contact": {
+      "subject": "[Incinera] Nova mensagem de contato — {subject}",
+      "badge": "Nova mensagem de contato",
+      "sender": "Remetente",
+      "subjectLabel": "Assunto",
+      "messageLabel": "Mensagem",
+      "reply": "Responder mensagem",
+      "footer": "Enviado através do site da Atlética Incinera"
+    },
+    "sponsorship": {
+      "subject": "[Incinera] Nova proposta de patrocínio — {company}",
+      "badge": "Nova proposta de patrocínio",
+      "companyData": "Dados da Empresa",
+      "responsible": "Responsável",
+      "vision": "Visão da Parceria",
+      "nextSteps": {
+        "title": "Próximos Passos",
+        "step1": "Agendar reunião de apresentação com o time de marketing",
+        "step2": "Enviar portfólio completo de cotas de patrocínio",
+        "step3": "Alinhar expectativas, ativações e datas de início"
+      },
+      "reply": "Responder proposta",
+      "footer": "Enviado através da página de patrocínio da Atlética Incinera"
+    }
+  },
+  "About": {
+    "title": "Quem Somos",
+    "subtitle": "A chama que une o CIn",
+    "body": "Nascida da vontade de unir os estudantes do Centro de Informática da UFPE através do esporte, a Atlética Incinera é mais que uma associação — é uma família. Desde a nossa fundação, carregamos a missão de representar o CIn nas competições universitárias com garra, paixão e espírito de equipe. Cada jogo, cada treino, cada conquista nos fortalece como comunidade.",
+    "gallery": {
+      "image1Alt": "Atlética Incinera — Celebração de Vitória",
+      "image2Alt": "Atlética Incinera — Treino Intenso",
+      "image3Alt": "Atlética Incinera — Espírito de Equipe",
+      "closeModal": "Fechar imagem",
+      "previousImage": "Imagem anterior",
+      "nextImage": "Próxima imagem",
+      "expandImage": "Ampliar imagem"
+    }
+  },
+  "Directory": {
+    "title": "Diretoria",
+    "subtitle": "Os guerreiros que lideram a chama",
+    "common": {
+      "viewDetails": "Ver detalhes de {name}",
+      "closeTeam": "Fechar equipe",
+      "openTeam": "Clique para ver a equipe",
+      "leadership": "Liderança",
+      "members": "Membros ({count})",
+      "sports": "Esportes",
+      "course": "Curso",
+      "social": "Redes Sociais"
+    },
+    "roles": {
+      "president": "Presidente",
+      "vicePresident": "Vice-Presidente",
+      "director": "Diretor(a)",
+      "viceDirector": "Vice-Diretor(a)",
+      "member": "Membro",
+      "sports": "Diretor(a) de Esportes",
+      "finance": "Diretor(a) de Finanças",
+      "marketing": "Diretor(a) de Comunicação",
+      "events": "Diretor(a) de Eventos",
+      "products": "Diretor(a) de Produtos",
+      "athlete": "Atleta"
+    },
+    "names": {
+      "marketing": "Comunicação",
+      "esportes": "Esportes",
+      "financeiro": "Financeiro",
+      "eventos": "Eventos",
+      "produtos": "Produtos"
+    },
+    "courses": {
+      "ec": "Engenharia da Computação",
+      "cc": "Ciência da Computação",
+      "si": "Sistemas de Informação",
+      "es": "Engenharia de Software"
+    },
+    "sports": {
+      "basquete": "Basquete",
+      "volei": "Vôlei",
+      "natacao": "Natação",
+      "futsal": "Futsal",
+      "futebol": "Futebol",
+      "handebol": "Handebol",
+      "esports": "e-Sports"
+    }
+  },
+  "Teams": {
+    "pageTitle": "Nossas Equipes",
+    "subtitle": "A força do CIn em todas as quadras",
+    "backToHome": "Voltar para Início",
+    "sports": {
+      "futsalMale": "Futsal Masculino",
+      "futsalFemale": "Futsal Feminino",
+      "volleyballMale": "Vôlei Masculino",
+      "volleyballFemale": "Vôlei Feminino",
+      "basketball": "Basquete",
+      "handball": "Handebol"
+    }
+  },
+  "Contact": {
+    "title": "Fale Conosco",
+    "subtitle": "Tem uma dúvida, sugestão ou quer fazer parte? Manda a brasa!",
+    "info": {
+      "email": "Email",
+      "location": "Local",
+      "campus": "CIn - UFPE"
+    },
+    "form": {
+      "ariaLabel": "Formulário de contato",
+      "name": "Nome completo",
+      "email": "Email",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "submit": "Enviar Mensagem",
+      "submitting": "Enviando...",
+      "success": "Mensagem enviada!",
+      "placeholders": {
+        "name": "Seu nome completo",
+        "email": "seu@email.com",
+        "subject": "Qual o assunto?",
+        "message": "Escreva sua mensagem aqui..."
+      }
+    },
+    "validation": {
+      "name": {
+        "required": "Nome completo é obrigatório",
+        "min": "Nome deve ter pelo menos 3 caracteres"
+      },
+      "email": {
+        "required": "Email é obrigatório",
+        "invalid": "Email inválido"
+      },
+      "subject": {
+        "required": "Assunto é obrigatório",
+        "min": "Assunto deve ter pelo menos 5 caracteres"
+      },
+      "message": {
+        "required": "Mensagem é obrigatória",
+        "min": "Mensagem deve ter pelo menos 20 caracteres",
+        "max": "Mensagem deve ter no máximo 1000 caracteres"
+      }
+    },
+    "toast": {
+      "success": {
+        "title": "Mensagem enviada!",
+        "description": "Retornaremos o contato em breve."
+      },
+      "error": {
+        "title": "Erro ao enviar",
+        "description": "Tente novamente ou entre em contato diretamente."
+      },
+      "loading": "Enviando mensagem..."
+    }
+  },
+  "Partners": {
+    "title": "Nossos Apoiadores",
+    "subtitle": "Quem acredita na chama",
+    "sponsorsHeading": "Patrocinadores",
+    "partnersHeading": "Parceiros",
+    "common": {
+      "viewSponsor": "Ver detalhes do patrocinador {name}",
+      "viewPartner": "Ver detalhes do parceiro {name}",
+      "linksAndSocial": "Links e Redes",
+      "website": "Website"
+    },
+    "cta": {
+      "heading": "Quer fazer parte dessa história?",
+      "body": "Conecte sua marca aos melhores talentos tech do Norte-Nordeste",
+      "button": "Seja um Apoiador"
+    },
+    "data": {
+      "s1": {
+        "description": "Sponsor 1 é uma empresa parceira fundamental que acredita no esporte e na tecnologia como vetores de mudança na educação e na comunidade acadêmica."
+      },
+      "s2": {
+        "description": "Referência no mercado de tecnologia, oferecendo suporte contínuo para as iniciativas e eventos da Atlética."
+      },
+      "s3": {
+        "description": "Investindo no potencial dos estudantes de computação para transformá-los nos grandes líderes do futuro."
+      },
+      "p1": {
+        "description": "Apoia nossos eventos e competições fornecendo estrutura e suporte."
+      },
+      "p2": {
+        "description": "Parceiro de longa data, garantindo a integração de toda a comunidade acadêmica."
+      },
+      "p3": {
+        "description": "Incentivando o esporte universitário com suporte técnico e financeiro."
+      }
+    }
+  },
+  "Sponsor": {
+    "ariaLabels": {
+      "stats": "Estatísticas da Incinera",
+      "impact": "Impacto da Incinera",
+      "form": "Formulário de interesse em patrocínio"
+    },
+    "meta": {
+      "title": "Seja um Patrocinador",
+      "description": "Conecte sua marca à elite da tecnologia do Norte-Nordeste. Apoie a Atlética Incinera e tenha visibilidade no maior ecossistema universitário de TI de Pernambuco."
+    },
+    "hero": {
+      "badge": "Parceria Estratégica · CIn UFPE",
+      "title": {
+        "line1": "Conecte sua marca à",
+        "highlight": "elite tech",
+        "line2": "do Norte-Nordeste"
+      },
+      "subtitle": "Apoie a maior atlética de tecnologia da região e esteja presente onde a inovação acontece. Visibilidade real, talento de verdade.",
+      "cta": "Seja um Parceiro Institucional"
+    },
+    "stats": {
+      "impressions": "impressões em eventos",
+      "ranking": "melhor computação do Brasil",
+      "courses": "maiores notas de corte UFPE",
+      "events": "presença em INTERENG & JUPS"
+    },
+    "pillars": {
+      "title": "Por que investir na Incinera?",
+      "subtitle": "Quatro razões concretas para sua marca estar conosco durante todo o ano acadêmico.",
+      "talent": {
+        "title": "Top Talent Tech",
+        "desc": "Somos a atlética do melhor Centro de Informática do Norte-Nordeste e um dos 5 melhores do Brasil (RUF/MEC). Nossos estudantes compõem os 3 cursos com as maiores notas de corte da UFPE. Patrocinar-nos é ter acesso direto aos talentos mais disputados pelo mercado de TI."
+      },
+      "regional": {
+        "title": "Força Dominante em Tech",
+        "desc": "Representamos a maior comunidade esportiva e social de tecnologia em Pernambuco. Movimentamos centenas de desenvolvedores, engenheiros e designers diariamente e somos referência para outras instituições da região."
+      },
+      "reach": {
+        "title": "Visibilidade Garantida",
+        "desc": "Nossa comunidade é altamente engajada. Durante nossos eventos, alcançamos mais de 30 mil impressões no Instagram. Sua marca não aparece apenas em uniformes — ela vive no feed de milhares de jovens tech-savvy."
+      },
+      "presence": {
+        "title": "Exposição 365 Dias",
+        "desc": "Diferente de patrocínios pontuais, nosso parceiro está conosco o ano inteiro. Da recepção de calouros às competições nacionais (INTERENG, JUPS e entre outras), sua marca terá exposição garantida em todo o calendário acadêmico."
+      }
+    },
+    "activations": {
+      "title": "Onde sua marca estará",
+      "subtitle": "Modalidades de ativação incluídas em nossa parceria estratégica.",
+      "uniforms": "Uniformes oficiais de competição",
+      "banners": "Banners e materiais em eventos próprios",
+      "instagram": "Posts patrocinados e stories no Instagram",
+      "events": "Espaço de fala em eventos de integração",
+      "competitions": "Presença em competições estaduais e nacionais",
+      "website": "Destaque no site oficial da Incinera",
+      "newsletters": "Menção em newsletters e comunicados",
+      "equipment": "Branding em equipamentos esportivos"
+    },
+    "audience": {
+      "badge": "Employer Branding",
+      "title": "Conecte-se com os profissionais do futuro",
+      "body": "Nossos membros são recrutados pelas principais empresas do Porto Digital e do Brasil. Esteja presente onde o talento é formado antes mesmo de entrar no mercado.",
+      "portDigitalLink": "Saiba mais sobre o ecossistema do Porto Digital",
+      "profiles": {
+        "fullstack": "Devs Full Stack",
+        "aiml": "Engenheiros de IA/ML",
+        "data": "Cientistas de Dados",
+        "ux": "UX/UI Designers",
+        "security": "Especialistas em Cybersecurity",
+        "cloud": "Engenheiros de Cloud"
+      }
+    },
+    "gallery": {
+      "quote": "Nossos parceiros fazem parte de cada vitória, cada treino e cada conquista da Incinera.",
+      "attribution": "— Atlética Incinera, CIn · UFPE"
+    },
+    "form": {
+      "badge": "Quero ser parceiro",
+      "title": "Pronto para fazer parte?",
+      "subtitle": "Preencha o formulário e nossa equipe de marketing entrará em contato com o portfólio completo de cotas de patrocínio.",
+      "fields": {
+        "nomeFantasia": {
+          "label": "Como sua empresa é conhecida no mercado?",
+          "placeholder": "Nome Fantasia da empresa"
+        },
+        "nomeResponsavel": {
+          "label": "Nome do Responsável",
+          "placeholder": "Seu nome completo"
+        },
+        "email": {
+          "label": "E-mail Corporativo",
+          "placeholder": "seu@empresa.com.br"
+        },
+        "visaoParceria": {
+          "label": "Como você imagina essa parceria?",
+          "placeholder": " Queremos conectar nossa marca com desenvolvedores em formação e participar dos principais eventos tech da UFPE...",
+          "hint": "20 caracteres mínimos. Seja específico sobre seus objetivos de visibilidade, recrutamento ou ativações."
+        }
+      },
+      "privacy": "Seus dados são usados apenas para contato sobre a parceria. Nenhuma informação é compartilhada com terceiros.",
+      "submit": "Iniciar Parceria",
+      "submitting": "Enviando proposta..."
+    },
+    "toast": {
+      "loading": "Enviando sua proposta...",
+      "success": {
+        "title": "Proposta recebida!",
+        "description": "Nossa equipe de marketing entrará em contato em breve com o portfólio de cotas."
+      },
+      "error": {
+        "title": "Erro ao enviar",
+        "description": "Tente novamente ou entre em contato por incinera@cin.ufpe.br."
+      }
+    },
+    "validation": {
+      "nomeFantasia": {
+        "required": "Nome da empresa é obrigatório"
+      },
+      "nomeResponsavel": {
+        "required": "Nome do responsável é obrigatório",
+        "min": "Nome deve ter pelo menos 3 caracteres"
+      },
+      "email": {
+        "required": "E-mail é obrigatório",
+        "invalid": "Insira um e-mail válido"
+      },
+      "visaoParceria": {
+        "required": "Descreva sua visão da parceria",
+        "min": "Escreva pelo menos 50 caracteres para detalhar sua proposta",
+        "max": "Máximo de 1000 caracteres"
+      }
+    }
+  },
+  "Map": {
+    "title": "Onde Estamos",
+    "address": "Av. Jorn. Aníbal Fernandes, s/n - Cidade Universitária, Recife - PE, 50740-560",
+    "viewOnGoogleMaps": "Ver no Google Maps"
+  },
+  "Footer": {
+    "tagline": "A chama nunca se apaga. 🔥",
+    "developedBy": "Desenvolvido por João Victor",
+    "copyright": "© 2026 Atlética Incinera — CIn UFPE",
+    "whatsapp": "Comunidade no WhatsApp"
+  }
+}
