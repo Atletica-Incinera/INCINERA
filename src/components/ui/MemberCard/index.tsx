@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { AppImage } from "@/components/ui/AppImage";
 
 interface MemberCardRootProps {
   children: React.ReactNode;
@@ -30,20 +30,17 @@ interface MemberCardAvatarProps {
 
 const MemberCardAvatar = ({ src, alt, className }: MemberCardAvatarProps) => {
   return (
-    <div
-      className={cn(
+    <AppImage
+      src={src}
+      alt={alt}
+      fill
+      containerClassName={cn(
         "relative w-32 h-32 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-colors duration-300",
         className
       )}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 128px, 128px"
-      />
-    </div>
+      className="object-cover"
+      sizes="(max-width: 768px) 128px, 128px"
+    />
   );
 };
 
