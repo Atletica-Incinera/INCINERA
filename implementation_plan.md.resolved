@@ -1,0 +1,640 @@
+# Estratégia de Dados Reais e Escalabilidade — Análise e Recomendação
+
+> Documento de análise completo para a equipe da **Atlética Incinera** tomar decisões informadas sobre armazenamento de dados, imagens e sistema de coleta.
+
+---
+
+## 1. Diagnóstico do Estado Atual
+
+### 1.1 Arquitetura de Dados
+
+| Arquivo | Conteúdo | Volume |
+|---|---|---|
+| [directory.ts](file:///home/joaovictor/Documents/INCINERA/src/data/directory.ts) | Board executivo + 5 diretorias com membros | ~17 membros, 275 linhas |
+| [teams.ts](file:///home/joaovictor/Documents/INCINERA/src/data/teams.ts) | 6 equipes esportivas (dados gerados via [generateAthletes()](file:///home/joaovictor/Documents/INCINERA/src/data/teams.ts#25-37)) | 60 atletas (mock), 76 linhas |
+| [partners.ts](file:///home/joaovictor/Documents/INCINERA/src/data/partners.ts) | 3 sponsors + 3 parceiros | 6 entradas, 81 linhas |
+| [about.ts](file:///home/joaovictor/Documents/INCINERA/src/data/about.ts) | Galeria de fotos + estilos de stack | 4 imagens, 13 linhas |
+
+**Tipagem existente:** [Member](file:///home/joaovictor/Documents/INCINERA/src/data/directory.ts#10-21), [Directory](file:///home/joaovictor/Documents/INCINERA/src/data/directory.ts#22-30), [SocialLinks](file:///home/joaovictor/Documents/INCINERA/src/data/partners.ts#1-8), [Athlete](file:///home/joaovictor/Documents/INCINERA/src/data/teams.ts#9-17), [Team](file:///home/joaovictor/Documents/INCINERA/src/data/teams.ts#18-24), [Partner](file:///home/joaovictor/Documents/INCINERA/src/data/partners.ts#9-17) — todas definidas inline nos data files (não centralizadas).
+
+### 1.2 Imagens
+
+```
+public/images/ → 76 MB total (14 arquivos)
+
+Maiores arquivos:
+  14 MB  about/about-4.jpg
+  13 MB  about/about-3.jpg
+  8.5 MB directory/produtos.png
+  8.3 MB directory/financeiro.png
+  8.1 MB directory/comunicação.png
+  7.9 MB about/about-1.png
+  7.8 MB directory/esportes.png
+  7.7 MB directory/eventos.png
+```
+
+> [!CAUTION]
+> **76 MB de imagens não-otimizadas no repositório Git.** A maioria são PNGs de 7-14 MB que deveriam ter ~100-300 KB após compressão WebP. Isso inflaciona o clone do repo, degrada LCP (Largest Contentful Paint) e desperdiça bandwidth do Vercel.
+
+### 1.3 Rendering e Consumo de Dados
+
+- **Main page** → Server Component (SSR) — sem `"use client"`
+- **Componentes usam `next/image`** em 9 arquivos (bom ✅)
+- **Lazy loading** presente em apenas 2 componentes (AboutSection, MapSection)
+- **Dados importados estaticamente** (`import { directoriesData } from "@/data/directory"`) em 12 arquivos
+- **i18n completo** via `next-intl` — textos em [src/messages/pt.json](file:///home/joaovictor/Documents/INCINERA/src/messages/pt.json) e `en.json`
+
+### 1.4 Problemas Identificados
+
+| Problema | Impacto | Severidade |
+|---|---|---|
+| Imagens de 7-14 MB sem compressão | LCP 5s+, bandwidth, repo bloat | 🔴 Crítico |
+| Dados 100% mock (placeholders) | Site não reflete a realidade | 🔴 Crítico |
+| Tipos duplicados ([SocialLinks](file:///home/joaovictor/Documents/INCINERA/src/data/partners.ts#1-8) definido 3x) | Inconsistência, manutenção difícil | 🟡 Médio |
+| Atualização requer dev + deploy | Dependência técnica | 🟡 Médio |
+| Sem processo de coleta de dados | Dados incompletos | 🟡 Médio |
+| Git repo inflado (76MB imagens) | Clone lento | 🟠 Baixo-Médio |
+
+---
+
+## 2. Análise de Opções — Dados Estruturados
+
+### Contexto para avaliação
+
+|  | Valor atual | Projetado (2 anos) |
+|---|---|---|
+| Membros diretoria | ~17 | ~30-50 |
+| Atletas | ~60 | ~80-150 |
+| Equipes | 6 | 8-12 |
+| Patrocinadores/Parceiros | 6 | 10-20 |
+| Frequência de atualização | Anual (gestão) + semestral (equipes) | Igual |
+| Quem atualiza | Diretoria de Comunicação/Marketing | Igual |
+| Nível técnico dos admins | Baixo a médio | Igual |
+
+### Matriz Comparativa
+
+| Critério (peso) | Google Sheets (A) | Airtable (B) | Supabase (C) | Firebase (D) | Headless CMS (E) |
+|---|---|---|---|---|---|
+| **Custo** (20%) | ⭐⭐⭐⭐⭐ Grátis | ⭐⭐⭐ Free tier limitado (1000 rows) | ⭐⭐⭐⭐ Free tier generoso (500MB) | ⭐⭐⭐⭐ Free tier ok | ⭐⭐ Strapi self-host / Contentful caro |
+| **Facilidade para admins** (25%) | ⭐⭐⭐⭐⭐ Todos conhecem | ⭐⭐⭐⭐ Interface boa mas nova | ⭐⭐ SQL é técnico | ⭐⭐ Console técnico | ⭐⭐⭐ Interface ok |
+| **Integração com coleta** (15%) | ⭐⭐⭐⭐⭐ Google Forms nativo | ⭐⭐⭐⭐ Forms integrados | ⭐⭐⭐ API manual | ⭐⭐⭐ API manual | ⭐⭐⭐ Depende do CMS |
+| **Escalabilidade** (10%) | ⭐⭐⭐ ~200 rows suficiente | ⭐⭐⭐⭐ Relações, views | ⭐⭐⭐⭐⭐ PostgreSQL completo | ⭐⭐⭐⭐ NoSQL escalável | ⭐⭐⭐⭐ Depende |
+| **Manutenção** (15%) | ⭐⭐⭐⭐⭐ Zero overhead | ⭐⭐⭐⭐ Pouca | ⭐⭐ DB management | ⭐⭐⭐ Regras/índices | ⭐⭐ Deploy/server |
+| **Confiabilidade** (10%) | ⭐⭐⭐⭐ Google infraestrutura | ⭐⭐⭐⭐ SaaS estável | ⭐⭐⭐⭐⭐ PostgreSQL | ⭐⭐⭐⭐ Google infra | ⭐⭐⭐ Self-host risco |
+| **Tempo de setup** (5%) | ⭐⭐⭐⭐⭐ 1 hora | ⭐⭐⭐⭐ 2 horas | ⭐⭐ 1-2 dias | ⭐⭐⭐ 4 horas | ⭐ 2-3 dias |
+| **Score Ponderado** | **4.55** | **3.70** | **3.05** | **3.10** | **2.55** |
+
+### Análise Detalhada por Opção
+
+#### ✅ Google Sheets + API (RECOMENDADA)
+
+**Por que é a melhor escolha para a Incinera:**
+
+1. **Volume adequado:** Com ~200 registros projetados, Google Sheets lida com folga (limite é 10M colunas por planilha)
+2. **Familiar:** Toda diretoria já sabe usar — zero treinamento
+3. **Pipeline natural:** Google Forms → Google Sheets é automático e gratuito
+4. **Colaborativo:** Múltiplos editores simultâneos com histórico de versões
+5. **API estável:** Google Sheets API v4 tem rate limit de 300 requests/minuto (mais que suficiente)
+6. **Custo zero:** Nenhum custo recorrente, nem a longo prazo
+
+**Mitigações para limitações:**
+
+| Limitação | Mitigação |
+|---|---|
+| Rate limits da API | Fetch no build (ISR a cada 1h) — ~1-2 requests/hora |
+| Latência (~200-500ms) | ISR com `revalidate: 3600` — dados sempre do cache |
+| Sem validação nativa | Validação via Zod no build + data validation no Forms |
+| Sem relações SQL | Estrutura por abas (sheets) + IDs para cross-referência |
+
+**Arquitetura da Planilha:**
+
+```
+📊 Incinera — Dados Oficiais
+├── 📋 Aba: Diretoria         (nome, cargo, diretoria, curso, foto_url, redes_sociais...)
+├── 📋 Aba: Atletas            (nome, equipe, posição, curso, foto_url...)
+├── 📋 Aba: Patrocinadores     (nome, logo_url, website, descrição_pt, descrição_en...)
+├── 📋 Aba: Equipes            (id, sport_key, sport_name_pt, sport_name_en)
+└── 📋 Aba: Galeria About      (src, alt_pt, alt_en)
+```
+
+#### ❌ Por que NÃO as outras opções
+
+| Opção | Motivo principal da eliminação |
+|---|---|
+| **Airtable** | Free tier de 1000 rows e 1GB é suficiente, mas é uma ferramenta nova para a equipe. O benefício marginal sobre Sheets não justifica a curva de aprendizado para uma atlética universitária. |
+| **Supabase** | Poderoso demais para o caso. Exige conhecimento SQL para queries, migrations, e troubleshooting. A diretoria de marketing não vai conseguir manter sem um dev dedicado. |
+| **Firebase** | Similar ao Supabase em complexidade, com o agravante de custos imprevisíveis por reads. Sem benefício real para dados que mudam 1-2x/ano. |
+| **Headless CMS** | Overkill absoluto. Strapi exige servidor; Contentful é caro no tier pago. Para ~200 registros que mudam anualmente, é como usar uma bazuca para matar uma mosca. |
+
+---
+
+## 3. Análise de Opções — Armazenamento de Imagens
+
+### Estimativas de Volume
+
+|  | Agora | Projetado (2 anos) |
+|---|---|---|
+| Fotos de membros (diretoria) | ~17 (placeholders) | ~50 fotos reais (~200 KB cada = 10 MB) |
+| Fotos de atletas | ~60 (placeholders) | ~150 fotos reais (~200 KB cada = 30 MB) |
+| Logos de parceiros | ~6 (placeholders) | ~20 logos (~50 KB cada = 1 MB) |
+| Fotos galeria/eventos | 4 | ~20 fotos (~500 KB cada = 10 MB) |
+| **Total estimado** | **76 MB (não-otimizado)** | **~51 MB (otimizado WebP)** |
+
+### Matriz Comparativa
+
+| Critério (peso) | Public folder (A) | Google Drive (B) | Cloudinary (C) | Vercel Blob (D) | AWS S3+CF (E) |
+|---|---|---|---|---|---|
+| **Performance** (25%) | ⭐⭐⭐⭐ Vercel CDN | ⭐⭐ Latência variável | ⭐⭐⭐⭐⭐ CDN + auto-opt | ⭐⭐⭐⭐⭐ Edge network | ⭐⭐⭐⭐⭐ CloudFront CDN |
+| **Custo** (20%) | ⭐⭐⭐⭐⭐ Grátis | ⭐⭐⭐⭐⭐ Grátis | ⭐⭐⭐⭐ Free: 25 credits/mês | ⭐⭐⭐ Free: 500MB, 1GB BW | ⭐⭐ Pricing complexo |
+| **Facilidade de upload** (20%) | ⭐⭐ PR no GitHub | ⭐⭐⭐⭐ Drag-and-drop | ⭐⭐⭐⭐ Upload API/widget | ⭐⭐⭐ API | ⭐⭐ AWS Console |
+| **Otimização auto** (15%) | ⭐⭐⭐ next/image | ⭐ Nenhuma | ⭐⭐⭐⭐⭐ WebP, resize, crop | ⭐⭐⭐ next/image | ⭐⭐⭐ next/image |
+| **Manutenção** (10%) | ⭐⭐⭐ Git LFS necessário | ⭐⭐⭐⭐ Zero | ⭐⭐⭐⭐ Dashboard intuitivo | ⭐⭐⭐ API-only | ⭐⭐ IAM, buckets |
+| **Git repo impact** (10%) | ⭐ repo cresce rápido | ⭐⭐⭐⭐⭐ Zero | ⭐⭐⭐⭐⭐ Zero | ⭐⭐⭐⭐⭐ Zero | ⭐⭐⭐⭐⭐ Zero |
+| **Score Ponderado** | **3.25** | **3.55** | **4.40** | **3.80** | **3.55** |
+
+### ✅ Cloudinary (RECOMENDADA)
+
+**Justificativa:**
+
+1. **Otimização automática** — Converte para WebP/AVIF, resize, crop facial automático. Uma foto de 14 MB vira ~150 KB automaticamente. Isso resolve o problema **mais crítico** do site hoje.
+2. **Free tier generoso** — 25 credits/mês (≈ 25 GB bandwidth OU 25.000 transformações). Com ~51 MB de imagens otimizadas e tráfego estimado de um site universitário (~500-2000 visitas/mês), o free tier é mais que suficiente por anos.
+3. **Upload intuitivo** — Dashboard web com drag-and-drop. A diretoria de marketing pode subir fotos sem abrir terminal.
+4. **URL-based transformations** — Resize, crop e formato via URL:
+   ```
+   https://res.cloudinary.com/incinera/image/upload/
+   w_400,h_400,c_fill,g_face,f_auto,q_auto/
+   members/maria-oliveira.jpg
+   ```
+   → Entrega foto 400×400, face detection, WebP, qualidade otimizada
+5. **Zero impacto no Git** — Imagens não ficam no repo.
+6. **CDN global** — Entrega via edge servers, melhor que Vercel CDN para assets estáticos.
+
+**Estimativa de uso mensal (free tier = 25 credits):**
+
+| Recurso | Uso estimado | Credits |
+|---|---|---|
+| Storage | ~51 MB | ~0.05 credits |
+| Transformations | ~1000/mês | ~1 credit |
+| Bandwidth | ~5 GB/mês | ~5 credits |
+| **Total** | | **~6 credits** (24% do free tier) |
+
+> [!TIP]
+> Mesmo com crescimento 3x, o uso ficaria em ~18 credits — ainda dentro do free tier. Só ultrapassaria com viral media reach (improvável para uma atlética).
+
+**Pricing se ultrapassar free tier:**
+- Plus plan: $89/mês (500 credits) — improvável que seja necessário em 3+ anos
+- Overage: $0.00 por credit extra até o próximo tier
+
+#### ❌ Por que NÃO as outras opções
+
+| Opção | Motivo principal |
+|---|---|
+| **Public folder** | 76 MB já infla o repo. Com dados reais (150+ fotos), repo passaria de 200 MB. Sem otimização automática. Upload exige PR no GitHub. |
+| **Google Drive** | Latência inconsistente (500ms-2s), rate limits agressivos, links quebram se pasta é reorganizada, sem transform/otimização. |
+| **Vercel Blob** | Free tier apertado (500MB storage, 1GB bandwidth). Sem otimização de imagem. API-only sem dashboard visual para a equipe. |
+| **AWS S3+CloudFront** | Overkill, pricing complexo, IAM management, curva de aprendizado alta. Para um projeto universitário sem verba dedicada, é desnecessário. |
+
+---
+
+## 4. Análise de Opções — Sistema de Coleta (Formulários)
+
+### Matriz Comparativa
+
+| Critério (peso) | Google Forms (A) | Typeform (B) | Tally.so (C) | Custom (D) | Airtable Forms (E) |
+|---|---|---|---|---|---|
+| **Custo** (20%) | ⭐⭐⭐⭐⭐ Grátis | ⭐⭐ 25 resp/mês free | ⭐⭐⭐⭐⭐ Grátis unlimited | ⭐⭐⭐⭐⭐ Grátis (dev time) | ⭐⭐⭐ Vinculado ao Airtable |
+| **Integração c/ Sheets** (25%) | ⭐⭐⭐⭐⭐ Nativo | ⭐⭐⭐ Zapier necessário | ⭐⭐⭐ Integração manual | ⭐⭐⭐⭐ Via API | ⭐ Não usa Sheets |
+| **UX para membros** (20%) | ⭐⭐⭐ Funcional | ⭐⭐⭐⭐⭐ Excelente | ⭐⭐⭐⭐ Moderno | ⭐⭐⭐⭐ Total controle | ⭐⭐⭐ OK |
+| **Upload de foto** (15%) | ⭐⭐⭐⭐ Funciona (Drive) | ⭐⭐⭐⭐ Upload nativo | ⭐⭐⭐⭐ Upload nativo | ⭐⭐⭐⭐⭐ Total controle | ⭐⭐⭐ Attachments |
+| **Validações** (10%) | ⭐⭐⭐ Regex básico | ⭐⭐⭐⭐ Boas | ⭐⭐⭐⭐ Boas | ⭐⭐⭐⭐⭐ Zod completo | ⭐⭐⭐ Boas |
+| **Tempo de setup** (10%) | ⭐⭐⭐⭐⭐ 30 min | ⭐⭐⭐⭐ 1h | ⭐⭐⭐⭐ 1h | ⭐ 1-2 semanas dev | ⭐⭐⭐ 2h |
+| **Score Ponderado** | **4.30** | **3.55** | **3.90** | **3.75** | **2.50** |
+
+### ✅ Google Forms → Google Sheets (RECOMENDADA)
+
+**Justificativa:**
+
+1. **Pipeline nativo gratuito:** Form responses vão direto para a Sheet escolhida — zero configuração, zero custo
+2. **Familiar para todos:** Membros da UFPE usam Google Forms em aulas, pesquisas e processos administrativos diariamente
+3. **Upload de foto:** Google Forms suporta upload de arquivo, que fica no Google Drive do owner do form
+4. **Validação suficiente:** Regex para email CIn (`.*@cin\.ufpe\.br`), required fields, dropdown limits
+5. **Branding:** Personalização de cores e header image (pode usar branding Incinera)
+
+**Workflow do Upload de Fotos (Google Forms → Cloudinary):**
+
+Como Google Forms salva uploads no Google Drive, é necessário um passo intermediário para enviar ao Cloudinary:
+
+```
+Membro preenche form → Upload vai pro Google Drive → Script (Apps Script)
+processa a foto → Envia para Cloudinary via API → URL salva na Sheet
+```
+
+Esse script pode ser automatizado com Google Apps Script (gratuito, roda no ecossistema Google).
+
+> [!NOTE]
+> **Alternativa simplificada:** A diretoria de marketing pode fazer o upload manual das fotos no dashboard do Cloudinary (drag-and-drop). Para ~30-50 fotos/ano, leva ~30 minutos. O script de automação é um nice-to-have, não um bloqueador.
+
+#### Por que NÃO Custom Form (Opção D)
+
+Embora o projeto já tenha Zod + react-hook-form, construir formulários de coleta de membros custaria **1-2 semanas de desenvolvimento** e criaria manutenção contínua:
+- Precisa de backend para processar uploads
+- Precisa de autenticação (quem pode preencher?)
+- Precisa de painel admin para revisar submissions
+- Precisa de storage para uploads temporários
+
+Para uma atlética universitária com troca de gestão anual, esse custo de manutenção não compensa. Google Forms resolve o problema em 30 minutos.
+
+---
+
+## 5. Arquitetura Proposta
+
+### 5.1 Visão Geral
+
+```mermaid
+flowchart LR
+    subgraph Coleta["📝 Coleta"]
+        GF["Google Forms"]
+    end
+
+    subgraph Storage["💾 Armazenamento"]
+        GS["Google Sheets"]
+        CL["Cloudinary"]
+    end
+
+    subgraph Build["🔨 Build / ISR"]
+        FT["Fetch + Validate"]
+        ZD["Zod Schemas"]
+    end
+
+    subgraph Site["🌐 Site Next.js"]
+        SC["Server Components"]
+        NI["next/image + Cloudinary"]
+    end
+
+    GF -->|"Responses automáticas"| GS
+    GF -->|"Upload fotos → manual ou script"| CL
+    GS -->|"Google Sheets API v4"| FT
+    CL -->|"URLs de imagens"| FT
+    FT -->|"Validação"| ZD
+    ZD -->|"Dados tipados"| SC
+    CL -->|"CDN + auto-optimize"| NI
+```
+
+### 5.2 Estrutura de Código Proposta
+
+```
+src/
+├── data/
+│   ├── schemas/                    # Zod schemas (fonte de verdade)
+│   │   ├── member.schema.ts        # Schema para Member + SocialLinks
+│   │   ├── team.schema.ts          # Schema para Team + Athlete
+│   │   ├── partner.schema.ts       # Schema para Partner/Sponsor
+│   │   └── gallery.schema.ts       # Schema para galeria About
+│   │
+│   ├── types/                      # TypeScript types (derivados dos schemas)
+│   │   └── index.ts                # z.infer<typeof memberSchema> etc.
+│   │
+│   ├── loaders/                    # Data fetching (Google Sheets API)
+│   │   ├── sheets.client.ts        # Client singleton para Sheets API
+│   │   ├── loadDirectory.ts        # Fetch + parse diretoria
+│   │   ├── loadTeams.ts            # Fetch + parse equipes
+│   │   ├── loadPartners.ts         # Fetch + parse patrocinadores
+│   │   └── loadGallery.ts          # Fetch + parse galeria
+│   │
+│   └── utils/
+│       ├── cloudinary.ts           # Helper para construir URLs Cloudinary
+│       └── normalize.ts            # Normalizar nomes (acentos, hífens)
+│
+├── lib/
+│   └── cloudinary.ts               # Cloudinary config + URL builder
+```
+
+### 5.3 Exemplo de Implementação
+
+**Zod Schema (`member.schema.ts`):**
+
+```typescript
+import { z } from "zod";
+
+export const socialLinksSchema = z.object({
+  instagram: z.string().url().optional(),
+  linkedin: z.string().url().optional(),
+  twitter: z.string().url().optional(),
+  email: z.string().email().optional(),
+  github: z.string().optional(),
+  personalWebsite: z.string().url().optional(),
+});
+
+export const memberSchema = z.object({
+  id: z.string(),
+  name: z.string().min(2),
+  role: z.enum(["president", "vicePresident", "director", "viceDirector", "member"]),
+  photo: z.string().url(),         // URL Cloudinary
+  photoLarge: z.string().url().optional(),
+  sports: z.array(z.string()),     // I18n keys
+  course: z.enum(["ec", "cc", "si", "es"]),
+  directoryId: z.string().optional(),  // FK para qual diretoria
+  socialLinks: socialLinksSchema,
+});
+```
+
+**Data Loader (`loadDirectory.ts`):**
+
+```typescript
+import { google } from "googleapis";
+import { memberSchema, directorySchema } from "../schemas/member.schema";
+
+const SPREADSHEET_ID = process.env.GOOGLE_SHEETS_ID;
+const RANGE = "Diretoria!A2:Z";
+
+export async function loadDirectory() {
+  const sheets = google.sheets({ version: "v4", auth: getAuth() });
+
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SPREADSHEET_ID,
+    range: RANGE,
+  });
+
+  const rows = res.data.values ?? [];
+  return rows
+    .map(rowToMember)      // Transform row array → object
+    .map(m => memberSchema.parse(m));  // Validate with Zod
+}
+```
+
+**Cloudinary URL Builder (`cloudinary.ts`):**
+
+```typescript
+const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+export function memberPhotoUrl(
+  publicId: string,
+  options: { width?: number; height?: number } = {}
+) {
+  const { width = 400, height = 400 } = options;
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/` +
+    `w_${width},h_${height},c_fill,g_face,f_auto,q_auto/` +
+    `members/${publicId}`;
+}
+```
+
+### 5.4 Estratégia de Rendering (ISR)
+
+A melhor estratégia para dados que mudam 1-2x/ano com o Next.js atual:
+
+```typescript
+// app/[locale]/page.tsx
+import { loadDirectory } from "@/data/loaders/loadDirectory";
+import { loadTeams } from "@/data/loaders/loadTeams";
+
+// ISR: revalidate every hour
+export const revalidate = 3600;
+
+export default async function Home() {
+  const [directory, teams, partners] = await Promise.all([
+    loadDirectory(),
+    loadTeams(),
+    loadPartners(),
+  ]);
+
+  return (
+    <div>
+      {/* Pass data as props to client components */}
+      <DirectorySection data={directory} />
+      <PartnersSection data={partners} />
+    </div>
+  );
+}
+```
+
+**Benefícios:**
+- Página renderiza estaticamente, revalida a cada hora
+- Se Sheets estiver fora do ar, serve versão cacheada
+- Zero latência para o usuário (HTML pré-renderizado)
+- Atualização aparece no site em ≤1 hora após edição na Sheet
+
+> [!IMPORTANT]
+> **On-demand revalidation** também é possível: um webhook (ou botão admin) chama `revalidatePath("/")` para forçar atualização imediata. Pode ser implementado com uma API route protegida por secret.
+
+---
+
+## 6. Especificação de Formulários
+
+### 6.1 Formulário 1: Cadastro de Membro da Diretoria
+
+**Plataforma:** Google Forms  
+**Frequência:** Anual (troca de gestão)  
+**Público:** Diretores e membros
+
+| Seção | Campo | Tipo | Obrigatório | Validação |
+|---|---|---|---|---|
+| **Pessoal** | Nome Completo | Texto curto | ✅ | Min 3 chars |
+|  | Nome Preferido | Texto curto | ❌ | — |
+|  | Curso | Dropdown | ✅ | CC, EC, SI, ES |
+| **Cargo** | Diretoria | Dropdown | ✅ | Marketing, Esportes, Financeiro, Eventos, Produtos |
+|  | Cargo | Dropdown | ✅ | Presidente, VP, Diretor, Vice-Diretor, Membro |
+| **Esportes** | Modalidades | Checkboxes | ❌ | Multi-select |
+| **Contato** | E-mail CIn | Texto curto | ✅ | Regex: `.*@cin\.ufpe\.br` |
+|  | Instagram | Texto curto | ❌ | Apenas @usuario |
+|  | LinkedIn | URL | ❌ | — |
+|  | GitHub | Texto curto | ❌ | Apenas username |
+| **Foto** | Upload de Foto | Upload de arquivo | ✅ | Tipos: JPG, PNG, WebP. Max 10MB |
+| **Bio** | Bio Curta | Texto longo | ❌ | Max 200 chars |
+
+### 6.2 Formulário 2: Cadastro de Atleta
+
+**Plataforma:** Google Forms  
+**Frequência:** Semestral/anual  
+**Público:** Membros de equipes esportivas
+
+| Seção | Campo | Tipo | Obrigatório | Validação |
+|---|---|---|---|---|
+| **Pessoal** | Nome Completo | Texto curto | ✅ | Min 3 chars |
+|  | Curso | Dropdown | ✅ | CC, EC, SI, ES |
+| **Esportivo** | Modalidade Principal | Dropdown | ✅ | Futsal M/F, Vôlei M/F, Basquete, Handebol |
+|  | Número da Camisa | Número | ❌ | 1-99 |
+| **Contato** | E-mail | Texto curto | ✅ | Email válido |
+|  | Instagram | Texto curto | ❌ | — |
+| **Foto** | Upload de Foto | Upload de arquivo | ✅ | Max 10MB |
+
+### 6.3 Formulário 3: Atualização de Dados
+
+**Implementação simplificada:** Em vez de um form complexo com busca e edição, usar a mesma Google Sheet diretamente:
+
+1. Membro notifica diretoria de marketing sobre mudança
+2. Marketing edita diretamente na Sheet (filtro por nome)
+3. Site atualiza na próxima revalidação ISR (≤1h)
+
+Para atualizações em massa (troca de gestão), re-enviar o Formulário 1 é mais eficiente.
+
+---
+
+## 7. Workflow de Atualização
+
+### 7.1 Fluxo Principal (Troca de Gestão Anual)
+
+```mermaid
+flowchart TD
+    A["1. Marketing envia link do Google Form\npara todos os novos membros"] --> B
+    B["2. Membros preenchem formulário\n(nome, cargo, foto, redes)"] --> C
+    C["3. Respostas chegam automaticamente\nna Google Sheet"] --> D
+    D{"4. Marketing revisa dados\nna Sheet (corrige erros)"}
+    D -->|"Foto OK"| E
+    D -->|"Foto ruim"| D2["Pede nova foto ao membro"]
+    D2 --> D
+    E["5. Marketing faz upload das fotos\nno Cloudinary (drag-and-drop)"] --> F
+    F["6. Marketing cola a URL Cloudinary\nna coluna 'foto_url' da Sheet"] --> G
+    G["7. Site revalida via ISR (≤1h)\nou trigger manual via webhook"] --> H
+    H["8. Done ✅ Site atualizado"]
+```
+
+### 7.2 Fluxo Rápido (Correção Pontual)
+
+```
+Membro pede correção → Marketing edita Sheet → Site atualiza em ≤1h
+```
+
+### 7.3 Trigger Manual de Revalidação
+
+Para quando precisar de atualização imediata:
+
+```typescript
+// app/api/revalidate/route.ts
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  const secret = req.headers.get("x-revalidate-secret");
+  if (secret !== process.env.REVALIDATE_SECRET) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  revalidatePath("/");
+  revalidatePath("/pt");
+  revalidatePath("/en");
+  return NextResponse.json({ revalidated: true });
+}
+```
+
+---
+
+## 8. Plano de Migração
+
+### Fase 1: Fundação (1-2 dias)
+
+- [ ] Criar conta Cloudinary (free tier)
+- [ ] Criar Google Sheet com estrutura de abas definida na seção 2
+- [ ] Centralizar TypeScript types em `src/data/types/index.ts`
+- [ ] Criar Zod schemas em `src/data/schemas/`
+- [ ] Otimizar e subir imagens existentes no Cloudinary
+- [ ] Configurar env vars (`GOOGLE_SHEETS_ID`, `CLOUDINARY_CLOUD_NAME`, etc.)
+
+### Fase 2: Data Loaders (2-3 dias)
+
+- [ ] Instalar `googleapis` (Google Sheets API client)
+- [ ] Implementar `sheets.client.ts` (autenticação Service Account)
+- [ ] Implementar loaders: `loadDirectory`, `loadTeams`, `loadPartners`, `loadGallery`
+- [ ] Implementar `cloudinary.ts` (URL builder com transformações)
+- [ ] Configurar ISR na page principal (`revalidate: 3600`)
+- [ ] Criar API route de revalidação manual
+
+### Fase 3: Formulários e Coleta (1 dia)
+
+- [ ] Criar Google Form para Diretoria (campos conforme seção 6.1)
+- [ ] Criar Google Form para Atletas (campos conforme seção 6.2)
+- [ ] Vincular Forms às abas corretas da Sheet
+- [ ] Testar pipeline completo (form → sheet → site)
+
+### Fase 4: Migração e Cleanup (1-2 dias)
+
+- [ ] Popular Sheets com dados reais da gestão atual
+- [ ] Atualizar componentes para receber dados via props (não import estático)
+- [ ] Remover arquivos de dados antigos ([src/data/directory.ts](file:///home/joaovictor/Documents/INCINERA/src/data/directory.ts), etc.)
+- [ ] Remover imagens de `public/images/` (agora no Cloudinary)
+- [ ] Limpar histórico Git das imagens grandes (`git filter-branch` ou BFG)
+- [ ] Documentar processo para próxima diretoria
+
+### Fase 5: Documentação e Handoff (1 dia)
+
+- [ ] Escrever guia: "Como adicionar um novo membro" (para marketing)
+- [ ] Escrever guia: "Como preencher o formulário" (para membros)
+- [ ] Escrever guia: "Como fazer backup da Sheet"
+- [ ] Escrever guia: "Troubleshooting" (erros comuns e soluções)
+
+**Timeline total estimado: 6-9 dias de desenvolvimento**
+
+---
+
+## 9. Performance: Melhorias Imediatas
+
+Independentemente da migração de dados, estas melhorias devem ser aplicadas:
+
+### 9.1 Imagens (Impacto Crítico)
+
+| Melhoria | Impacto | Esforço |
+|---|---|---|
+| Converter PNGs/JPGs para WebP | **-90% tamanho** (14 MB → 300 KB) | Baixo |
+| Definir `sizes` e `width/height` no `next/image` | Evita layout shift, otimiza download | Baixo |
+| Adicionar `loading="lazy"` em TODAS as imagens abaixo do fold | Melhora LCP | Baixo |
+| Implementar blur placeholder (`blurDataURL`) | Percepção de velocidade | Médio |
+| Usar `priority` na hero image | Melhora LCP | Baixo |
+
+### 9.2 Métricas-Alvo
+
+| Métrica | Atual (estimado) | Alvo |
+|---|---|---|
+| LCP | 5-8s (imagens de 14MB) | < 2.5s |
+| Repo size | 120MB+ | < 20MB (sem imagens) |
+| Bandwidth/visita | ~30MB | < 2MB |
+| Lighthouse Performance | ~40-60 | 90+ |
+
+---
+
+## 10. Segurança e LGPD
+
+### Dados Públicos (exibidos no site)
+- Nome, cargo, diretoria, curso, foto, redes sociais
+
+### Dados Protegidos (NÃO exibidos, apenas na Sheet)
+- Email pessoal, telefone, bio interna, disponibilidade
+- Acesso restrito: apenas diretoria de marketing + presidência
+- Google Sheets permissions: share com emails específicos
+
+### LGPD Compliance
+- [ ] Adicionar campo de consentimento no Google Form ("Autorizo o uso...")
+- [ ] Documentar quais dados são coletados e por quê
+- [ ] Fornecer mecanismo de exclusão (membro pede → marketing remove da Sheet + Cloudinary)
+
+---
+
+## 11. Recomendação Final — Stack
+
+| Camada | Solução | Justificativa |
+|---|---|---|
+| **Dados Estruturados** | **Google Sheets + API** | Grátis, familiar, pipeline nativo com Forms, suficiente para ~200 registros |
+| **Imagens** | **Cloudinary (Free Tier)** | Otimização automática, CDN, dashboard visual, free tier cobre 3x o uso projetado |
+| **Formulários** | **Google Forms** | Grátis, integração nativa com Sheets, familiar para toda a comunidade UFPE |
+| **Rendering** | **ISR (revalidate: 3600)** | Dados pré-renderizados, atualização automática ≤1h, fallback em caso de falha |
+
+### ROI Estimado
+
+| Aspecto | Antes | Depois |
+|---|---|---|
+| Tempo para atualizar 1 membro | 15-30 min (editar TS, PR, review, deploy) | 2 min (editar célula na Sheet) |
+| Tempo para troca de gestão completa | 1-2 dias de dev | 2-3 horas (marketing sozinho) |
+| Dependência de desenvolvedor | 100% das atualizações | Apenas troubleshooting |
+| Bandwidth por visita | ~30 MB | ~1-2 MB |
+| Repo size | 120+ MB | < 20 MB |
+| Lighthouse Performance | ~40-60 | 90+ |
+
+### Custos
+
+| Item | Custo mensal | Custo anual |
+|---|---|---|
+| Google Sheets | Grátis | R$ 0 |
+| Google Forms | Grátis | R$ 0 |
+| Cloudinary Free Tier | Grátis | R$ 0 |
+| **Total** | **R$ 0** | **R$ 0** |
+
+> [!TIP]
+> A stack recomendada tem custo zero e resolve os 3 maiores problemas: dados mockados, imagens gigantes, e dependência de desenvolvedor para atualizações. O investimento é apenas tempo de implementação (~6-9 dias de dev).
