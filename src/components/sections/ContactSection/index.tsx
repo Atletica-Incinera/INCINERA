@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { Send, Loader2, AlertCircle } from "lucide-react";
 
 /* ──────────────────────────────────────────────
@@ -58,15 +59,12 @@ export const ContactSection = () => {
           {/* ── Left Content ── */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2
-                id="contact-heading"
-                className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground"
-              >
+              <SectionTitle id="contact-heading">
                 {t("title")}
-              </h2>
-              <p className="text-xl md:text-2xl text-primary font-bold italic max-w-lg">
+              </SectionTitle>
+              <SectionSubtitle className="max-w-lg">
                 {t("subtitle")}
-              </p>
+              </SectionSubtitle>
             </div>
 
             <div className="p-8 rounded-3xl bg-primary/5 border border-primary/10 space-y-4">

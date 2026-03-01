@@ -4,8 +4,9 @@ import React, { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Directory, Member } from "@/data/directory";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { AppImage } from "@/components/ui/AppImage";
 import { useTranslations } from "next-intl";
+import { memberPhotoUrl, directoryImageUrl } from "@/data/utils/cloudinary";
 
 interface MemberMiniCardProps {
   member: Member;
@@ -24,15 +25,14 @@ const MemberMiniCard = ({ member, onClick }: MemberMiniCardProps) => {
       aria-haspopup="dialog"
       className="flex flex-col items-center justify-center p-4 rounded-xl bg-white dark:bg-zinc-800/50 border border-border transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 w-full text-center group cursor-pointer"
     >
-      <div className="relative w-16 h-16 rounded-full overflow-hidden mb-3 border-2 border-transparent group-hover:border-primary transition-colors">
-        <Image
-          src={member.photo}
-          alt={member.name}
-          fill
-          className="object-cover"
-          sizes="64px"
-        />
-      </div>
+      <AppImage
+        src={memberPhotoUrl(member.photo)}
+        alt={member.name}
+        fill
+        className="object-cover"
+        sizes="64px"
+        containerClassName="relative w-16 h-16 rounded-full overflow-hidden mb-3 border-2 border-transparent group-hover:border-primary transition-colors"
+      />
       <span className="font-semibold text-foreground text-sm leading-tight mb-1">{member.name}</span>
       <span className="text-xs text-muted-foreground font-medium">{t(`roles.${member.role}`)}</span>
     </button>
@@ -79,18 +79,17 @@ export const DirectoryAccordion = ({
         aria-controls={`directory-content-${directory.id}`}
         className="group relative flex flex-col items-center gap-4 w-full p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 cursor-pointer"
       >
-        <div className={cn(
-          "relative w-32 h-32 rounded-full overflow-hidden border-2 transition-colors duration-300",
-          isExpanded ? "border-primary" : "border-transparent group-hover:border-primary"
-        )}>
-          <Image
-            src={directory.image}
+          <AppImage
+            src={directoryImageUrl(directory.image)}
             alt={t(`names.${directory.id}`)}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 128px, 128px"
+            containerClassName={cn(
+              "relative w-32 h-32 rounded-full overflow-hidden border-2 transition-colors duration-300",
+              isExpanded ? "border-primary" : "border-transparent group-hover:border-primary"
+            )}
           />
-        </div>
         
         <div className="text-center space-y-1">
           <h3 className={cn(

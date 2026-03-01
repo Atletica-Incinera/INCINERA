@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useAboutSection } from "./useAboutSection";
+import { AppImage } from "@/components/ui/AppImage";
+import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { GALLERY_IMAGES, STACK_STYLES } from "@/data/about";
+import { galleryImageUrl } from "@/data/utils/cloudinary";
 
 export const AboutSection = () => {
   const t = useTranslations("About");
@@ -36,18 +38,12 @@ export const AboutSection = () => {
           {/* Text Content */}
           <div className="space-y-8">
             <div className="space-y-2">
-              <h2
-                ref={titleRef}
-                className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground"
-              >
+              <SectionTitle ref={titleRef}>
                 {t("title")}
-              </h2>
-              <h3
-                ref={subtitleRef}
-                className="text-2xl md:text-3xl font-bold text-primary italic"
-              >
+              </SectionTitle>
+              <SectionSubtitle ref={subtitleRef}>
                 {t("subtitle")}
-              </h3>
+              </SectionSubtitle>
             </div>
 
             <p
@@ -89,21 +85,20 @@ export const AboutSection = () => {
                   aria-label={t("gallery.expandImage")}
                 onKeyDown={(e) => e.key === "Enter" && openModal(index)}
                 >
-                <div className="fire-frame">
-                    <Image
-                      src={img.src}
-                      alt={t(
-                        `gallery.image${index + 1}Alt` as
-                          | "gallery.image1Alt"
-                          | "gallery.image2Alt"
-                          | "gallery.image3Alt"
-                      )}
-                      fill
-                    className="object-cover rounded-[calc(var(--radius)-2px)]"
-                      sizes="280px"
-                      loading="lazy"
-                    />
-                  </div>
+                      <AppImage
+                        src={galleryImageUrl(img.src, true)}
+                        alt={t(
+                          `gallery.image${index + 1}Alt` as
+                            | "gallery.image1Alt"
+                            | "gallery.image2Alt"
+                            | "gallery.image3Alt"
+                        )}
+                        fill
+                        containerClassName="fire-frame"
+                        className="object-cover rounded-[calc(var(--radius)-2px)]"
+                        sizes="280px"
+                        loading="lazy"
+                      />
                 </div>
             ))}
           </div>
@@ -136,8 +131,8 @@ export const AboutSection = () => {
             <div
               className="relative rounded-xl overflow-hidden shadow-[0_0_40px_var(--color-primary)]"
             >
-              <Image
-                src={GALLERY_IMAGES[activeIndex].src}
+              <AppImage
+                src={galleryImageUrl(GALLERY_IMAGES[activeIndex].src)}
                 alt={
                   activeIndex < 3
                     ? t(
