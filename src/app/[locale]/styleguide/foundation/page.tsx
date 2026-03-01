@@ -79,7 +79,7 @@ export default function FoundationPage() {
           </div>
           <div className="space-y-2">
             <span className="text-xs text-muted-foreground font-mono">
-              Section Title - Black 72px
+              Section Title - Black 64px
             </span>
             <h2 className="text-7xl font-black uppercase tracking-tighter">
               QUEM SOMOS

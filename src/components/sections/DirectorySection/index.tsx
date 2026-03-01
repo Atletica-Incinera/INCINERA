@@ -6,7 +6,9 @@ import { directoriesData, executiveBoard } from "@/data/directory";
 import { DirectoryAccordion } from "./DirectoryAccordion";
 import { MemberDetailModal } from "./MemberDetailModal";
 import { MemberCard } from "@/components/ui/MemberCard";
+import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
+import { memberPhotoUrl } from "@/data/utils/cloudinary";
 
 export const DirectorySection = () => {
   const t = useTranslations("Directory");
@@ -20,12 +22,12 @@ export const DirectorySection = () => {
     >
       <div className="container mx-auto px-6 md:px-12">
         <div ref={refs.titleRef} className="text-center mb-20 space-y-4">
-          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground">
+          <SectionTitle>
             {t("title")}
-          </h2>
-          <p className="text-xl md:text-2xl text-primary font-bold italic">
+          </SectionTitle>
+          <SectionSubtitle>
             {t("subtitle")}
-          </p>
+          </SectionSubtitle>
         </div>
 
         <div className="max-w-6xl mx-auto space-y-20">
@@ -41,7 +43,7 @@ export const DirectorySection = () => {
                 aria-label={t("common.viewDetails", { name: executiveBoard.president.name })}
               >
                 <MemberCard.Root className="h-full">
-                  <MemberCard.Avatar src={executiveBoard.president.photo} alt={executiveBoard.president.name} className="w-32 h-32" />
+                  <MemberCard.Avatar src={memberPhotoUrl(executiveBoard.president.photo)} alt={executiveBoard.president.name} className="w-32 h-32" />
                   <div className="text-center space-y-1">
                     <MemberCard.Name>{executiveBoard.president.name}</MemberCard.Name>
                     <MemberCard.Role>{t(`roles.${executiveBoard.president.role}`)}</MemberCard.Role>
@@ -58,7 +60,7 @@ export const DirectorySection = () => {
                 aria-label={t("common.viewDetails", { name: executiveBoard.vicePresident.name })}
               >
                 <MemberCard.Root className="h-full">
-                  <MemberCard.Avatar src={executiveBoard.vicePresident.photo} alt={executiveBoard.vicePresident.name} className="w-32 h-32" />
+                  <MemberCard.Avatar src={memberPhotoUrl(executiveBoard.vicePresident.photo)} alt={executiveBoard.vicePresident.name} className="w-32 h-32" />
                   <div className="text-center space-y-1">
                     <MemberCard.Name>{executiveBoard.vicePresident.name}</MemberCard.Name>
                     <MemberCard.Role>{t(`roles.${executiveBoard.vicePresident.role}`)}</MemberCard.Role>

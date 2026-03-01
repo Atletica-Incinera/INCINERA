@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useHero } from "./useHero";
+import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export function Hero() {
   const t = useTranslations("Hero");
@@ -76,7 +77,7 @@ export function Hero() {
           <div className="relative z-10 w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl">
             <img
               ref={refs.mascot}
-              src="/hero-icon.png"
+              src={brandImageUrl("brand/hero-mascot")}
               alt={t("mascotAlt")}
               className="w-full h-full object-contain transform drop-shadow-2xl"
             />
