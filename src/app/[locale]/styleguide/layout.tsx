@@ -1,9 +1,10 @@
 "use client";
 
 import { usePathname, Link } from "@/i18n/routing";
-import Image from "next/image";
+import { AppImage } from "@/components/ui/AppImage";
 import { cn } from "@/lib/utils";
 import { navigation } from "./navigation";
+import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export default function StyleguideLayout({
   children,
@@ -19,8 +20,8 @@ export default function StyleguideLayout({
         <div>
           <Link href="/styleguide" className="flex items-center gap-2 group">
             <div className="relative w-32 h-10 transition-transform group-hover:scale-105">
-              <Image
-                src="/logo.svg"
+              <AppImage
+                src={brandImageUrl("brand/logo")}
                 alt="INCINERA Logo"
                 fill
                 className="object-contain object-left"

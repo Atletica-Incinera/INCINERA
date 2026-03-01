@@ -4,8 +4,9 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { useFooter } from "./useFooter";
 import { Instagram, Mail, Linkedin, MessageCircle } from "lucide-react";
-import Image from "next/image";
+import { AppImage } from "@/components/ui/AppImage";
 import { ContactLinkCard } from "@/components/ui/ContactLinkCard";
+import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export const Footer = () => {
   const t = useTranslations("Footer");
@@ -24,8 +25,8 @@ export const Footer = () => {
         <div className="flex flex-col items-center text-center space-y-12">
           {/* Logo & Tagline */}
           <div className="">
-            <Image 
-              src="/incinera-name.png" 
+            <AppImage 
+              src={brandImageUrl("brand/logo-text")} 
               alt={tNav("logoAlt")} 
               width={612} 
               height={408} 

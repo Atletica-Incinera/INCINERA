@@ -3,10 +3,11 @@
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import Image from "next/image";
+import { AppImage } from "@/components/ui/AppImage";
 import { motion } from "framer-motion";
 import { SettingsDropdown } from "../SettingsDropdown";
 import { useNavbar } from "./useNavbar";
+import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export function Navbar() {
   const t = useTranslations("Navigation");
@@ -32,8 +33,8 @@ export function Navbar() {
           href="/" 
           className="flex items-center cursor-pointer"
         >
-          <Image 
-            src="/incinera-name.png" 
+          <AppImage 
+            src={brandImageUrl("brand/logo-text")} 
             alt={t("logoAlt")} 
             width={170} 
             height={60} 

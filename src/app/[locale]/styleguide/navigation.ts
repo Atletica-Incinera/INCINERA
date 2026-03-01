@@ -17,6 +17,12 @@ export const navigation: NavSection[] = [
     ],
   },
   {
+    title: "Typography",
+    items: [
+      { name: "Section Titles", href: "/styleguide/components/typography" },
+    ],
+  },
+  {
     title: "UI Components",
     items: [
       { name: "Button", href: "/styleguide/components/button" },
@@ -26,6 +32,7 @@ export const navigation: NavSection[] = [
       { name: "Radio Group", href: "/styleguide/components/radio-group" },
       { name: "Alert", href: "/styleguide/components/alert" },
       { name: "Label", href: "/styleguide/components/label" },
+      { name: "Modal", href: "/styleguide/components/modal" },
     ],
   },
   {
@@ -35,6 +42,9 @@ export const navigation: NavSection[] = [
       { name: "ValuePillarCard", href: "/styleguide/components/value-pillar-card" },
       { name: "StatCard", href: "/styleguide/components/stat-card" },
       { name: "ContactLinkCard", href: "/styleguide/components/contact-link-card" },
+      { name: "SocialLinksRow", href: "/styleguide/components/social-links-row" },
+      { name: "AppImage", href: "/styleguide/components/app-image" },
+      { name: "SectionSeparator", href: "/styleguide/components/section-separator" },
     ],
   },
   {
