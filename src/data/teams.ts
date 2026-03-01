@@ -26,7 +26,7 @@ const generateAthletes = (count: number, sportKey: string): Athlete[] => {
   return Array.from({ length: count }, (_, i) => ({
     id: `${i + 1}`,
     name: `Atleta ${i + 1}`,
-    imagePath: "/images/teams/athlete-placeholder.webp",
+    imagePath: "placeholders/default",
     course: "cc",
     sports: [sportKey],
     socialLinks: {

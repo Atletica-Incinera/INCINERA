@@ -19,7 +19,7 @@ export const sponsors: Partner[] = [
   {
     id: "s1",
     name: "Sponsor 1",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com",
@@ -30,7 +30,7 @@ export const sponsors: Partner[] = [
   {
     id: "s2",
     name: "Sponsor 2",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com",
@@ -40,7 +40,7 @@ export const sponsors: Partner[] = [
   {
     id: "s3",
     name: "Sponsor 3",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com"
@@ -52,7 +52,7 @@ export const partners: Partner[] = [
   {
     id: "p1",
     name: "Partner 1",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com"
@@ -61,7 +61,7 @@ export const partners: Partner[] = [
   {
     id: "p2",
     name: "Partner 2",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com"
@@ -70,7 +70,7 @@ export const partners: Partner[] = [
   {
     id: "p3",
     name: "Partner 3",
-    logoPath: "/images/partners/placeholder-logo.svg",
+    logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com",

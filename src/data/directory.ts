@@ -33,8 +33,8 @@ export const executiveBoard = {
     id: "pres-1",
     name: "Carlos Andrade",
     role: "president",
-    photo: "/images/directory/placeholder.webp",
-    photoLarge: "/images/directory/placeholder.webp",
+    photo: "placeholders/default",
+    photoLarge: "placeholders/default",
     sports: ["basquete"],
     course: "ec",
     socialLinks: {
@@ -46,8 +46,8 @@ export const executiveBoard = {
     id: "vp-1",
     name: "Marina Silva",
     role: "vicePresident",
-    photo: "/images/directory/placeholder.webp",
-    photoLarge: "/images/directory/placeholder.webp",
+    photo: "placeholders/default",
+    photoLarge: "placeholders/default",
     sports: ["volei"],
     course: "si",
     socialLinks: {
@@ -60,13 +60,13 @@ export const directoriesData: Directory[] = [
   {
     id: "marketing",
     name: "Comunicação",
-    image: "/images/directory/comunicação.png",
+    image: "directory/comunicacao",
     director: {
       id: "dir-marketing-1",
       name: "Maria Oliveira",
       role: "director",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["volei", "natacao"],
       course: "ec",
       socialLinks: {
@@ -79,8 +79,8 @@ export const directoriesData: Directory[] = [
       id: "vice-marketing-1",
       name: "Pedro Santos",
       role: "viceDirector",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["futsal"],
       course: "cc",
       socialLinks: {
@@ -93,8 +93,8 @@ export const directoriesData: Directory[] = [
         id: "member-marketing-1",
         name: "Ana Costa",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["basquete", "handebol"],
         course: "si",
         socialLinks: {
@@ -105,8 +105,8 @@ export const directoriesData: Directory[] = [
         id: "member-marketing-2",
         name: "Leticia Almeida",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["futebol"],
         course: "si",
         socialLinks: {
@@ -118,13 +118,13 @@ export const directoriesData: Directory[] = [
   {
     id: "esportes",
     name: "Esportes",
-    image: "/images/directory/esportes.png",
+    image: "directory/esportes",
     director: {
       id: "dir-esportes-1",
       name: "João Silva",
       role: "director",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["futsal", "futebol"],
       course: "ec",
       socialLinks: {
@@ -137,8 +137,8 @@ export const directoriesData: Directory[] = [
           id: "member-esportes-1",
           name: "Carlos Eduardo",
           role: "member",
-          photo: "/images/directory/placeholder.webp",
-          photoLarge: "/images/directory/placeholder.webp",
+          photo: "placeholders/default",
+          photoLarge: "placeholders/default",
           sports: ["handebol"],
           course: "cc",
           socialLinks: {}
@@ -148,13 +148,13 @@ export const directoriesData: Directory[] = [
   {
     id: "financeiro",
     name: "Financeiro",
-    image: "/images/directory/financeiro.png",
+    image: "directory/financeiro",
     director: {
       id: "dir-financeiro-1",
       name: "Roberto Mendes",
       role: "director",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["basquete"],
       course: "cc",
       socialLinks: {
@@ -165,8 +165,8 @@ export const directoriesData: Directory[] = [
       id: "vice-financeiro-1",
       name: "Camila Barros",
       role: "viceDirector",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["volei"],
       course: "si",
       socialLinks: {
@@ -178,8 +178,8 @@ export const directoriesData: Directory[] = [
         id: "member-financeiro-1",
         name: "Tiago Gomes",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["esports"],
         course: "es",
         socialLinks: {}
@@ -189,13 +189,13 @@ export const directoriesData: Directory[] = [
   {
     id: "eventos",
     name: "Eventos",
-    image: "/images/directory/eventos.png",
+    image: "directory/eventos",
     director: {
       id: "dir-eventos-1",
       name: "Amanda Nunes",
       role: "director",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["handebol", "natacao"],
       course: "cc",
       socialLinks: {
@@ -207,8 +207,8 @@ export const directoriesData: Directory[] = [
       id: "vice-eventos-1",
       name: "Felipe Melo",
       role: "viceDirector",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["futsal"],
       course: "ec",
       socialLinks: {
@@ -220,8 +220,8 @@ export const directoriesData: Directory[] = [
         id: "member-eventos-1",
         name: "Sofia Lima",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["volei", "basquete"],
         course: "si",
         socialLinks: {
@@ -232,8 +232,8 @@ export const directoriesData: Directory[] = [
         id: "member-eventos-2",
         name: "Lucas Rocha",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["futebol"],
         course: "si",
         socialLinks: {}
@@ -243,13 +243,13 @@ export const directoriesData: Directory[] = [
   {
     id: "produtos",
     name: "Produtos",
-    image: "/images/directory/produtos.png",
+    image: "directory/produtos",
     director: {
       id: "dir-produtos-1",
       name: "Bruno Costa",
       role: "director",
-      photo: "/images/directory/placeholder.webp",
-      photoLarge: "/images/directory/placeholder.webp",
+      photo: "placeholders/default",
+      photoLarge: "placeholders/default",
       sports: ["volei"],
       course: "cc",
       socialLinks: {
@@ -261,8 +261,8 @@ export const directoriesData: Directory[] = [
         id: "member-produtos-1",
         name: "Juliana Silva",
         role: "member",
-        photo: "/images/directory/placeholder.webp",
-        photoLarge: "/images/directory/placeholder.webp",
+        photo: "placeholders/default",
+        photoLarge: "placeholders/default",
         sports: ["basquete"],
         course: "si",
         socialLinks: {
