@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import { useTeamsList } from "./useTeamsList";
 import { teams } from "@/data/teams";
 import { MemberCard } from "@/components/ui/MemberCard";
+import { SectionTitle } from "@/components/ui/typography";
 import { MemberDetailModal } from "@/components/sections/DirectorySection/MemberDetailModal";
+import { athletePhotoUrl } from "@/data/utils/cloudinary";
 
 export const TeamsList = () => {
   const t = useTranslations("Teams");
@@ -20,9 +22,9 @@ export const TeamsList = () => {
           <section key={team.id} className="space-y-12">
             {/* Sport Title */}
             <div className="flex items-center gap-6">
-              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-foreground whitespace-nowrap">
+              <SectionTitle className="text-3xl md:text-5xl whitespace-nowrap">
                 {teamName}
-              </h2>
+              </SectionTitle>
               <div className="w-full h-[2px] bg-primary/20 rounded-full" />
             </div>
 
@@ -37,7 +39,7 @@ export const TeamsList = () => {
                 >
                   <MemberCard.Root className="p-4 gap-3 bg-card/50 border-border/50 h-full hover:border-primary/50 transition-colors group">
                     <MemberCard.Avatar
-                      src={athlete.imagePath}
+                      src={athletePhotoUrl(athlete.imagePath)}
                       alt={athlete.name}
                       className="w-24 h-24"
                     />

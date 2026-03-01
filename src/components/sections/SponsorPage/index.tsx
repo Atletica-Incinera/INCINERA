@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { ValuePillarCard } from "@/components/ui/ValuePillarCard";
 import { StatCard } from "@/components/ui/StatCard";
 import { SectionSeparator } from "@/components/ui/SectionSeparator";
+import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 
 import {
   Send,
@@ -252,15 +253,12 @@ export const SponsorPage = () => {
         <div className="container mx-auto px-6 md:px-12">
           {/* Section header — matches the site pattern */}
           <div className="text-center mb-16 space-y-3">
-            <h2
-              id="pillars-heading"
-              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground"
-            >
+            <SectionTitle id="pillars-heading">
               {t("pillars.title")}
-            </h2>
-            <p className="text-xl md:text-2xl text-primary font-bold italic">
+            </SectionTitle>
+            <SectionSubtitle>
               {t("pillars.subtitle")}
-            </p>
+            </SectionSubtitle>
           </div>
 
           {/* Grid of ValuePillarCards */}
@@ -299,15 +297,12 @@ export const SponsorPage = () => {
       >
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-14 space-y-3">
-            <h2
-              id="activations-heading"
-              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground"
-            >
+            <SectionTitle id="activations-heading">
               {t("activations.title")}
-            </h2>
-            <p className="text-xl md:text-2xl text-primary font-bold italic">
+            </SectionTitle>
+            <SectionSubtitle>
               {t("activations.subtitle")}
-            </p>
+            </SectionSubtitle>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
@@ -350,12 +345,12 @@ export const SponsorPage = () => {
                 {t("audience.badge")}
               </Badge>
 
-              <h2
+              <SectionTitle
                 id="audience-heading"
-                className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground leading-[0.95] sm:leading-none"
+                className="text-4xl sm:text-5xl md:text-7xl leading-[0.95] sm:leading-none"
               >
                 {t("audience.title")}
-              </h2>
+              </SectionTitle>
               <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg">
                 {t("audience.body")}
               </p>
@@ -463,15 +458,12 @@ export const SponsorPage = () => {
                 {t("form.badge")}
               </Badge>
             </div>
-            <h2
-              id="form-heading"
-              className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground"
-            >
+            <SectionTitle id="form-heading">
               {t("form.title")}
-            </h2>
-            <p className="text-xl md:text-2xl text-primary font-bold italic max-w-2xl mx-auto">
+            </SectionTitle>
+            <SectionSubtitle className="max-w-2xl mx-auto">
               {t("form.subtitle")}
-            </p>
+            </SectionSubtitle>
           </div>
 
           {/* Form card */}

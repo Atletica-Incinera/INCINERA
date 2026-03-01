@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import { AppImage } from "@/components/ui/AppImage";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { usePartnersSection } from "./usePartnersSection";
 import { sponsors, partners } from "@/data/partners";
 import { ArrowRight } from "lucide-react";
+import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { SponsorDetailModal } from "./SponsorDetailModal";
+import { partnerLogoUrl } from "@/data/utils/cloudinary";
 
 export const PartnersSection = () => {
   const t = useTranslations("Partners");
@@ -21,12 +23,12 @@ export const PartnersSection = () => {
     >
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-20 space-y-4">
-          <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground">
+          <SectionTitle>
             {t("title")}
-          </h2>
-          <p className="text-xl md:text-2xl text-primary font-bold italic">
+          </SectionTitle>
+          <SectionSubtitle>
             {t("subtitle")}
-          </p>
+          </SectionSubtitle>
         </div>
 
         {/* Patrocinadores (Main Sponsors) */}
@@ -45,15 +47,14 @@ export const PartnersSection = () => {
                 aria-label={t("common.viewSponsor", { name: sponsor.name })}
                 className="group relative block aspect-video bg-card border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 cursor-pointer"
               >
-                <div className="absolute inset-0 flex items-center justify-center p-12 grayscale group-hover:grayscale-0 transition-all duration-500">
-                  <Image
-                    src={sponsor.logoPath}
-                    alt={sponsor.name}
-                    width={240}
-                    height={120}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <AppImage
+                  src={partnerLogoUrl(sponsor.logoPath)}
+                  alt={sponsor.name}
+                  width={240}
+                  height={120}
+                  containerClassName="absolute inset-0 flex items-center justify-center p-12 grayscale group-hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-contain"
+                />
               </button>
             ))}
           </div>
@@ -75,15 +76,14 @@ export const PartnersSection = () => {
                 aria-label={t("common.viewPartner", { name: partner.name })}
                 className="group relative block w-full max-w-[140px] aspect-square bg-card/50 border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 cursor-pointer hover:shadow-lg hover:shadow-primary/5"
               >
-                <div className="absolute inset-0 flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500">
-                  <Image
-                    src={partner.logoPath}
-                    alt={partner.name}
-                    width={120}
-                    height={60}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <AppImage
+                  src={partnerLogoUrl(partner.logoPath)}
+                  alt={partner.name}
+                  width={120}
+                  height={60}
+                  containerClassName="absolute inset-0 flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500"
+                  className="w-full h-full object-contain"
+                />
               </button>
             ))}
           </div>
