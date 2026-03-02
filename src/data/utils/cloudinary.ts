@@ -20,28 +20,33 @@ const PRESETS = {
   /** Partner/sponsor logo: contained, transparent bg preserved */
   partnerLogo: "w_300,h_200,c_pad,f_auto,q_auto",
   /** Directory section image (header/banner style) */
-  directoryImage: "",
+  directoryImage: "f_auto,q_auto",
   /** Gallery image: full size, WebP */
   gallery: "w_1200,f_auto,q_auto",
   /** Thumbnail for gallery */
   galleryThumb: "w_400,h_400,c_fill,f_auto,q_auto",
 } as const;
 
-function buildUrl(
-  publicId: string,
-  preset: string
-): string {
-  // Normalize placeholder
-  const finalId = (!publicId || publicId.toLowerCase().includes("placeholder")) 
-    ? DEFAULT_PLACEHOLDER_ID 
-    : publicId;
+function buildUrl(publicId: string, preset: string): string {
+  if (!publicId) return buildUrl(DEFAULT_PLACEHOLDER_ID, preset);
+
+  // If it's already a full URL, return it immediately
+  if (publicId.startsWith("http://") || publicId.startsWith("https://")) {
+    return publicId;
+  }
+
+  // Normalize the publicId: remove /images/ prefix and file extension
+  const normalizedId = parseLocalPathToCloudinaryId(publicId);
 
   if (!CLOUD_NAME) {
     // Fallback if Cloudinary is not configured
-    return `/${finalId}`;
+    // Return as a local path relative to /images/
+    return `/images/${normalizedId}`;
   }
-  
-  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${preset}/${finalId}`;
+
+  // Build URL avoiding triple slashes if preset is empty
+  const transformation = preset ? `${preset}/` : "";
+  return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${transformation}${normalizedId}`;
 }
 
 /**
@@ -99,9 +104,9 @@ export function brandImageUrl(publicId: string): string {
 export function parseLocalPathToCloudinaryId(path: string): string {
   if (!path) return DEFAULT_PLACEHOLDER_ID;
   if (path.toLowerCase().includes("placeholder")) return DEFAULT_PLACEHOLDER_ID;
-  
-  // Remove starting / and images/
-  return path.replace(/^\/images\//, "").replace(/\.[^/.]+$/, "");
+
+  // Remove starting / and images/ prefix (slash is optional)
+  return path.replace(/^(\/?images\/)/, "").replace(/\.[^/.]+$/, "");
 }
 
 /**
@@ -112,6 +117,6 @@ export function nameToPublicId(fullName: string): string {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "") // Remove accents
-    .replace(/\s+/g, "-")            // Spaces to hyphens
-    .replace(/[^a-z0-9-]/g, "");     // Remove special chars
+    .replace(/\s+/g, "-") // Spaces to hyphens
+    .replace(/[^a-z0-9-]/g, ""); // Remove special chars
 }

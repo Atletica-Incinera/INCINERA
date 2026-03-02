@@ -1,3 +1,10 @@
+/**
+ * Static fallback data for the Directory section.
+ *
+ * Used when the Google Sheets API is unavailable.
+ * Must match the Member and Directory types from the member schema.
+ */
+
 export interface SocialLinks {
   instagram?: string;
   linkedin?: string;
@@ -10,110 +17,83 @@ export interface SocialLinks {
 export interface Member {
   id: string;
   name: string;
-  role: string; // I18n key for role
+  role: "president" | "vicePresident" | "director" | "viceDirector" | "member";
   roleLiteral?: string;
   photo: string;
   photoLarge?: string;
-  sports: string[]; // I18n keys for sports
-  course: string; // I18n key for course
+  heroBadge?: string;
+  bio: string;
+  course: "ec" | "cc" | "si" | "ia";
+  directoryId?:
+    | "comunicacao"
+    | "esportes"
+    | "financeiro"
+    | "eventos"
+    | "produtos";
+  emailCin: string;
   socialLinks: SocialLinks;
 }
 
 export interface Directory {
-  id: string; // Also used as I18n key for directory name in Directory.names
-  name: string; // Fallback or legacy, preferred to use t(`names.${id}`)
+  id: string;
+  name: string;
   image: string;
   director: Member;
   viceDirector?: Member;
   members: Member[];
 }
 
-export const executiveBoard = {
-  president: {
-    id: "pres-1",
-    name: "Carlos Andrade",
-    role: "president",
-    photo: "placeholders/default",
-    photoLarge: "placeholders/default",
-    sports: ["basquete"],
-    course: "ec",
-    socialLinks: {
-      instagram: "https://instagram.com/carlos",
-      linkedin: "https://linkedin.com/in/carlos"
-    }
-  } as Member,
-  vicePresident: {
-    id: "vp-1",
-    name: "Marina Silva",
-    role: "vicePresident",
-    photo: "placeholders/default",
-    photoLarge: "placeholders/default",
-    sports: ["volei"],
-    course: "si",
-    socialLinks: {
-      instagram: "https://instagram.com/marina"
-    }
-  } as Member,
-};
+const placeholder = "placeholders/default";
 
 export const directoriesData: Directory[] = [
   {
-    id: "marketing",
+    id: "comunicacao",
     name: "Comunicação",
     image: "directory/comunicacao",
     director: {
-      id: "dir-marketing-1",
+      id: "dir-comunicacao-1",
       name: "Maria Oliveira",
       role: "director",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["volei", "natacao"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Diretora de Comunicação",
+      bio: "Responsável pela comunicação e marketing da Atlética.",
       course: "ec",
+      emailCin: "maria@cin.ufpe.br",
       socialLinks: {
         instagram: "https://instagram.com/maria",
         linkedin: "https://linkedin.com/in/maria",
-        email: "maria@cin.ufpe.br"
-      }
+      },
     },
     viceDirector: {
-      id: "vice-marketing-1",
+      id: "vice-comunicacao-1",
       name: "Pedro Santos",
       role: "viceDirector",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["futsal"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Vice-Diretor de Comunicação",
+      bio: "Apoia a diretoria de comunicação em todas as frentes.",
       course: "cc",
+      emailCin: "pedro@cin.ufpe.br",
       socialLinks: {
         instagram: "https://instagram.com/pedro",
-        linkedin: "https://linkedin.com/in/pedro"
-      }
+        linkedin: "https://linkedin.com/in/pedro",
+      },
     },
     members: [
       {
-        id: "member-marketing-1",
+        id: "member-comunicacao-1",
         name: "Ana Costa",
         role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["basquete", "handebol"],
+        photo: placeholder,
+        photoLarge: placeholder,
+        heroBadge: "Design & Criação",
+        bio: "Cuida da identidade visual da Atlética.",
         course: "si",
-        socialLinks: {
-          instagram: "https://instagram.com/ana"
-        }
+        emailCin: "ana@cin.ufpe.br",
+        socialLinks: { instagram: "https://instagram.com/ana" },
       },
-      {
-        id: "member-marketing-2",
-        name: "Leticia Almeida",
-        role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["futebol"],
-        course: "si",
-        socialLinks: {
-          instagram: "https://instagram.com/leticia"
-        }
-      }
-    ]
+    ],
   },
   {
     id: "esportes",
@@ -123,27 +103,31 @@ export const directoriesData: Directory[] = [
       id: "dir-esportes-1",
       name: "João Silva",
       role: "director",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["futsal", "futebol"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Diretor de Esportes",
+      bio: "Coordena todas as equipes esportivas da Atlética.",
       course: "ec",
+      emailCin: "joao@cin.ufpe.br",
       socialLinks: {
         instagram: "https://instagram.com/joao",
-        linkedin: "https://linkedin.com/in/joao"
-      }
+        linkedin: "https://linkedin.com/in/joao",
+      },
     },
     members: [
-        {
-          id: "member-esportes-1",
-          name: "Carlos Eduardo",
-          role: "member",
-          photo: "placeholders/default",
-          photoLarge: "placeholders/default",
-          sports: ["handebol"],
-          course: "cc",
-          socialLinks: {}
-        }
-    ]
+      {
+        id: "member-esportes-1",
+        name: "Carlos Eduardo",
+        role: "member",
+        photo: placeholder,
+        photoLarge: placeholder,
+        heroBadge: "Coordenador Esportivo",
+        bio: "Apoia na organização dos times e campeonatos.",
+        course: "cc",
+        emailCin: "carlos@cin.ufpe.br",
+        socialLinks: {},
+      },
+    ],
   },
   {
     id: "financeiro",
@@ -153,38 +137,27 @@ export const directoriesData: Directory[] = [
       id: "dir-financeiro-1",
       name: "Roberto Mendes",
       role: "director",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["basquete"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Diretor Financeiro",
+      bio: "Gerencia os recursos financeiros da Atlética.",
       course: "cc",
-      socialLinks: {
-        linkedin: "https://linkedin.com/in/roberto"
-      }
+      emailCin: "roberto@cin.ufpe.br",
+      socialLinks: { linkedin: "https://linkedin.com/in/roberto" },
     },
     viceDirector: {
       id: "vice-financeiro-1",
       name: "Camila Barros",
       role: "viceDirector",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["volei"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Vice-Diretora Financeira",
+      bio: "Auxilia na gestão financeira e planejamento orçamentário.",
       course: "si",
-      socialLinks: {
-        instagram: "https://instagram.com/camila"
-      }
+      emailCin: "camila@cin.ufpe.br",
+      socialLinks: { instagram: "https://instagram.com/camila" },
     },
-    members: [
-      {
-        id: "member-financeiro-1",
-        name: "Tiago Gomes",
-        role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["esports"],
-        course: "es",
-        socialLinks: {}
-      }
-    ]
+    members: [],
   },
   {
     id: "eventos",
@@ -194,51 +167,43 @@ export const directoriesData: Directory[] = [
       id: "dir-eventos-1",
       name: "Amanda Nunes",
       role: "director",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["handebol", "natacao"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Diretora de Eventos",
+      bio: "Planeja e executa os eventos da Atlética ao longo do ano.",
       course: "cc",
+      emailCin: "amanda@cin.ufpe.br",
       socialLinks: {
         instagram: "https://instagram.com/amanda",
-        linkedin: "https://linkedin.com/in/amanda"
-      }
+        linkedin: "https://linkedin.com/in/amanda",
+      },
     },
     viceDirector: {
       id: "vice-eventos-1",
       name: "Felipe Melo",
       role: "viceDirector",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["futsal"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Vice-Diretor de Eventos",
+      bio: "Apoia na produção e logística dos eventos.",
       course: "ec",
-      socialLinks: {
-        instagram: "https://instagram.com/felipe"
-      }
+      emailCin: "felipe@cin.ufpe.br",
+      socialLinks: { instagram: "https://instagram.com/felipe" },
     },
     members: [
       {
         id: "member-eventos-1",
         name: "Sofia Lima",
         role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["volei", "basquete"],
+        photo: placeholder,
+        photoLarge: placeholder,
+        heroBadge: "Membro de Eventos",
+        bio: "Participa ativamente da organização dos nossos eventos.",
         course: "si",
-        socialLinks: {
-          instagram: "https://instagram.com/sofia"
-        }
+        emailCin: "sofia@cin.ufpe.br",
+        socialLinks: { instagram: "https://instagram.com/sofia" },
       },
-      {
-        id: "member-eventos-2",
-        name: "Lucas Rocha",
-        role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["futebol"],
-        course: "si",
-        socialLinks: {}
-      }
-    ]
+    ],
   },
   {
     id: "produtos",
@@ -248,27 +213,27 @@ export const directoriesData: Directory[] = [
       id: "dir-produtos-1",
       name: "Bruno Costa",
       role: "director",
-      photo: "placeholders/default",
-      photoLarge: "placeholders/default",
-      sports: ["volei"],
+      photo: placeholder,
+      photoLarge: placeholder,
+      heroBadge: "Diretor de Produtos",
+      bio: "Responsável pela linha de produtos e merchandising da Atlética.",
       course: "cc",
-      socialLinks: {
-        linkedin: "https://linkedin.com/in/bruno"
-      }
+      emailCin: "bruno@cin.ufpe.br",
+      socialLinks: { linkedin: "https://linkedin.com/in/bruno" },
     },
     members: [
       {
         id: "member-produtos-1",
         name: "Juliana Silva",
         role: "member",
-        photo: "placeholders/default",
-        photoLarge: "placeholders/default",
-        sports: ["basquete"],
+        photo: placeholder,
+        photoLarge: placeholder,
+        heroBadge: "Membro de Produtos",
+        bio: "Cuida do desenvolvimento e qualidade dos produtos.",
         course: "si",
-        socialLinks: {
-          instagram: "https://instagram.com/juliana"
-        }
-      }
-    ]
-  }
+        emailCin: "juliana@cin.ufpe.br",
+        socialLinks: { instagram: "https://instagram.com/juliana" },
+      },
+    ],
+  },
 ];

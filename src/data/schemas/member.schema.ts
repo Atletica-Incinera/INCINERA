@@ -1,16 +1,19 @@
 import { z } from "zod";
 import { socialLinksSchema } from "./social-links.schema";
 
-export const COURSES = ["ec", "cc", "si", "es"] as const;
-export const SPORTS = [
-  "basquete",
-  "volei",
-  "natacao",
-  "futsal",
-  "futebol",
-  "handebol",
-  "esports",
-] as const;
+/**
+ * Cursos disponíveis:
+ * ec = Engenharia da Computação
+ * cc = Ciência da Computação
+ * si = Sistemas de Informação
+ * ia = Inteligência Artificial
+ */
+export const COURSES = ["ec", "cc", "si", "ia"] as const;
+
+/**
+ * Cargos possíveis na diretoria:
+ * president, vicePresident, director, viceDirector, member
+ */
 export const MEMBER_ROLES = [
   "president",
   "vicePresident",
@@ -18,8 +21,13 @@ export const MEMBER_ROLES = [
   "viceDirector",
   "member",
 ] as const;
+
+/**
+ * Diretorias possíveis:
+ * comunicacao, esportes, financeiro, eventos, produtos
+ */
 export const DIRECTORIES = [
-  "marketing",
+  "comunicacao",
   "esportes",
   "financeiro",
   "eventos",
@@ -31,11 +39,14 @@ export const memberSchema = z.object({
   name: z.string().min(2),
   role: z.enum(MEMBER_ROLES),
   roleLiteral: z.string().optional(),
-  photo: z.string().min(1), // Can be a relative path or Cloudinary URL
+  /** Cloudinary public ID or direct Cloudinary URL */
+  photo: z.string().min(1),
   photoLarge: z.string().optional(),
-  sports: z.array(z.string()), // i18n keys
+  heroBadge: z.string().min(1).max(60).optional(),
+  bio: z.string().max(200).default(""),
   course: z.enum(COURSES),
   directoryId: z.enum(DIRECTORIES).optional(),
+  emailCin: z.string().email(),
   socialLinks: socialLinksSchema,
 });
 

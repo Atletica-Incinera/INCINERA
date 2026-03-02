@@ -20,7 +20,7 @@ function getAuth() {
 
   if (!email || !key) {
     throw new Error(
-      "[Sheets] Missing GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_SERVICE_ACCOUNT_KEY env vars."
+      "[Sheets] Missing GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_SERVICE_ACCOUNT_KEY env vars.",
     );
   }
 
@@ -45,20 +45,27 @@ export function getSheetsClient(): sheets_v4.Sheets {
  * Fetches raw rows from a specific sheet range.
  * Returns an empty array if the spreadsheet is not configured.
  *
- * @param range  Sheet range, e.g. "Diretoria!A2:Z"
+ * @param range          Sheet range, e.g. "'Sheet1'!A2:Z"
+ * @param spreadsheetId  Optional override. Defaults to GOOGLE_SHEETS_ID env var.
  */
-export async function fetchSheetRows(range: string): Promise<string[][]> {
-  const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
+export async function fetchSheetRows(
+  range: string,
+  spreadsheetId?: string,
+): Promise<string[][]> {
+  const id = spreadsheetId ?? process.env.GOOGLE_SHEETS_ID;
 
-  if (!spreadsheetId) {
+  if (!id) {
     console.warn(
-      `[Sheets] GOOGLE_SHEETS_ID not set. Returning empty rows for range: ${range}`
+      `[Sheets] No spreadsheetId provided and GOOGLE_SHEETS_ID not set. Returning empty rows for range: ${range}`,
     );
     return [];
   }
 
   const sheets = getSheetsClient();
-  const res = await sheets.spreadsheets.values.get({ spreadsheetId, range });
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: id,
+    range,
+  });
   return (res.data.values as string[][]) ?? [];
 }
 

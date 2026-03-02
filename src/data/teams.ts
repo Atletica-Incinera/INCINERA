@@ -1,75 +1,54 @@
-export interface SocialLinks {
-  instagram?: string;
-  linkedin?: string;
-  twitter?: string;
-  email?: string;
-  github?: string;
-}
+/**
+ * Static fallback data for the Teams section.
+ *
+ * Used when GOOGLE_SHEETS_ATHLETS_ID is not set or the API is unavailable.
+ * Athlete shape must match the athleteSchema from team.schema.ts.
+ */
 
-export interface Athlete {
-  id: string;
-  name: string;
-  imagePath: string;
-  course?: string;
-  sports: string[];
-  socialLinks?: SocialLinks;
-}
+import type { Athlete, Team, TeamKey } from "./schemas/team.schema";
 
-export interface Team {
-  id: string;
-  sportKey: string;
-  sportName?: string;
-  athletes: Athlete[];
-}
+const placeholder = "placeholders/default";
 
-const generateAthletes = (count: number, sportKey: string): Athlete[] => {
+function mockAthletes(count: number, teamKeys: TeamKey[]): Athlete[] {
   return Array.from({ length: count }, (_, i) => ({
-    id: `${i + 1}`,
+    id: `placeholder-${teamKeys[0]}-${i + 1}`,
     name: `Atleta ${i + 1}`,
-    imagePath: "placeholders/default",
-    course: "cc",
-    sports: [sportKey],
-    socialLinks: {
-      instagram: "https://instagram.com/incinera" // Placeholder link
-    }
+    photo: placeholder,
+    teamKeys,
   }));
-};
+}
 
 export const teams: Team[] = [
   {
-    id: "futsal-m",
-    sportKey: "sports.futsalMale",
-    sportName: "Futsal Masculino",
-    athletes: generateAthletes(12, "futsal"),
+    key: "futsal-masculino",
+    athletes: mockAthletes(12, ["futsal-masculino"]),
   },
   {
-    id: "futsal-f",
-    sportKey: "sports.futsalFemale",
-    sportName: "Futsal Feminino",
-    athletes: generateAthletes(10, "futsal"),
+    key: "futsal-feminino",
+    athletes: mockAthletes(10, ["futsal-feminino"]),
   },
   {
-    id: "volei-m",
-    sportKey: "sports.volleyballMale",
-    sportName: "Vôlei Masculino",
-    athletes: generateAthletes(8, "volei"),
+    key: "volei-masculino",
+    athletes: mockAthletes(8, ["volei-masculino"]),
   },
   {
-    id: "volei-f",
-    sportKey: "sports.volleyballFemale",
-    sportName: "Vôlei Feminino",
-    athletes: generateAthletes(8, "volei"),
+    key: "volei-feminino",
+    athletes: mockAthletes(8, ["volei-feminino"]),
   },
   {
-    id: "basquete",
-    sportKey: "sports.basketball",
-    sportName: "Basquete",
-    athletes: generateAthletes(10, "basquete"),
+    key: "basquete-masculino",
+    athletes: mockAthletes(10, ["basquete-masculino"]),
   },
   {
-    id: "handebol",
-    sportKey: "sports.handball",
-    sportName: "Handebol",
-    athletes: generateAthletes(12, "handebol"),
+    key: "basquete-feminino",
+    athletes: mockAthletes(10, ["basquete-feminino"]),
+  },
+  {
+    key: "handebol-masculino",
+    athletes: mockAthletes(12, ["handebol-masculino"]),
+  },
+  {
+    key: "handebol-feminino",
+    athletes: mockAthletes(10, ["handebol-feminino"]),
   },
 ];
