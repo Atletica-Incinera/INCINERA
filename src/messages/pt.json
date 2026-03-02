@@ -18,7 +18,8 @@
       "linkedin": "LinkedIn",
       "twitter": "Twitter",
       "github": "GitHub",
-      "email": "E-mail"
+      "email": "E-mail",
+      "website": "Site Pessoal"
     }
   },
   "Hero": {
@@ -97,6 +98,7 @@
       "members": "Membros ({count})",
       "sports": "Esportes",
       "course": "Curso",
+      "bio": "Sobre",
       "social": "Redes Sociais"
     },
     "roles": {
@@ -107,13 +109,13 @@
       "member": "Membro",
       "sports": "Diretor(a) de Esportes",
       "finance": "Diretor(a) de Finanças",
-      "marketing": "Diretor(a) de Comunicação",
+      "comunicacao": "Diretor(a) de Comunicação",
       "events": "Diretor(a) de Eventos",
       "products": "Diretor(a) de Produtos",
       "athlete": "Atleta"
     },
     "names": {
-      "marketing": "Comunicação",
+      "comunicacao": "Comunicação",
       "esportes": "Esportes",
       "financeiro": "Financeiro",
       "eventos": "Eventos",
@@ -123,7 +125,7 @@
       "ec": "Engenharia da Computação",
       "cc": "Ciência da Computação",
       "si": "Sistemas de Informação",
-      "es": "Engenharia de Software"
+      "ia": "Inteligência Artificial"
     },
     "sports": {
       "basquete": "Basquete",
@@ -144,8 +146,10 @@
       "futsalFemale": "Futsal Feminino",
       "volleyballMale": "Vôlei Masculino",
       "volleyballFemale": "Vôlei Feminino",
-      "basketball": "Basquete",
-      "handball": "Handebol"
+      "basketballMale": "Basquete Masculino",
+      "basketballFemale": "Basquete Feminino",
+      "handballMale": "Handebol Masculino",
+      "handballFemale": "Handebol Feminino"
     }
   },
   "Contact": {

@@ -18,7 +18,8 @@
       "linkedin": "LinkedIn",
       "twitter": "Twitter",
       "github": "GitHub",
-      "email": "Email"
+      "email": "Email",
+      "website": "Personal Website"
     }
   },
   "Hero": {
@@ -97,6 +98,7 @@
       "members": "Members ({count})",
       "sports": "Sports",
       "course": "Program",
+      "bio": "About",
       "social": "Social Media"
     },
     "roles": {
@@ -107,13 +109,13 @@
       "member": "Member",
       "sports": "Sports Director",
       "finance": "Finance Director",
-      "marketing": "Marketing Director",
+      "comunicacao": "Marketing Director",
       "events": "Events Director",
       "products": "Products Director",
       "athlete": "Athlete"
     },
     "names": {
-      "marketing": "Communication",
+      "comunicacao": "Communication",
       "esportes": "Sports",
       "financeiro": "Finance",
       "eventos": "Events",
@@ -123,7 +125,7 @@
       "ec": "Computer Engineering",
       "cc": "Computer Science",
       "si": "Information Systems",
-      "es": "Software Engineering"
+      "ia": "Artificial Intelligence"
     },
     "sports": {
       "basquete": "Basketball",
@@ -144,8 +146,10 @@
       "futsalFemale": "Women's Futsal",
       "volleyballMale": "Men's Volleyball",
       "volleyballFemale": "Women's Volleyball",
-      "basketball": "Basketball",
-      "handball": "Handball"
+      "basketballMale": "Men's Basketball",
+      "basketballFemale": "Women's Basketball",
+      "handballMale": "Men's Handball",
+      "handballFemale": "Women's Handball"
     }
   },
   "Contact": {
