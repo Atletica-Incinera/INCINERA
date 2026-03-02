@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Member } from "@/data/directory";
+import type { Directory, ExecutiveBoard, Member } from "@/data/types";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -14,7 +14,9 @@ export const useDirectorySection = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  const [expandedDirectoryId, setExpandedDirectoryId] = useState<string | null>(null);
+  const [expandedDirectoryId, setExpandedDirectoryId] = useState<string | null>(
+    null,
+  );
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   const handleToggleDirectory = (id: string) => {
@@ -43,7 +45,7 @@ export const useDirectorySection = () => {
             trigger: titleRef.current,
             start: "top 80%",
           },
-        }
+        },
       );
 
       // Cards staggered reveal
@@ -63,7 +65,7 @@ export const useDirectorySection = () => {
               trigger: cardsRef.current,
               start: "top 75%",
             },
-          }
+          },
         );
       }
     }, sectionRef);
@@ -85,6 +87,6 @@ export const useDirectorySection = () => {
       handleToggleDirectory,
       handleMemberClick,
       handleCloseModal,
-    }
+    },
   };
 };

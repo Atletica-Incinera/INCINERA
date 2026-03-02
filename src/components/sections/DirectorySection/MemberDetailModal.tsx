@@ -3,7 +3,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { AppImage } from "@/components/ui/AppImage";
-import { Member } from "@/data/directory";
+import type { Member } from "@/data/types";
 import { memberPhotoUrl } from "@/data/utils/cloudinary";
 import { Modal } from "@/components/ui/Modal";
 import { SocialLinksRow } from "@/components/ui/SocialLinksRow";
@@ -14,18 +14,23 @@ interface MemberDetailModalProps {
   onClose: () => void;
 }
 
-export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModalProps) => {
+export const MemberDetailModal = ({
+  member,
+  isOpen,
+  onClose,
+}: MemberDetailModalProps) => {
   const t = useTranslations("Directory");
 
   if (!member) return null;
 
-  const hasSocialLinks = member.socialLinks && (
-    member.socialLinks.instagram || 
-    member.socialLinks.linkedin || 
-    member.socialLinks.twitter || 
-    member.socialLinks.email || 
-    member.socialLinks.github
-  );
+  const hasSocialLinks =
+    member.socialLinks &&
+    (member.socialLinks.instagram ||
+      member.socialLinks.linkedin ||
+      member.socialLinks.twitter ||
+      member.socialLinks.email ||
+      member.socialLinks.github ||
+      member.socialLinks.personalWebsite);
 
   return (
     <Modal.Root isOpen={isOpen} onClose={onClose}>
@@ -50,56 +55,42 @@ export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModal
           {/* Right Column: Info */}
           <div className="flex flex-col flex-1 pb-6 md:pb-0 justify-center">
             <Modal.Header>
-              <h2 id="member-name" className="text-3xl md:text-5xl font-black text-foreground mb-2 font-sora tracking-tight">
+              {/* Hero Badge */}
+              {member.heroBadge && (
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-3 border border-primary/20">
+                  {member.heroBadge}
+                </span>
+              )}
+              <h2
+                id="member-name"
+                className="text-3xl md:text-5xl font-black text-foreground mb-1 font-sora tracking-tight"
+              >
                 {member.name}
               </h2>
               <p className="text-xl text-primary font-bold">
-                {t(`roles.${member.role}`)} {member.roleLiteral ? `- ${member.roleLiteral}` : ""}
+                {t(`roles.${member.role}`)}
+                {member.roleLiteral ? ` — ${member.roleLiteral}` : ""}
               </p>
             </Modal.Header>
 
-            <div className="space-y-6">
-              {/* Sports */}
-              {member.sports.length > 0 && (
+            <div className="space-y-5">
+              {/* Bio */}
+              {member.bio && member.bio.trim().length > 0 && (
                 <div className="pl-4 border-l-4 border-primary">
-                  <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-2">
-                    {t("common.sports")}
-                  </h3>
-                  <ul className="flex flex-wrap gap-2">
-                    {member.sports.map((sport) => {
-                      let translatedSport = sport;
-                      try {
-                        if (/^[a-z]+$/.test(sport)) {
-                          translatedSport = t(`sports.${sport}` as any);
-                        }
-                      } catch (e) {}
-                      return (
-                        <li key={sport} className="px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
-                          {translatedSport}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  <p className="text-foreground/80 leading-relaxed text-sm md:text-base">
+                    {member.bio}
+                  </p>
                 </div>
               )}
 
               {/* Course */}
               {member.course && (
                 <div className="pl-4 border-l-4 border-primary">
-                  <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-2 flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">
                     {t("common.course")}
                   </h3>
                   <p className="text-foreground font-semibold md:text-lg">
-                    {(() => {
-                      try {
-                        if (/^[a-z]+$/.test(member.course)) {
-                          return t(`courses.${member.course}` as any);
-                        }
-                        return member.course;
-                      } catch {
-                        return member.course;
-                      }
-                    })()}
+                    {t(`courses.${member.course}` as any)}
                   </p>
                 </div>
               )}
@@ -107,7 +98,7 @@ export const MemberDetailModal = ({ member, isOpen, onClose }: MemberDetailModal
               {/* Social Links */}
               {hasSocialLinks && (
                 <div className="pl-4 border-l-4 border-primary pt-2">
-                  <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-3">
                     {t("common.social")}
                   </h3>
                   <SocialLinksRow links={member.socialLinks} />

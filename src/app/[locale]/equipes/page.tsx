@@ -1,17 +1,26 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { TeamsList } from "@/components/sections/TeamsList";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { loadTeams } from "@/data/loaders/loadTeams";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "@/i18n/routing";
+import type { Metadata } from "next";
 
-export default function TeamsPage() {
-  const t = useTranslations("Teams");
+export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Teams");
+  return { title: t("pageTitle") };
+}
+
+export default async function TeamsPage() {
+  const [teams, t] = await Promise.all([loadTeams(), getTranslations("Teams")]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      
+
       <main className="flex-1 w-full pt-32 pb-24">
         <div className="container mx-auto px-6 md:px-12">
           {/* Header */}
@@ -20,10 +29,13 @@ export default function TeamsPage() {
               href="/"
               className="inline-flex items-center gap-2 text-primary font-bold hover:underline group"
             >
-              <ArrowLeft size={20} className="transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft
+                size={20}
+                className="transition-transform group-hover:-translate-x-1"
+              />
               {t("backToHome")}
             </Link>
-            
+
             <div className="space-y-4">
               <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter text-foreground">
                 {t("pageTitle")}
@@ -34,7 +46,7 @@ export default function TeamsPage() {
             </div>
           </div>
 
-          <TeamsList />
+          <TeamsList teams={teams} />
         </div>
       </main>
 

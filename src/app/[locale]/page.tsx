@@ -7,8 +7,14 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { MapSection } from "@/components/sections/MapSection";
 import { Footer } from "@/components/layout/Footer";
 import { SectionSeparator } from "@/components/ui/SectionSeparator";
+import { loadDirectories, loadExecutiveBoard } from "@/data/loaders/loadDirectory";
 
-export default function Home() {
+export const revalidate = 3600;
+
+export default async function Home() {
+  const directoriesData = await loadDirectories();
+  const executiveBoardData = await loadExecutiveBoard();
+
   return (
     <div className="flex min-h-screen flex-col bg-background selection:bg-primary selection:text-white">
       <Navbar />
@@ -19,7 +25,7 @@ export default function Home() {
         
         <SectionSeparator variant="angled-scar" className="my-[-20px] z-10" />
         
-        <DirectorySection />
+        <DirectorySection directories={directoriesData} executiveBoard={executiveBoardData} />
         
         <SectionSeparator variant="ember-drift" className="py-4" />
         

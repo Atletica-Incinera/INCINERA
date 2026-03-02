@@ -3,8 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Member } from "@/data/directory";
-import { Athlete } from "@/data/teams";
+import type { Athlete, Team } from "@/data/types";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,30 +11,18 @@ if (typeof window !== "undefined") {
 
 export const useTeamsList = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [selectedAthlete, setSelectedAthlete] = useState<Athlete | null>(null);
 
-  const handleAthleteClick = (athlete: Athlete, teamName: string) => {
-    setSelectedMember({
-      id: athlete.id,
-      name: athlete.name,
-      role: "athlete",
-      roleLiteral: teamName,
-      photo: athlete.imagePath,
-      photoLarge: athlete.imagePath,
-      sports: athlete.sports || [teamName],
-      course: athlete.course || "",
-      socialLinks: athlete.socialLinks || {},
-    });
+  const handleAthleteClick = (athlete: Athlete) => {
+    setSelectedAthlete(athlete);
   };
 
   const handleCloseModal = () => {
-    setSelectedMember(null);
+    setSelectedAthlete(null);
   };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Staggered reveal for each sport section
       const sections = containerRef.current?.children;
       if (sections) {
         gsap.fromTo(
@@ -50,7 +37,7 @@ export const useTeamsList = () => {
               trigger: containerRef.current,
               start: "top 80%",
             },
-          }
+          },
         );
       }
     }, containerRef);
@@ -59,15 +46,8 @@ export const useTeamsList = () => {
   }, []);
 
   return {
-    refs: {
-      containerRef,
-    },
-    state: {
-      selectedMember,
-    },
-    actions: {
-      handleAthleteClick,
-      handleCloseModal,
-    }
+    refs: { containerRef },
+    state: { selectedAthlete },
+    actions: { handleAthleteClick, handleCloseModal },
   };
 };
