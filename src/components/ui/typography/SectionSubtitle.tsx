@@ -11,7 +11,7 @@ interface SectionSubtitleProps extends React.HTMLAttributes<HTMLElement> {
 
 /**
  * Subtítulo de seção padronizado do Design System.
- * 
+ *
  * @example
  * <SectionSubtitle>Quem faz acontecer</SectionSubtitle>
  */
@@ -22,14 +22,14 @@ export const SectionSubtitle = forwardRef<HTMLElement, SectionSubtitleProps>(
         ref={ref as React.Ref<HTMLElement>}
         className={cn(
           "text-xl md:text-2xl text-primary font-bold italic",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </Tag>
     );
-  }
+  },
 );
 
 SectionSubtitle.displayName = "SectionSubtitle";

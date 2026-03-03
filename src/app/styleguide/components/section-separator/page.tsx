@@ -16,22 +16,30 @@ export default function SectionSeparatorPage() {
         <div className="space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">Variantes</h2>
         </div>
-        
+
         <div className="space-y-12 p-8 border border-border rounded-xl bg-card">
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">glow-line</h3>
+            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">
+              glow-line
+            </h3>
             <SectionSeparator variant="glow-line" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">angled-scar</h3>
+            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">
+              angled-scar
+            </h3>
             <SectionSeparator variant="angled-scar" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">ember-drift</h3>
+            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">
+              ember-drift
+            </h3>
             <SectionSeparator variant="ember-drift" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">flame-peak</h3>
+            <h3 className="text-lg font-semibold mb-4 text-muted-foreground">
+              flame-peak
+            </h3>
             <SectionSeparator variant="flame-peak" />
           </div>
         </div>

@@ -21,7 +21,10 @@ import { partnerSchema } from "../schemas/partner.schema";
 import type { Partner } from "../types";
 import { logger } from "@/lib/logger";
 
-import { sponsors as staticSponsors, partners as staticPartners } from "../partners";
+import {
+  sponsors as staticSponsors,
+  partners as staticPartners,
+} from "../partners";
 
 const RANGE = "Patrocinadores!A2:H";
 
@@ -39,7 +42,10 @@ function rowToPartner(row: string[]): Partner | null {
       },
     });
   } catch (err) {
-    logger.warn({ event: "PARTNERS_SKIP_INVALID_ROW", row, error: err }, "[loadPartners] Skipping invalid partner row");
+    logger.warn(
+      { event: "PARTNERS_SKIP_INVALID_ROW", row, error: err },
+      "[loadPartners] Skipping invalid partner row",
+    );
     return null;
   }
 }
@@ -56,7 +62,10 @@ export async function loadPartners(): Promise<{
     const rows = await fetchSheetRows(RANGE);
 
     if (rows.length === 0) {
-      logger.info({ event: "PARTNERS_NO_ROWS" }, "[loadPartners] No rows from Sheets, using static data.");
+      logger.info(
+        { event: "PARTNERS_NO_ROWS" },
+        "[loadPartners] No rows from Sheets, using static data.",
+      );
       return {
         sponsors: staticSponsors as Partner[],
         partners: staticPartners as Partner[],
@@ -80,7 +89,10 @@ export async function loadPartners(): Promise<{
 
     return { sponsors, partners };
   } catch (err) {
-    logger.error({ event: "PARTNERS_FETCH_FAILED", error: err }, "[loadPartners] Sheets fetch failed, using static fallback");
+    logger.error(
+      { event: "PARTNERS_FETCH_FAILED", error: err },
+      "[loadPartners] Sheets fetch failed, using static fallback",
+    );
     return {
       sponsors: staticSponsors as Partner[],
       partners: staticPartners as Partner[],

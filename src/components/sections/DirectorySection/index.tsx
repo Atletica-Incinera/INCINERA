@@ -20,7 +20,11 @@ export const DirectorySection = ({
   executiveBoard,
 }: DirectorySectionProps) => {
   const t = useTranslations("Directory");
-  const { refs: { sectionRef, titleRef, cardsRef }, state, actions } = useDirectorySection();
+  const {
+    refs: { sectionRef, titleRef, cardsRef },
+    state,
+    actions,
+  } = useDirectorySection();
 
   // Issue #3 — unifica presidente e vice em array para evitar JSX duplicado.
   // filter(Boolean) remove entradas undefined/null e o cast garante tipagem estrita.

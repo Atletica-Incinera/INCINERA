@@ -32,7 +32,7 @@ export const useAboutSection = () => {
     setActiveIndex((prev) =>
       direction === "prev"
         ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
-        : (prev + 1) % GALLERY_IMAGES.length
+        : (prev + 1) % GALLERY_IMAGES.length,
     );
   };
 
@@ -68,7 +68,7 @@ export const useAboutSection = () => {
             trigger: titleRef.current,
             start: "top 80%",
           },
-        }
+        },
       );
 
       gsap.fromTo(
@@ -83,7 +83,7 @@ export const useAboutSection = () => {
             trigger: subtitleRef.current,
             start: "top 80%",
           },
-        }
+        },
       );
 
       // Body reveal
@@ -98,7 +98,7 @@ export const useAboutSection = () => {
             trigger: bodyRef.current,
             start: "top 85%",
           },
-        }
+        },
       );
 
       // Stacked images entrance animation
@@ -115,7 +115,7 @@ export const useAboutSection = () => {
             trigger: imageContainerRef.current,
             start: "top 75%",
           },
-        }
+        },
       );
     }, sectionRef);
 

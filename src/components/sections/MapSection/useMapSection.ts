@@ -25,7 +25,7 @@ export const useMapSection = () => {
             trigger: cardRef.current,
             start: "top 85%",
           },
-        }
+        },
       );
     }, sectionRef);
 

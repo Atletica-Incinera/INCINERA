@@ -25,11 +25,11 @@ export const Footer = () => {
         <div className="flex flex-col items-center text-center space-y-12">
           {/* Logo & Tagline */}
           <div className="">
-            <AppImage 
-              src={brandImageUrl("brand/logo-text")} 
-              alt={tNav("logoAlt")} 
-              width={612} 
-              height={408} 
+            <AppImage
+              src={brandImageUrl("brand/logo-text")}
+              alt={tNav("logoAlt")}
+              width={612}
+              height={408}
               className="h-30 w-auto object-contain mx-auto"
             />
             <p className="text-xl font-bold text-primary italic">
@@ -63,7 +63,7 @@ export const Footer = () => {
             <p className="text-muted-foreground font-medium">
               {t("copyright")}
             </p>
-            
+
             <a
               href="https://www.linkedin.com/in/jo%C3%A3o-victor-25b434235/"
               target="_blank"
@@ -71,9 +71,7 @@ export const Footer = () => {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
             >
               <Linkedin className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                {t("developedBy")}
-              </span>
+              <span className="text-sm font-medium">{t("developedBy")}</span>
             </a>
           </div>
         </div>

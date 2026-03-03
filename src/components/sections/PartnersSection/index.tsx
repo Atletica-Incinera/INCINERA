@@ -14,7 +14,11 @@ import { partnerLogoUrl } from "@/data/utils/cloudinary";
 
 export const PartnersSection = () => {
   const t = useTranslations("Partners");
-  const { refs: { sectionRef, sponsorsRef, partnersRef }, state, actions } = usePartnersSection();
+  const {
+    refs: { sectionRef, sponsorsRef, partnersRef },
+    state,
+    actions,
+  } = usePartnersSection();
 
   return (
     <section
@@ -24,12 +28,8 @@ export const PartnersSection = () => {
     >
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-20 space-y-4">
-          <SectionTitle>
-            {t("title")}
-          </SectionTitle>
-          <SectionSubtitle>
-            {t("subtitle")}
-          </SectionSubtitle>
+          <SectionTitle>{t("title")}</SectionTitle>
+          <SectionSubtitle>{t("subtitle")}</SectionSubtitle>
         </div>
 
         {/* Patrocinadores (Main Sponsors) */}
@@ -115,7 +115,7 @@ export const PartnersSection = () => {
           </div>
         </div>
       </div>
-      
+
       <SponsorDetailModal
         partner={state.selectedPartner}
         isOpen={!!state.selectedPartner}

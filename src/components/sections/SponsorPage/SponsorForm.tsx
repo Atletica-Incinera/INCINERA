@@ -80,7 +80,10 @@ export const SponsorForm = ({
             {/* Row 1: Nome Fantasia + Nome Responsável */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="sponsor-nome-fantasia" className="text-sm font-semibold">
+                <Label
+                  htmlFor="sponsor-nome-fantasia"
+                  className="text-sm font-semibold"
+                >
                   {t("form.fields.nomeFantasia.label")}
                 </Label>
                 <Input
@@ -88,7 +91,11 @@ export const SponsorForm = ({
                   autoComplete="organization"
                   placeholder={t("form.fields.nomeFantasia.placeholder")}
                   aria-required="true"
-                  aria-describedby={errors.nomeFantasia ? "sponsor-nome-fantasia-error" : undefined}
+                  aria-describedby={
+                    errors.nomeFantasia
+                      ? "sponsor-nome-fantasia-error"
+                      : undefined
+                  }
                   aria-invalid={!!errors.nomeFantasia}
                   className={`bg-background h-12 transition-colors ${
                     errors.nomeFantasia
@@ -97,11 +104,17 @@ export const SponsorForm = ({
                   }`}
                   {...register("nomeFantasia")}
                 />
-                <FieldError id="sponsor-nome-fantasia-error" message={errors.nomeFantasia?.message} />
+                <FieldError
+                  id="sponsor-nome-fantasia-error"
+                  message={errors.nomeFantasia?.message}
+                />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sponsor-nome-responsavel" className="text-sm font-semibold">
+                <Label
+                  htmlFor="sponsor-nome-responsavel"
+                  className="text-sm font-semibold"
+                >
                   {t("form.fields.nomeResponsavel.label")}
                 </Label>
                 <Input
@@ -109,7 +122,11 @@ export const SponsorForm = ({
                   autoComplete="name"
                   placeholder={t("form.fields.nomeResponsavel.placeholder")}
                   aria-required="true"
-                  aria-describedby={errors.nomeResponsavel ? "sponsor-nome-responsavel-error" : undefined}
+                  aria-describedby={
+                    errors.nomeResponsavel
+                      ? "sponsor-nome-responsavel-error"
+                      : undefined
+                  }
                   aria-invalid={!!errors.nomeResponsavel}
                   className={`bg-background h-12 transition-colors ${
                     errors.nomeResponsavel
@@ -118,7 +135,10 @@ export const SponsorForm = ({
                   }`}
                   {...register("nomeResponsavel")}
                 />
-                <FieldError id="sponsor-nome-responsavel-error" message={errors.nomeResponsavel?.message} />
+                <FieldError
+                  id="sponsor-nome-responsavel-error"
+                  message={errors.nomeResponsavel?.message}
+                />
               </div>
             </div>
 
@@ -133,7 +153,9 @@ export const SponsorForm = ({
                 autoComplete="email"
                 placeholder={t("form.fields.email.placeholder")}
                 aria-required="true"
-                aria-describedby={errors.email ? "sponsor-email-error" : undefined}
+                aria-describedby={
+                  errors.email ? "sponsor-email-error" : undefined
+                }
                 aria-invalid={!!errors.email}
                 className={`bg-background h-12 transition-colors ${
                   errors.email
@@ -142,12 +164,18 @@ export const SponsorForm = ({
                 }`}
                 {...register("email")}
               />
-              <FieldError id="sponsor-email-error" message={errors.email?.message} />
+              <FieldError
+                id="sponsor-email-error"
+                message={errors.email?.message}
+              />
             </div>
 
             {/* Row 3: Visão da Parceria */}
             <div className="space-y-2">
-              <Label htmlFor="sponsor-visao-parceria" className="text-sm font-semibold">
+              <Label
+                htmlFor="sponsor-visao-parceria"
+                className="text-sm font-semibold"
+              >
                 {t("form.fields.visaoParceria.label")}
               </Label>
               <Textarea
@@ -156,7 +184,9 @@ export const SponsorForm = ({
                 placeholder={t("form.fields.visaoParceria.placeholder")}
                 aria-required="true"
                 aria-describedby={
-                  errors.visaoParceria ? "sponsor-visao-error" : "sponsor-visao-hint"
+                  errors.visaoParceria
+                    ? "sponsor-visao-error"
+                    : "sponsor-visao-hint"
                 }
                 aria-invalid={!!errors.visaoParceria}
                 className={`bg-background resize-none transition-colors ${
@@ -166,10 +196,16 @@ export const SponsorForm = ({
                 }`}
                 {...register("visaoParceria")}
               />
-              <p id="sponsor-visao-hint" className="text-xs text-muted-foreground">
+              <p
+                id="sponsor-visao-hint"
+                className="text-xs text-muted-foreground"
+              >
                 {t("form.fields.visaoParceria.hint")}
               </p>
-              <FieldError id="sponsor-visao-error" message={errors.visaoParceria?.message} />
+              <FieldError
+                id="sponsor-visao-error"
+                message={errors.visaoParceria?.message}
+              />
             </div>
 
             {/* Privacy */}
@@ -188,7 +224,10 @@ export const SponsorForm = ({
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" aria-hidden="true" />
+                  <Loader2
+                    className="mr-2 h-5 w-5 animate-spin"
+                    aria-hidden="true"
+                  />
                   {t("form.submitting")}
                 </>
               ) : (

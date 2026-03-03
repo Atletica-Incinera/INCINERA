@@ -90,7 +90,10 @@ export const SponsorHero = ({ heroRef, onScrollToForm }: SponsorHeroProps) => {
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 w-full h-32 z-10 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, var(--background))" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent, var(--background))",
+        }}
         aria-hidden="true"
       />
     </section>

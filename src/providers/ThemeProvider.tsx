@@ -10,7 +10,9 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined,
+);
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -23,14 +25,16 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     const root = document.documentElement;
     let initialTheme = root.getAttribute("data-theme") as Theme | null;
-    
+
     if (!initialTheme) {
       initialTheme = localStorage.getItem("incinera-theme") as Theme | null;
     }
     if (!initialTheme) {
-      initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+      initialTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
     }
-    
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(initialTheme);
     setMounted(true);
@@ -40,7 +44,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (!mounted) return;
 
     const root = document.documentElement;
-    
+
     const applyTheme = (t: Theme) => {
       root.setAttribute("data-theme", t);
       if (t === "dark") {
@@ -55,24 +59,37 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const observer = new MutationObserver((mutations) => {
       let needsReapply = false;
       for (const mutation of mutations) {
-        if (mutation.attributeName === "class" || mutation.attributeName === "data-theme") {
+        if (
+          mutation.attributeName === "class" ||
+          mutation.attributeName === "data-theme"
+        ) {
           needsReapply = true;
           break;
         }
       }
-      
+
       if (needsReapply) {
         const currentThemeAttr = root.getAttribute("data-theme");
         const hasDarkClass = root.classList.contains("dark");
-        if (currentThemeAttr !== theme || (theme === "dark" && !hasDarkClass) || (theme === "light" && hasDarkClass)) {
+        if (
+          currentThemeAttr !== theme ||
+          (theme === "dark" && !hasDarkClass) ||
+          (theme === "light" && hasDarkClass)
+        ) {
           observer.disconnect();
           applyTheme(theme);
-          observer.observe(root, { attributes: true, attributeFilter: ["class", "data-theme"] });
+          observer.observe(root, {
+            attributes: true,
+            attributeFilter: ["class", "data-theme"],
+          });
         }
       }
     });
 
-    observer.observe(root, { attributes: true, attributeFilter: ["class", "data-theme"] });
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class", "data-theme"],
+    });
 
     return () => observer.disconnect();
   }, [theme, mounted]);
@@ -87,7 +104,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: changeTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, toggleTheme, setTheme: changeTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );

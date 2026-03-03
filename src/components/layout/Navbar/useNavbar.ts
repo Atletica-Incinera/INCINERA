@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-
 export function useNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,7 +28,10 @@ export function useNavbar() {
           if (element) {
             const rect = element.getBoundingClientRect();
             // Element covers upper half of viewport or its top is within top half
-            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+            if (
+              rect.top <= window.innerHeight / 2 &&
+              rect.bottom >= window.innerHeight / 2
+            ) {
               currentSection = section;
               break;
             }
@@ -37,7 +39,10 @@ export function useNavbar() {
         }
 
         // Check if user is at the bottom of the page
-        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 50
+        ) {
           currentSection = "contact";
         }
       }
@@ -63,7 +68,10 @@ export function useNavbar() {
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
     // Optimistic UI update to feel instant
     if (href === "/equipes") {
       setActiveSection("teams");
@@ -87,7 +95,7 @@ export function useNavbar() {
         e.preventDefault();
         const targetId = href.replace("/#", "");
         const element = document.getElementById(targetId);
-        
+
         if (element) {
           // Native smooth scroll to bypass Next.js router overhead
           element.scrollIntoView({ behavior: "smooth" });
@@ -96,7 +104,7 @@ export function useNavbar() {
         closeMobileMenu();
         return;
       }
-      
+
       if (href === "/") {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -105,7 +113,7 @@ export function useNavbar() {
         return;
       }
     }
-    
+
     // Otherwise, normal Next.js routing occurs for cross-page navigation
     closeMobileMenu();
   };

@@ -5,9 +5,7 @@ import { z } from "zod";
  * Validation messages are supplied at runtime using i18n keys,
  * so we export a factory that receives the translation function.
  */
-export const createContactSchema = (
-  t: (key: string) => string
-) =>
+export const createContactSchema = (t: (key: string) => string) =>
   z.object({
     name: z
       .string()

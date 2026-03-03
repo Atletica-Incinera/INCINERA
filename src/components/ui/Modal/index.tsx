@@ -83,7 +83,7 @@ function ModalContent({ children, className, ...props }: ModalContentProps) {
       transition={{ type: "spring", damping: 25, stiffness: 300 }}
       className={cn(
         "relative w-full max-w-4xl max-h-[90vh] overflow-y-auto overflow-x-hidden bg-background rounded-3xl shadow-2xl z-10 p-6 md:p-10 hide-scrollbar",
-        className
+        className,
       )}
       {...props}
     >
@@ -99,13 +99,13 @@ interface ModalCloseProps {
 function ModalClose({ className }: ModalCloseProps) {
   const { onClose } = useModalContext();
   const tCommon = useTranslations("Common");
-  
+
   return (
     <button
       onClick={onClose}
       className={cn(
         "absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 rounded-full bg-secondary/50 hover:bg-primary hover:text-white flex items-center justify-center transition-colors z-20 outline-none focus-visible:ring-2 ring-primary cursor-pointer",
-        className
+        className,
       )}
       aria-label={tCommon("buttons.close")}
     >

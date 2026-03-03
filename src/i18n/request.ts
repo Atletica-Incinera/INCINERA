@@ -9,7 +9,8 @@ export default getRequestConfig(async () => {
   const cookieLocale = cookieStore.get("NEXT_LOCALE")?.value;
 
   const locale =
-    cookieLocale && VALID_LOCALES.includes(cookieLocale as (typeof VALID_LOCALES)[number])
+    cookieLocale &&
+    VALID_LOCALES.includes(cookieLocale as (typeof VALID_LOCALES)[number])
       ? cookieLocale
       : DEFAULT_LOCALE;
 

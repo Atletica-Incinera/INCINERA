@@ -50,29 +50,35 @@ export function ThemeToggle() {
 
         {/* The Track Icons */}
         <div className="relative w-full flex justify-between px-4 z-0 text-muted-foreground transition-colors">
-          <Sun className={`w-4 h-4 transition-colors duration-300 ${!isDark ? 'text-white' : 'group-hover:text-foreground/80'}`} />
+          <Sun
+            className={`w-4 h-4 transition-colors duration-300 ${!isDark ? "text-white" : "group-hover:text-foreground/80"}`}
+          />
           {!isDark ? (
-            <Moon className={`w-4 h-4 transition-colors duration-300 ${isDark ? 'text-white' : 'group-hover:text-foreground/00'}`} />
+            <Moon
+              className={`w-4 h-4 transition-colors duration-300 ${isDark ? "text-white" : "group-hover:text-foreground/00"}`}
+            />
           ) : null}
         </div>
 
         {/* The Fire Handle */}
         <div
           className={`absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-lg flex items-center justify-center z-10 ${
-            isDark
-              ? "translate-x-[calc(100%+4px)]"
-              : "translate-x-0"
+            isDark ? "translate-x-[calc(100%+4px)]" : "translate-x-0"
           }`}
         >
           {/* Fire Gradient Base */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-yellow-400 animate-[fire-pulse_2s_ease-in-out_infinite] opacity-90 shadow-[0_0_15px_rgba(234,88,12,0.6)] group-hover:shadow-[0_0_25px_rgba(234,88,12,0.8)] transition-shadow" />
-          
+
           {/* Inner Glow */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/30 to-transparent mix-blend-overlay pointer-events-none" />
-          
+
           {/* Active Icon in Handle */}
           <div className="relative z-20 text-white drop-shadow-md pointer-events-none">
-            {!isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {!isDark ? (
+              <Sun className="w-4 h-4" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
           </div>
         </div>
       </button>

@@ -28,7 +28,11 @@ const TEAM_KEY_I18N: Record<TeamKey, string> = {
 export const TeamsList = ({ teams }: TeamsListProps) => {
   const t = useTranslations("Teams");
   const tDir = useTranslations("Directory");
-  const { refs: { containerRef }, state, actions } = useTeamsList();
+  const {
+    refs: { containerRef },
+    state,
+    actions,
+  } = useTeamsList();
 
   return (
     <div ref={containerRef} className="space-y-24">

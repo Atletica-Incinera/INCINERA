@@ -37,11 +37,17 @@ export async function POST(request: Request) {
     if (!validatePayload(body)) {
       return NextResponse.json(
         { error: "Dados do formulário inválidos." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const { nomeFantasia, nomeResponsavel, email, visaoParceria, locale = "pt" } = body;
+    const {
+      nomeFantasia,
+      nomeResponsavel,
+      email,
+      visaoParceria,
+      locale = "pt",
+    } = body;
     const t = await getTranslations({ locale, namespace: "Emails" });
 
     const { error } = await resend.emails.send({
@@ -56,25 +62,39 @@ export async function POST(request: Request) {
           email,
           visaoParceria,
         },
-        (key, props) => t(key as Parameters<typeof t>[0], props)
+        (key, props) => t(key as Parameters<typeof t>[0], props),
       ),
     });
 
     if (error) {
-      logger.error({ error, event: "SPONSORSHIP_EMAIL_SEND_FAILED", company: nomeFantasia }, "[Resend] Error sending sponsorship email");
+      logger.error(
+        {
+          error,
+          event: "SPONSORSHIP_EMAIL_SEND_FAILED",
+          company: nomeFantasia,
+        },
+        "[Resend] Error sending sponsorship email",
+      );
       return NextResponse.json(
         { error: "Falha ao enviar email." },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
-    logger.info({ event: "SPONSORSHIP_EMAIL_SENT_SUCCESS", company: nomeFantasia, email });
+    logger.info({
+      event: "SPONSORSHIP_EMAIL_SENT_SUCCESS",
+      company: nomeFantasia,
+      email,
+    });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    logger.error({ error: err, event: "SPONSORSHIP_API_UNEXPECTED_ERROR" }, "[Sponsorship API] Unexpected error");
+    logger.error(
+      { error: err, event: "SPONSORSHIP_API_UNEXPECTED_ERROR" },
+      "[Sponsorship API] Unexpected error",
+    );
     return NextResponse.json(
       { error: "Erro interno do servidor." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

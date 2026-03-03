@@ -26,7 +26,10 @@ export default async function Home() {
 
         <SectionSeparator variant="angled-scar" className="my-[-20px] z-10" />
 
-        <DirectorySection directories={directories} executiveBoard={executiveBoard} />
+        <DirectorySection
+          directories={directories}
+          executiveBoard={executiveBoard}
+        />
 
         <SectionSeparator variant="ember-drift" className="py-4" />
 

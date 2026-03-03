@@ -24,8 +24,8 @@ export const sponsors: Partner[] = [
     socialLinks: {
       website: "https://example.com",
       instagram: "https://instagram.com/sponsor1",
-      linkedin: "https://linkedin.com/company/sponsor1"
-    }
+      linkedin: "https://linkedin.com/company/sponsor1",
+    },
   },
   {
     id: "s2",
@@ -34,8 +34,8 @@ export const sponsors: Partner[] = [
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com",
-      instagram: "https://instagram.com/sponsor2"
-    }
+      instagram: "https://instagram.com/sponsor2",
+    },
   },
   {
     id: "s3",
@@ -43,8 +43,8 @@ export const sponsors: Partner[] = [
     logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
-      website: "https://example.com"
-    }
+      website: "https://example.com",
+    },
   },
 ];
 
@@ -55,8 +55,8 @@ export const partners: Partner[] = [
     logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
-      website: "https://example.com"
-    }
+      website: "https://example.com",
+    },
   },
   {
     id: "p2",
@@ -64,8 +64,8 @@ export const partners: Partner[] = [
     logoPath: "placeholders/default",
     url: "https://example.com",
     socialLinks: {
-      website: "https://example.com"
-    }
+      website: "https://example.com",
+    },
   },
   {
     id: "p3",
@@ -74,7 +74,7 @@ export const partners: Partner[] = [
     url: "https://example.com",
     socialLinks: {
       website: "https://example.com",
-      instagram: "https://instagram.com/partner3"
-    }
+      instagram: "https://instagram.com/partner3",
+    },
   },
 ];

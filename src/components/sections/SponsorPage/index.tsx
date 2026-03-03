@@ -48,7 +48,10 @@ export const SponsorPage = () => {
       {/* 2. Stats */}
       <SponsorStats statsRef={statsRef} />
 
-      <SectionSeparator variant="glow-line" className="container mx-auto px-6 md:px-12 py-8" />
+      <SectionSeparator
+        variant="glow-line"
+        className="container mx-auto px-6 md:px-12 py-8"
+      />
 
       {/* 3. Por que investir — 4 Pilares */}
       <SponsorPillars pillarsRef={pillarsRef} />

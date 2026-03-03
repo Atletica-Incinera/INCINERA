@@ -17,7 +17,10 @@ export const SponsorPillars = ({ pillarsRef }: SponsorPillarsProps) => {
   const t = useTranslations("Sponsor");
 
   return (
-    <section aria-labelledby="pillars-heading" className="w-full py-20 lg:py-28">
+    <section
+      aria-labelledby="pillars-heading"
+      className="w-full py-20 lg:py-28"
+    >
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16 space-y-3">
           <SectionTitle id="pillars-heading">{t("pillars.title")}</SectionTitle>

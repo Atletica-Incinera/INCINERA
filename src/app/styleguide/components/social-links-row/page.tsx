@@ -9,7 +9,7 @@ export default function SocialLinksRowPage() {
     twitter: "https://twitter.com",
     github: "https://github.com",
     email: "test@example.com",
-    website: "https://example.com"
+    website: "https://example.com",
   };
 
   return (

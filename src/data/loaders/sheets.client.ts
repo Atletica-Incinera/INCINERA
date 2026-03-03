@@ -56,7 +56,10 @@ export async function fetchSheetRows(
   const id = spreadsheetId ?? process.env.GOOGLE_SHEETS_ID;
 
   if (!id) {
-    logger.warn({ event: "SHEETS_MISSING_ID", range }, "[Sheets] No spreadsheetId provided and GOOGLE_SHEETS_ID not set. Returning empty rows.");
+    logger.warn(
+      { event: "SHEETS_MISSING_ID", range },
+      "[Sheets] No spreadsheetId provided and GOOGLE_SHEETS_ID not set. Returning empty rows.",
+    );
     return [];
   }
 

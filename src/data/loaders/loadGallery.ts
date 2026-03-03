@@ -10,12 +10,18 @@
  */
 
 import { fetchSheetRows, cell } from "./sheets.client";
-import { galleryImageSchema, stackStyleSchema } from "../schemas/gallery.schema";
+import {
+  galleryImageSchema,
+  stackStyleSchema,
+} from "../schemas/gallery.schema";
 import type { GalleryImage, StackStyle } from "../types";
 import { logger } from "@/lib/logger";
 
 // Static fallback
-import { GALLERY_IMAGES as staticGallery, STACK_STYLES as staticStackStyles } from "../about";
+import {
+  GALLERY_IMAGES as staticGallery,
+  STACK_STYLES as staticStackStyles,
+} from "../about";
 
 const RANGE = "Galeria!A2:A";
 
@@ -23,8 +29,8 @@ const RANGE = "Galeria!A2:A";
  * Default stack animation styles (visual only, not data-driven).
  * These stay static regardless of data source.
  */
-export const STACK_STYLES: readonly StackStyle[] = staticStackStyles.map(s =>
-  stackStyleSchema.parse(s)
+export const STACK_STYLES: readonly StackStyle[] = staticStackStyles.map((s) =>
+  stackStyleSchema.parse(s),
 );
 
 /**
@@ -35,12 +41,15 @@ export async function loadGallery(): Promise<GalleryImage[]> {
     const rows = await fetchSheetRows(RANGE);
 
     if (rows.length === 0) {
-      logger.info({ event: "GALLERY_NO_ROWS" }, "[loadGallery] No rows from Sheets, using static data.");
-      return staticGallery.map(img => galleryImageSchema.parse(img));
+      logger.info(
+        { event: "GALLERY_NO_ROWS" },
+        "[loadGallery] No rows from Sheets, using static data.",
+      );
+      return staticGallery.map((img) => galleryImageSchema.parse(img));
     }
 
     return rows
-      .map(row => {
+      .map((row) => {
         const src = cell(row, 0);
         if (!src) return null;
         try {
@@ -51,7 +60,10 @@ export async function loadGallery(): Promise<GalleryImage[]> {
       })
       .filter((img): img is GalleryImage => img !== null);
   } catch (err) {
-    logger.error({ event: "GALLERY_FETCH_FAILED", error: err }, "[loadGallery] Sheets fetch failed, using static fallback");
-    return staticGallery.map(img => galleryImageSchema.parse(img));
+    logger.error(
+      { event: "GALLERY_FETCH_FAILED", error: err },
+      "[loadGallery] Sheets fetch failed, using static fallback",
+    );
+    return staticGallery.map((img) => galleryImageSchema.parse(img));
   }
 }

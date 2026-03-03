@@ -18,7 +18,7 @@ const ValuePillarCardRoot = ({
       "pillar-card group relative flex flex-col gap-5 p-8 rounded-2xl bg-card border border-border",
       "transition-all duration-500 overflow-hidden",
       "hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10",
-      className
+      className,
     )}
   >
     {/* Hover top-right glow */}
@@ -52,7 +52,7 @@ const ValuePillarCardIcon = ({
       "group-hover:bg-primary/20 group-hover:border-primary/40",
       "transition-all duration-300",
       "[&>svg]:w-7 [&>svg]:h-7 [&>svg]:text-primary",
-      className
+      className,
     )}
   >
     {children}
@@ -73,7 +73,7 @@ const ValuePillarCardTitle = ({
     className={cn(
       "relative z-10 text-2xl font-bold tracking-tight text-foreground",
       "group-hover:text-primary transition-colors duration-300",
-      className
+      className,
     )}
   >
     {children}
@@ -93,7 +93,7 @@ const ValuePillarCardBody = ({
   <p
     className={cn(
       "relative z-10 text-muted-foreground leading-relaxed text-[0.95rem]",
-      className
+      className,
     )}
   >
     {children}

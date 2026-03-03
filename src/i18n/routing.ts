@@ -6,4 +6,3 @@ export { useRouter, usePathname, redirect } from "next/navigation";
 // Kept for any static references (e.g., generateStaticParams in legacy pages)
 export const locales = ["pt", "en"] as const;
 export const defaultLocale = "pt" as const;
-

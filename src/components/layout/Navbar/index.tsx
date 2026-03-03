@@ -30,15 +30,12 @@ export function Navbar() {
 
       <div className="max-w-[1800px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link 
-          href="/" 
-          className="flex items-center cursor-pointer"
-        >
-          <AppImage 
-            src={brandImageUrl("brand/logo-text")} 
-            alt={t("logoAlt")} 
-            width={170} 
-            height={60} 
+        <Link href="/" className="flex items-center cursor-pointer">
+          <AppImage
+            src={brandImageUrl("brand/logo-text")}
+            alt={t("logoAlt")}
+            width={170}
+            height={60}
             className="h-20 w-auto object-contain"
             priority
           />
@@ -49,7 +46,8 @@ export function Navbar() {
           {state.navLinks.map((link) => {
             const isActive = state.activeSection === link.key;
             // Pré-busca /equipes ao entrar no viewport para navegação instantânea
-            const shouldPrefetch = link.href === "/equipes" || link.href === "/seja-patrocinador";
+            const shouldPrefetch =
+              link.href === "/equipes" || link.href === "/seja-patrocinador";
 
             return (
               <Link
@@ -59,9 +57,13 @@ export function Navbar() {
                 onClick={(e) => actions.handleNavClick(e, link.href)}
                 className="group relative py-2 font-medium text-sm transition-colors"
               >
-                <span className={`relative z-10 transition-colors ${
-                  isActive ? "text-primary" : "text-foreground group-hover:text-primary"
-                }`}>
+                <span
+                  className={`relative z-10 transition-colors ${
+                    isActive
+                      ? "text-primary"
+                      : "text-foreground group-hover:text-primary"
+                  }`}
+                >
                   {t(link.key)}
                 </span>
 

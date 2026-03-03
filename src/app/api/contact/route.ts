@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (!validatePayload(body)) {
       return NextResponse.json(
         { error: "Invalid form data." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,24 +50,33 @@ export async function POST(request: Request) {
       to: [DESTINATION_EMAIL],
       replyTo: email,
       subject: t("contact.subject", { subject }),
-      html: buildEmailTemplate({ name, email, subject, message }, (key, props) => t(key as Parameters<typeof t>[0], props)),
+      html: buildEmailTemplate(
+        { name, email, subject, message },
+        (key, props) => t(key as Parameters<typeof t>[0], props),
+      ),
     });
 
     if (error) {
-      logger.error({ error, event: "CONTACT_EMAIL_SEND_FAILED", to: DESTINATION_EMAIL }, "[Resend] Error sending email");
+      logger.error(
+        { error, event: "CONTACT_EMAIL_SEND_FAILED", to: DESTINATION_EMAIL },
+        "[Resend] Error sending email",
+      );
       return NextResponse.json(
         { error: "Failed to send email." },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     logger.info({ event: "CONTACT_EMAIL_SENT_SUCCESS", from: email });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    logger.error({ error: err, event: "CONTACT_API_UNEXPECTED_ERROR" }, "[Contact API] Unexpected error");
+    logger.error(
+      { error: err, event: "CONTACT_API_UNEXPECTED_ERROR" },
+      "[Contact API] Unexpected error",
+    );
     return NextResponse.json(
       { error: "Internal server error." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

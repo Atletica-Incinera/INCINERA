@@ -42,7 +42,7 @@ export const usePartnersSection = () => {
               trigger: sponsorsRef.current,
               start: "top 80%",
             },
-          }
+          },
         );
       }
 
@@ -60,7 +60,7 @@ export const usePartnersSection = () => {
               trigger: partnersRef.current,
               start: "top 85%",
             },
-          }
+          },
         );
       }
     }, sectionRef);
@@ -80,6 +80,6 @@ export const usePartnersSection = () => {
     actions: {
       handlePartnerClick,
       handleCloseModal,
-    }
+    },
   };
 };

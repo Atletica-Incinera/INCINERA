@@ -44,6 +44,6 @@ export function useSettingsDropdown() {
     actions: {
       toggleDropdown,
       openDropdown,
-    }
+    },
   };
 }

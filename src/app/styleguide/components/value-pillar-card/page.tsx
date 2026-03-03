@@ -36,13 +36,31 @@ export default function ValuePillarCardShowcase() {
 
       {/* 2x2 grid */}
       <section className="space-y-6">
-        <h2 className="text-2xl font-bold border-b pb-2">2×2 Grid (typical usage)</h2>
+        <h2 className="text-2xl font-bold border-b pb-2">
+          2×2 Grid (typical usage)
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {[
-            { icon: Target, title: "Top Talent Tech", desc: "Acesso direto aos talentos mais disputados pelo mercado de TI." },
-            { icon: Flame, title: "Força Dominante em Tech", desc: "A maior comunidade esportiva de tecnologia em Pernambuco." },
-            { icon: Smartphone, title: "Visibilidade Garantida", desc: "30 mil impressões no Instagram durante eventos principais." },
-            { icon: Calendar, title: "Exposição 365 Dias", desc: "Presença garantida em todo o calendário acadêmico." },
+            {
+              icon: Target,
+              title: "Top Talent Tech",
+              desc: "Acesso direto aos talentos mais disputados pelo mercado de TI.",
+            },
+            {
+              icon: Flame,
+              title: "Força Dominante em Tech",
+              desc: "A maior comunidade esportiva de tecnologia em Pernambuco.",
+            },
+            {
+              icon: Smartphone,
+              title: "Visibilidade Garantida",
+              desc: "30 mil impressões no Instagram durante eventos principais.",
+            },
+            {
+              icon: Calendar,
+              title: "Exposição 365 Dias",
+              desc: "Presença garantida em todo o calendário acadêmico.",
+            },
           ].map(({ icon: Icon, title, desc }, i) => (
             <ValuePillarCard.Root key={i}>
               <ValuePillarCard.Icon>

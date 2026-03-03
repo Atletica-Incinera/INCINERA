@@ -39,12 +39,24 @@ export const navigation: NavSection[] = [
     title: "Custom Components",
     items: [
       { name: "MemberCard", href: "/styleguide/components/member-card" },
-      { name: "ValuePillarCard", href: "/styleguide/components/value-pillar-card" },
+      {
+        name: "ValuePillarCard",
+        href: "/styleguide/components/value-pillar-card",
+      },
       { name: "StatCard", href: "/styleguide/components/stat-card" },
-      { name: "ContactLinkCard", href: "/styleguide/components/contact-link-card" },
-      { name: "SocialLinksRow", href: "/styleguide/components/social-links-row" },
+      {
+        name: "ContactLinkCard",
+        href: "/styleguide/components/contact-link-card",
+      },
+      {
+        name: "SocialLinksRow",
+        href: "/styleguide/components/social-links-row",
+      },
       { name: "AppImage", href: "/styleguide/components/app-image" },
-      { name: "SectionSeparator", href: "/styleguide/components/section-separator" },
+      {
+        name: "SectionSeparator",
+        href: "/styleguide/components/section-separator",
+      },
     ],
   },
   {

@@ -22,7 +22,6 @@ const SOCIAL_ICON: Record<AthleteSocialType, React.ReactNode> = {
   twitter: <Twitter size={22} />,
 };
 
-
 const SOCIAL_HOVER_COLOR: Record<AthleteSocialType, string> = {
   instagram:
     "hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 hover:text-white",
@@ -101,7 +100,9 @@ export const AthleteDetailModal = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={tCommon(
-                      `social.${athlete.socialLink.type === "personalWebsite" ? "website" : athlete.socialLink.type}` as Parameters<typeof tCommon>[0]
+                      `social.${athlete.socialLink.type === "personalWebsite" ? "website" : athlete.socialLink.type}` as Parameters<
+                        typeof tCommon
+                      >[0],
                     )}
                     className={`w-12 h-12 rounded-full bg-secondary flex items-center justify-center transition-all hover:scale-110 shrink-0 cursor-pointer ${SOCIAL_HOVER_COLOR[athlete.socialLink.type]}`}
                   >

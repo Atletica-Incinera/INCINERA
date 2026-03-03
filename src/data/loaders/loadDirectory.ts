@@ -191,7 +191,10 @@ function rowToMember(row: string[]): Member | null {
 
     return memberSchema.parse(raw);
   } catch (err) {
-    logger.warn({ event: "DIRECTORY_SKIP_INVALID_ROW", row, error: err }, "[loadDirectory] Skipping invalid row");
+    logger.warn(
+      { event: "DIRECTORY_SKIP_INVALID_ROW", row, error: err },
+      "[loadDirectory] Skipping invalid row",
+    );
     return null;
   }
 }
@@ -253,7 +256,10 @@ function groupIntoDirectories(members: Member[]): Directory[] {
         }),
       );
     } catch (err) {
-      logger.warn({ event: "DIRECTORY_INVALID_DIRECTORY", id, error: err }, "[loadDirectory] Invalid directory");
+      logger.warn(
+        { event: "DIRECTORY_INVALID_DIRECTORY", id, error: err },
+        "[loadDirectory] Invalid directory",
+      );
     }
   }
 
@@ -272,7 +278,10 @@ async function fetchMemberRows(): Promise<string[][]> {
     const rows = await fetchSheetRows(RANGE);
     return rows;
   } catch (err) {
-    logger.error({ event: "DIRECTORY_FETCH_FAILED", error: err }, "[loadDirectory] Sheets fetch failed");
+    logger.error(
+      { event: "DIRECTORY_FETCH_FAILED", error: err },
+      "[loadDirectory] Sheets fetch failed",
+    );
     return [];
   }
 }
@@ -284,9 +293,7 @@ export async function loadDirectories(): Promise<Directory[]> {
   if (rows.length === 0) {
     return staticDirectories as unknown as Directory[];
   }
-  const members = rows
-    .map(rowToMember)
-    .filter((m): m is Member => m !== null);
+  const members = rows.map(rowToMember).filter((m): m is Member => m !== null);
   return groupIntoDirectories(members);
 }
 
@@ -295,15 +302,16 @@ export async function loadExecutiveBoard(): Promise<ExecutiveBoard> {
   if (rows.length === 0) {
     return { president: undefined, vicePresident: undefined };
   }
-  const members = rows
-    .map(rowToMember)
-    .filter((m): m is Member => m !== null);
+  const members = rows.map(rowToMember).filter((m): m is Member => m !== null);
   const president = members.find((m) => m.role === "president");
   const vicePresident = members.find((m) => m.role === "vicePresident");
   try {
     return executiveBoardSchema.parse({ president, vicePresident });
   } catch (err) {
-    logger.error({ event: "DIRECTORY_EMPTY_BOARD", error: err }, "[loadExecutiveBoard] Falling back to empty board");
+    logger.error(
+      { event: "DIRECTORY_EMPTY_BOARD", error: err },
+      "[loadExecutiveBoard] Falling back to empty board",
+    );
     return { president: undefined, vicePresident: undefined };
   }
 }
@@ -328,9 +336,7 @@ export async function loadDirectoryData(): Promise<{
     };
   }
 
-  const members = rows
-    .map(rowToMember)
-    .filter((m): m is Member => m !== null);
+  const members = rows.map(rowToMember).filter((m): m is Member => m !== null);
 
   const directories = groupIntoDirectories(members);
   const president = members.find((m) => m.role === "president");

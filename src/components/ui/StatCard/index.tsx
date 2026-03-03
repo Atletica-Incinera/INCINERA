@@ -27,7 +27,7 @@ export const StatCard = ({
       "relative flex flex-col items-center gap-2 p-6 rounded-2xl",
       "bg-card border border-border",
       "hover:border-primary/30 transition-all duration-300",
-      className
+      className,
     )}
   >
     {/* Subtle top glow */}

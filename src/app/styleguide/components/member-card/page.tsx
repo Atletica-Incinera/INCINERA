@@ -69,8 +69,9 @@ export default function MemberCardShowcase() {
           <div className="space-y-4">
             <h4 className="font-bold">MemberCard.Root</h4>
             <p className="text-sm text-muted-foreground">
-              The wrapper that handles the hover scale (-translate-y-1), cursor-pointer, and glassmorphism
-              transitions. Applies border-primary on hover.
+              The wrapper that handles the hover scale (-translate-y-1),
+              cursor-pointer, and glassmorphism transitions. Applies
+              border-primary on hover.
             </p>
           </div>
           <div className="space-y-4">

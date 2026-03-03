@@ -8,7 +8,11 @@ import { useSettingsDropdown } from "./useSettingsDropdown";
 
 export function SettingsDropdown() {
   const t = useTranslations("Settings");
-  const { refs: { buttonRef, menuRef }, state, actions } = useSettingsDropdown();
+  const {
+    refs: { buttonRef, menuRef },
+    state,
+    actions,
+  } = useSettingsDropdown();
 
   return (
     <div className="relative inline-block text-left">
@@ -21,7 +25,10 @@ export function SettingsDropdown() {
         aria-expanded={state.isOpen}
         aria-label={t("title")}
       >
-        <Settings className="w-6 h-6 group-hover:rotate-45 transition-transform duration-500 text-foreground" strokeWidth={1.5} />
+        <Settings
+          className="w-6 h-6 group-hover:rotate-45 transition-transform duration-500 text-foreground"
+          strokeWidth={1.5}
+        />
       </button>
 
       {/* Invisible bridge for safe hover directly below the button before entering the math triangle */}

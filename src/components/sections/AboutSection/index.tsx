@@ -38,9 +38,7 @@ export const AboutSection = () => {
           {/* Text Content */}
           <div className="space-y-8">
             <div className="space-y-2">
-              <SectionTitle ref={titleRef}>
-                {t("title")}
-              </SectionTitle>
+              <SectionTitle ref={titleRef}>{t("title")}</SectionTitle>
               <SectionSubtitle ref={subtitleRef}>
                 {t("subtitle")}
               </SectionSubtitle>
@@ -63,43 +61,43 @@ export const AboutSection = () => {
             style={{ height: "450px" }}
           >
             {GALLERY_IMAGES.slice(0, 3).map((img, index) => (
-                <div
-                  key={index}
-                  ref={(el) => {
-                    imageRefs.current[index] = el;
-                  }}
+              <div
+                key={index}
+                ref={(el) => {
+                  imageRefs.current[index] = el;
+                }}
                 className="fire-frame-wrapper absolute cursor-pointer"
                 data-gallery-index={index}
-                  style={{
-                    width: "280px",
-                    height: "200px",
+                style={{
+                  width: "280px",
+                  height: "200px",
                   top: STACK_STYLES[index].top,
                   left: STACK_STYLES[index].left,
                   zIndex: STACK_STYLES[index].zIndex,
                   transform: `rotate(${STACK_STYLES[index].rotate})`,
-                    willChange: "transform",
-                  }}
+                  willChange: "transform",
+                }}
                 onClick={() => openModal(index)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={t("gallery.expandImage")}
+                role="button"
+                tabIndex={0}
+                aria-label={t("gallery.expandImage")}
                 onKeyDown={(e) => e.key === "Enter" && openModal(index)}
-                >
-                      <AppImage
-                        src={galleryImageUrl(img.src, true)}
-                        alt={t(
-                          `gallery.image${index + 1}Alt` as
-                            | "gallery.image1Alt"
-                            | "gallery.image2Alt"
-                            | "gallery.image3Alt"
-                        )}
-                        fill
-                        containerClassName="fire-frame"
-                        className="object-cover rounded-[calc(var(--radius)-2px)]"
-                        sizes="280px"
-                        loading="lazy"
-                      />
-                </div>
+              >
+                <AppImage
+                  src={galleryImageUrl(img.src, true)}
+                  alt={t(
+                    `gallery.image${index + 1}Alt` as
+                      | "gallery.image1Alt"
+                      | "gallery.image2Alt"
+                      | "gallery.image3Alt",
+                  )}
+                  fill
+                  containerClassName="fire-frame"
+                  className="object-cover rounded-[calc(var(--radius)-2px)]"
+                  sizes="280px"
+                  loading="lazy"
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -128,9 +126,7 @@ export const AboutSection = () => {
             </button>
 
             {/* Imagem Expandida */}
-            <div
-              className="relative rounded-xl overflow-hidden shadow-[0_0_40px_var(--color-primary)]"
-            >
+            <div className="relative rounded-xl overflow-hidden shadow-[0_0_40px_var(--color-primary)]">
               <AppImage
                 src={galleryImageUrl(GALLERY_IMAGES[activeIndex].src)}
                 alt={
@@ -139,7 +135,7 @@ export const AboutSection = () => {
                         `gallery.image${activeIndex + 1}Alt` as
                           | "gallery.image1Alt"
                           | "gallery.image2Alt"
-                          | "gallery.image3Alt"
+                          | "gallery.image3Alt",
                       )
                     : t("gallery.expandImage")
                 }

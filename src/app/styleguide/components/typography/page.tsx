@@ -15,9 +15,11 @@ export default function TypographyPage() {
       <section className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">SectionTitle</h2>
-          <p className="text-muted-foreground">Título principal de uma seção (padrão h2).</p>
+          <p className="text-muted-foreground">
+            Título principal de uma seção (padrão h2).
+          </p>
         </div>
-        
+
         <div className="p-8 border border-border rounded-xl bg-card space-y-8">
           <SectionTitle>DIRETORIA</SectionTitle>
         </div>
@@ -26,9 +28,11 @@ export default function TypographyPage() {
       <section className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">SectionSubtitle</h2>
-          <p className="text-muted-foreground">Subtítulo que acompanha o SectionTitle (padrão p).</p>
+          <p className="text-muted-foreground">
+            Subtítulo que acompanha o SectionTitle (padrão p).
+          </p>
         </div>
-        
+
         <div className="p-8 border border-border rounded-xl bg-card space-y-8">
           <SectionSubtitle>Quem faz acontecer</SectionSubtitle>
         </div>
@@ -37,12 +41,16 @@ export default function TypographyPage() {
       <section className="space-y-6">
         <div className="space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">Combinação</h2>
-          <p className="text-muted-foreground">Uso comum dos dois componentes em conjunto.</p>
+          <p className="text-muted-foreground">
+            Uso comum dos dois componentes em conjunto.
+          </p>
         </div>
-        
+
         <div className="p-8 border border-border rounded-xl bg-card space-y-4">
           <SectionTitle>PATROCINADORES</SectionTitle>
-          <SectionSubtitle>Empresas que acreditam no nosso potencial</SectionSubtitle>
+          <SectionSubtitle>
+            Empresas que acreditam no nosso potencial
+          </SectionSubtitle>
         </div>
       </section>
     </div>

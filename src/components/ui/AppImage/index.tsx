@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_PLACEHOLDER = "https://res.cloudinary.com/dckupej8j/image/upload/v1772278580/placeholders/default.png";
+const DEFAULT_PLACEHOLDER =
+  "https://res.cloudinary.com/dckupej8j/image/upload/v1772278580/placeholders/default.png";
 
 interface AppImageProps extends Omit<ImageProps, "src"> {
   src?: string | null;
@@ -39,14 +40,21 @@ export function AppImage({
 
   // Handle non-string or malformed src inputs defensively
   let finalSrcStr: string = DEFAULT_PLACEHOLDER;
-  
+
   try {
     if (typeof imgSrc === "string" && imgSrc.trim() !== "") {
       // Basic check for valid-looking URL or relative path
-      if (imgSrc.startsWith("/") || imgSrc.startsWith("http") || imgSrc.startsWith("blob:") || imgSrc.startsWith("data:")) {
+      if (
+        imgSrc.startsWith("/") ||
+        imgSrc.startsWith("http") ||
+        imgSrc.startsWith("blob:") ||
+        imgSrc.startsWith("data:")
+      ) {
         finalSrcStr = imgSrc;
       } else {
-        console.warn(`[AppImage] Suspicious src detected: "${imgSrc}". Falling back to placeholder.`);
+        console.warn(
+          `[AppImage] Suspicious src detected: "${imgSrc}". Falling back to placeholder.`,
+        );
       }
     } else if (typeof fallbackSrc === "string" && fallbackSrc !== "") {
       finalSrcStr = fallbackSrc;
@@ -69,7 +77,7 @@ export function AppImage({
         className={cn(
           "transition-opacity duration-300",
           hasError ? "opacity-30 grayscale blur-[2px]" : "opacity-100",
-          className
+          className,
         )}
         onError={(e) => {
           console.error(`[AppImage] Load error for: ${finalSrcStr}`, e);

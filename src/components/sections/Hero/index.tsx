@@ -9,7 +9,18 @@ import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export function Hero() {
   const t = useTranslations("Hero");
-  const { refs: { container, redOverlay, leftContent, titleSplit1, titleSplit2, rightContent, mascot }, actions } = useHero();
+  const {
+    refs: {
+      container,
+      redOverlay,
+      leftContent,
+      titleSplit1,
+      titleSplit2,
+      rightContent,
+      mascot,
+    },
+    actions,
+  } = useHero();
 
   return (
     <section
@@ -74,24 +85,23 @@ export function Hero() {
           className="relative md:absolute md:inset-0 w-full bg-gradient-to-br from-primary via-primary/80 to-primary/90 flex items-center justify-end overflow-hidden z-20 md:[clip-path:polygon(75%_0,100%_0,100%_100%,55%_100%)] lg:[clip-path:polygon(65%_0,100%_0,100%_100%,50%_100%)] opacity-0"
         >
           {/* subtle noise/gradient map */}
-          
+
           <div
-              ref={mascot}
-              className="relative w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl"
-            >
-              <Image
-                src={brandImageUrl("brand/hero-mascot")}
-                alt={t("mascotAlt")}
-                fill
-                unoptimized
-                priority
-                className="object-contain drop-shadow-2xl"
-                sizes="(max-width: 768px) 400px, (max-width: 1024px) 450px, 600px"
-              />
-            </div>
+            ref={mascot}
+            className="relative w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl"
+          >
+            <Image
+              src={brandImageUrl("brand/hero-mascot")}
+              alt={t("mascotAlt")}
+              fill
+              unoptimized
+              priority
+              className="object-contain drop-shadow-2xl"
+              sizes="(max-width: 768px) 400px, (max-width: 1024px) 450px, 600px"
+            />
+          </div>
         </div>
       </div>
-
     </section>
   );
 }

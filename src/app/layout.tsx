@@ -55,12 +55,12 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${sora.variable} font-sans antialiased transition-colors duration-200 ease-in-out`}>
+      <body
+        className={`${sora.variable} font-sans antialiased transition-colors duration-200 ease-in-out`}
+      >
         <NextIntlClientProvider messages={messages} locale={locale}>
           <ThemeProvider>
-            <MotionProvider>
-              {children}
-            </MotionProvider>
+            <MotionProvider>{children}</MotionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
         <Toaster
@@ -82,4 +82,3 @@ export default async function RootLayout({
     </html>
   );
 }
-

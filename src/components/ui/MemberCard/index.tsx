@@ -14,7 +14,7 @@ const MemberCardRoot = ({ children, className }: MemberCardRootProps) => {
     <div
       className={cn(
         "group relative flex flex-col items-center gap-4 p-6 rounded-2xl bg-card border border-border transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(var(--primary)/0.1)] cursor-pointer",
-        className
+        className,
       )}
     >
       {children}
@@ -36,7 +36,7 @@ const MemberCardAvatar = ({ src, alt, className }: MemberCardAvatarProps) => {
       fill
       containerClassName={cn(
         "relative w-32 h-32 rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary transition-colors duration-300",
-        className
+        className,
       )}
       className="object-cover"
       sizes="(max-width: 768px) 128px, 128px"
@@ -54,7 +54,7 @@ const MemberCardName = ({ children, className }: MemberCardNameProps) => {
     <h3
       className={cn(
         "text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors duration-300",
-        className
+        className,
       )}
     >
       {children}
@@ -72,7 +72,7 @@ const MemberCardRole = ({ children, className }: MemberCardRoleProps) => {
     <p
       className={cn(
         "text-sm font-medium text-muted-foreground uppercase tracking-widest",
-        className
+        className,
       )}
     >
       {children}

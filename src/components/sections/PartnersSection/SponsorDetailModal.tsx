@@ -14,7 +14,11 @@ interface SponsorDetailModalProps {
   onClose: () => void;
 }
 
-export const SponsorDetailModal = ({ partner, isOpen, onClose }: SponsorDetailModalProps) => {
+export const SponsorDetailModal = ({
+  partner,
+  isOpen,
+  onClose,
+}: SponsorDetailModalProps) => {
   const t = useTranslations("Partners");
 
   if (!partner) return null;
@@ -42,7 +46,10 @@ export const SponsorDetailModal = ({ partner, isOpen, onClose }: SponsorDetailMo
           {/* Right Column: Info */}
           <div className="flex flex-col flex-1 pb-6 md:pb-0 justify-center">
             <Modal.Header className="mb-6">
-              <h2 id="partner-name" className="text-3xl md:text-5xl font-black text-foreground mb-4 font-sora tracking-tight border-b-4 border-primary pb-2 inline-block">
+              <h2
+                id="partner-name"
+                className="text-3xl md:text-5xl font-black text-foreground mb-4 font-sora tracking-tight border-b-4 border-primary pb-2 inline-block"
+              >
                 {partner.name}
               </h2>
             </Modal.Header>
@@ -59,7 +66,10 @@ export const SponsorDetailModal = ({ partner, isOpen, onClose }: SponsorDetailMo
                   <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-3 flex items-center gap-2">
                     {t("common.linksAndSocial")}
                   </h3>
-                  <SocialLinksRow links={partner.socialLinks || {}} websiteUrl={partner.url} />
+                  <SocialLinksRow
+                    links={partner.socialLinks || {}}
+                    websiteUrl={partner.url}
+                  />
                 </div>
               )}
             </div>

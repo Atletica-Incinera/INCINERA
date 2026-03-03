@@ -34,7 +34,10 @@ export default function ComponentsDirectory() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {componentsSection?.items.map((item) => (
-              <Link key={item.href} href={item.href as React.ComponentProps<typeof Link>["href"]}>
+              <Link
+                key={item.href}
+                href={item.href as React.ComponentProps<typeof Link>["href"]}
+              >
                 <Card className="hover:border-primary/50 transition-colors cursor-pointer">
                   <CardHeader>
                     <CardTitle className="text-lg">{item.name}</CardTitle>
@@ -53,7 +56,10 @@ export default function ComponentsDirectory() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {customSection?.items.map((item) => (
-              <Link key={item.href} href={item.href as React.ComponentProps<typeof Link>["href"]}>
+              <Link
+                key={item.href}
+                href={item.href as React.ComponentProps<typeof Link>["href"]}
+              >
                 <Card className="hover:border-primary/50 transition-colors cursor-pointer border-primary/20">
                   <CardHeader>
                     <CardTitle className="text-lg">{item.name}</CardTitle>
@@ -70,7 +76,10 @@ export default function ComponentsDirectory() {
           <h2 className="text-2xl font-bold border-b pb-2">Patterns</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {patternsSection?.items.map((item) => (
-              <Link key={item.href} href={item.href as React.ComponentProps<typeof Link>["href"]}>
+              <Link
+                key={item.href}
+                href={item.href as React.ComponentProps<typeof Link>["href"]}
+              >
                 <Card className="hover:border-primary/50 transition-colors cursor-pointer">
                   <CardHeader>
                     <CardTitle className="text-lg">{item.name}</CardTitle>

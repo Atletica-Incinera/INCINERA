@@ -2,7 +2,10 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 config({ path: ".env" });
 
-import { loadDirectories, loadExecutiveBoard } from "../src/data/loaders/loadDirectory";
+import {
+  loadDirectories,
+  loadExecutiveBoard,
+} from "../src/data/loaders/loadDirectory";
 
 async function run() {
   try {

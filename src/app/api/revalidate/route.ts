@@ -23,10 +23,13 @@ export async function POST(req: NextRequest) {
   const secret = req.headers.get("x-revalidate-secret");
 
   if (!process.env.REVALIDATE_SECRET) {
-    logger.error({ event: "REVALIDATE_MISSING_SECRET" }, "[revalidate] REVALIDATE_SECRET env var is not set!");
+    logger.error(
+      { event: "REVALIDATE_MISSING_SECRET" },
+      "[revalidate] REVALIDATE_SECRET env var is not set!",
+    );
     return NextResponse.json(
       { error: "Server configuration error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -43,16 +46,19 @@ export async function POST(req: NextRequest) {
     // Also revalidate the root (redirects to locale)
     revalidatePath("/");
 
-    logger.info({ event: "REVALIDATE_SUCCESS" }, "[revalidate] Cache cleared for all routes.");
+    logger.info(
+      { event: "REVALIDATE_SUCCESS" },
+      "[revalidate] Cache cleared for all routes.",
+    );
     return NextResponse.json({
       revalidated: true,
       timestamp: new Date().toISOString(),
     });
   } catch (err) {
-    logger.error({ event: "REVALIDATE_FAILED", error: err }, "[revalidate] Failed");
-    return NextResponse.json(
-      { error: "Revalidation failed" },
-      { status: 500 }
+    logger.error(
+      { event: "REVALIDATE_FAILED", error: err },
+      "[revalidate] Failed",
     );
+    return NextResponse.json({ error: "Revalidation failed" }, { status: 500 });
   }
 }

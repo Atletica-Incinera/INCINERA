@@ -9,7 +9,9 @@ interface Point {
 
 // Function to calculate the area of a triangle given its three vertices
 function getTriangleArea(A: Point, B: Point, C: Point) {
-  return Math.abs((A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y)) / 2);
+  return Math.abs(
+    (A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y)) / 2,
+  );
 }
 
 // Function to check if a point P is inside the triangle formed by A, B, and C
@@ -78,8 +80,13 @@ export function useSafeTriangle({
         };
         const menuTopLeft = { x: menuRect.left, y: menuRect.top };
         const menuTopRight = { x: menuRect.right, y: menuRect.top };
-        
-        const inSafeTriangle = isPointInTriangle(mousePos, triggerCenter, menuTopLeft, menuTopRight);
+
+        const inSafeTriangle = isPointInTriangle(
+          mousePos,
+          triggerCenter,
+          menuTopLeft,
+          menuTopRight,
+        );
 
         if (inSafeTriangle) {
           // Keep it open

@@ -2,9 +2,7 @@ import { z } from "zod";
 
 export const createSponsorSchema = (t: (key: string) => string) =>
   z.object({
-    nomeFantasia: z
-      .string()
-      .min(1, t("validation.nomeFantasia.required")),
+    nomeFantasia: z.string().min(1, t("validation.nomeFantasia.required")),
     nomeResponsavel: z
       .string()
       .min(1, t("validation.nomeResponsavel.required"))

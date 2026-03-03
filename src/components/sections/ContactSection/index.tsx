@@ -38,14 +38,8 @@ const FieldError = ({ message, id }: FieldErrorProps) => {
    ────────────────────────────────────────────── */
 export const ContactSection = () => {
   const t = useTranslations("Contact");
-  const {
-    sectionRef,
-    formRef,
-    register,
-    errors,
-    isSubmitting,
-    handleSubmit,
-  } = useContactSection();
+  const { sectionRef, formRef, register, errors, isSubmitting, handleSubmit } =
+    useContactSection();
 
   return (
     <section
@@ -59,9 +53,7 @@ export const ContactSection = () => {
           {/* ── Left Content ── */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <SectionTitle id="contact-heading">
-                {t("title")}
-              </SectionTitle>
+              <SectionTitle id="contact-heading">{t("title")}</SectionTitle>
               <SectionSubtitle className="max-w-lg">
                 {t("subtitle")}
               </SectionSubtitle>
@@ -78,7 +70,8 @@ export const ContactSection = () => {
                 </a>
               </p>
               <p className="text-lg font-medium text-muted-foreground">
-                {t("info.location")}: <span className="text-foreground">{t("info.campus")}</span>
+                {t("info.location")}:{" "}
+                <span className="text-foreground">{t("info.campus")}</span>
               </p>
             </div>
           </div>

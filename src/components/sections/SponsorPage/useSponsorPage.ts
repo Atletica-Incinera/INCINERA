@@ -17,8 +17,8 @@ export const useSponsorPage = () => {
   const t = useTranslations("Sponsor");
   const locale = useLocale();
 
-  const schema = createSponsorSchema(
-    (key) => t(key as Parameters<typeof t>[0])
+  const schema = createSponsorSchema((key) =>
+    t(key as Parameters<typeof t>[0]),
   );
 
   const {
@@ -50,7 +50,7 @@ export const useSponsorPage = () => {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-          }
+          },
         );
       }
 
@@ -69,7 +69,7 @@ export const useSponsorPage = () => {
               trigger: pillarsRef.current,
               start: "top 80%",
             },
-          }
+          },
         );
       }
 
@@ -110,7 +110,7 @@ export const useSponsorPage = () => {
               trigger: formRef.current,
               start: "top 80%",
             },
-          }
+          },
         );
       }
     });

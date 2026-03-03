@@ -18,7 +18,9 @@ export const useContactSection = () => {
   const locale = useLocale();
 
   // Build the Zod schema with i18n messages
-  const schema = createContactSchema((key) => t(key as Parameters<typeof t>[0]));
+  const schema = createContactSchema((key) =>
+    t(key as Parameters<typeof t>[0]),
+  );
 
   const {
     register,
@@ -46,7 +48,7 @@ export const useContactSection = () => {
             trigger: formRef.current,
             start: "top 80%",
           },
-        }
+        },
       );
     }, sectionRef);
 

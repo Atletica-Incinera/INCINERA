@@ -20,10 +20,26 @@ export interface Pillar {
 }
 
 export const pillars: Pillar[] = [
-  { icon: Target, titleKey: "pillars.talent.title", descKey: "pillars.talent.desc" },
-  { icon: Flame, titleKey: "pillars.regional.title", descKey: "pillars.regional.desc" },
-  { icon: Smartphone, titleKey: "pillars.reach.title", descKey: "pillars.reach.desc" },
-  { icon: Calendar, titleKey: "pillars.presence.title", descKey: "pillars.presence.desc" },
+  {
+    icon: Target,
+    titleKey: "pillars.talent.title",
+    descKey: "pillars.talent.desc",
+  },
+  {
+    icon: Flame,
+    titleKey: "pillars.regional.title",
+    descKey: "pillars.regional.desc",
+  },
+  {
+    icon: Smartphone,
+    titleKey: "pillars.reach.title",
+    descKey: "pillars.reach.desc",
+  },
+  {
+    icon: Calendar,
+    titleKey: "pillars.presence.title",
+    descKey: "pillars.presence.desc",
+  },
 ];
 
 /** Cards de estatísticas */

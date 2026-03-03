@@ -56,8 +56,8 @@ export default function StyleguideIndex() {
           Princípios de Design
         </h3>
         <p className="text-muted-foreground italic">
-          &quot;A chama que não se apaga: agressividade esportiva aliada à excelência
-          técnica do CIn.&quot;
+          &quot;A chama que não se apaga: agressividade esportiva aliada à
+          excelência técnica do CIn.&quot;
         </p>
       </div>
     </div>
