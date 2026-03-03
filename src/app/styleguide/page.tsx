@@ -1,6 +1,7 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Box, Palette, Type } from "lucide-react";
 

@@ -4,9 +4,10 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { loadTeams } from "@/data/loaders/loadTeams";
 import { ArrowLeft } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import Link from "next/link";
 import type { Metadata } from "next";
 
+// Revalida os dados do Google Sheets a cada 1h
 export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {

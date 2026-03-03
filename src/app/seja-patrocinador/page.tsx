@@ -2,15 +2,14 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SponsorPage } from "@/components/sections/SponsorPage";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Sponsor" });
-  const tMeta = await getTranslations({ locale, namespace: "Metadata" });
+// Página estática — sem dados dinâmicos do servidor; revalida metadata 1x/hora
+export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Sponsor");
+  const tMeta = await getTranslations("Metadata");
 
   return {
     title: `${t("meta.title")}${tMeta("titleSuffix")}`,
