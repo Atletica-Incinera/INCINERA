@@ -1,0 +1,39 @@
+name: CD Deploy to VM
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Permite rodar o deploy manualmente na aba Actions do GitHub
+
+jobs:
+  deploy:
+    name: Deploy to CIn Helpdesk VM
+    runs-on: ubuntu-latest
+    
+    # Executa apenas se o CI (Lint/Build/Types) passar e for na branch main
+    # Se você quiser rodar independente, remova ou comente a linha abaixo (necessário o job build-and-test em outro arquivo ou no mesmo para funcionar)
+    # needs: [build-and-test] 
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: ${{ secrets.VM_PORT || 22 }}
+          script: |
+            cd /caminho/do/projeto/na/vm
+            
+            # Puxa o código mais recente
+            git fetch --all
+            git reset --hard origin/main
+            
+            # Reconstrói os containers e levanta novamente em background
+            # Usamos --build para garantir que a nova versão do Next.js seja gerada
+            docker-compose up -d --build
+            
+            # Limpa imagens antigas do Docker penduradas para economizar espaço em disco na VM
+            docker image prune -f
