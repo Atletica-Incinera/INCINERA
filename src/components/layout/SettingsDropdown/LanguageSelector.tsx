@@ -1,20 +1,21 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter, usePathname } from "@/i18n/routing";
+import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import { useTransition } from "react";
+import { setUserLocale } from "@/lib/actions/locale";
 
 export function LanguageSelector() {
   const t = useTranslations("Settings");
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
   const handleLanguageChange = (nextLocale: string) => {
-    startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
+    startTransition(async () => {
+      await setUserLocale(nextLocale as "pt" | "en");
+      router.refresh();
     });
   };
 
@@ -52,3 +53,4 @@ export function LanguageSelector() {
     </div>
   );
 }
+

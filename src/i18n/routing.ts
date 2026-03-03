@@ -1,10 +1,9 @@
-import { defineRouting } from "next-intl/routing";
-import { createNavigation } from "next-intl/navigation";
+// Re-exports for backward compatibility — locale is now handled via cookies,
+// so we no longer need next-intl routing. All navigation uses Next.js directly.
+export { default as Link } from "next/link";
+export { useRouter, usePathname, redirect } from "next/navigation";
 
-export const routing = defineRouting({
-  locales: ["pt", "en"],
-  defaultLocale: "pt",
-});
+// Kept for any static references (e.g., generateStaticParams in legacy pages)
+export const locales = ["pt", "en"] as const;
+export const defaultLocale = "pt" as const;
 
-export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createNavigation(routing);
