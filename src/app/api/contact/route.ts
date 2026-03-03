@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { logger } from "@/lib/logger";
 import { getTranslations } from "next-intl/server";
 import { buildEmailTemplate } from "@/lib/emailTemplate";
 
@@ -53,16 +54,17 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("[Resend] Error sending email:", error);
+      logger.error({ error, event: "CONTACT_EMAIL_SEND_FAILED", to: DESTINATION_EMAIL }, "[Resend] Error sending email");
       return NextResponse.json(
         { error: "Failed to send email." },
         { status: 500 }
       );
     }
 
+    logger.info({ event: "CONTACT_EMAIL_SENT_SUCCESS", from: email });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    console.error("[Contact API] Unexpected error:", err);
+    logger.error({ error: err, event: "CONTACT_API_UNEXPECTED_ERROR" }, "[Contact API] Unexpected error");
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

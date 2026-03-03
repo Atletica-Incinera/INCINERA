@@ -2,9 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import Link from "next/link";
+
 import { AppImage } from "@/components/ui/AppImage";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { SettingsDropdown } from "../SettingsDropdown";
 import { useNavbar } from "./useNavbar";
 import { brandImageUrl } from "@/data/utils/cloudinary";
@@ -47,11 +48,14 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           {state.navLinks.map((link) => {
             const isActive = state.activeSection === link.key;
-            
+            // Pré-busca /equipes ao entrar no viewport para navegação instantânea
+            const shouldPrefetch = link.href === "/equipes" || link.href === "/seja-patrocinador";
+
             return (
               <Link
                 key={link.key}
                 href={link.href}
+                prefetch={shouldPrefetch}
                 onClick={(e) => actions.handleNavClick(e, link.href)}
                 className="group relative py-2 font-medium text-sm transition-colors"
               >
@@ -63,7 +67,7 @@ export function Navbar() {
 
                 {/* Active indicator (animates between tabs) */}
                 {isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="navbar-active-indicator"
                     className="absolute bottom-0 left-0 w-full h-[2px] bg-primary pointer-events-none"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}

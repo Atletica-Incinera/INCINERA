@@ -54,6 +54,7 @@ import {
 } from "../schemas/team.schema";
 import { COURSES } from "../schemas/member.schema";
 import { teams as staticTeams } from "../teams";
+import { logger } from "@/lib/logger";
 
 const RANGE = "'Respostas ao formulário 1'!A2:Z";
 
@@ -180,11 +181,7 @@ function rowToAthlete(row: string[]): Athlete | null {
     const photo = parsePhoto(cell(row, 21)); // col 21 (V) = "Coluna 22"
 
     if (sports.length === 0 || !category) {
-      console.warn("[loadTeams] Skipping row — missing sport or category:", {
-        name,
-        sports,
-        category,
-      });
+      logger.warn({ event: "TEAMS_SKIP_MISSING_SPORT_CATEGORY", name, sports, category }, "[loadTeams] Skipping row — missing sport or category");
       return null;
     }
 
@@ -197,11 +194,7 @@ function rowToAthlete(row: string[]): Athlete | null {
       .filter((k): k is TeamKey => k !== null);
 
     if (teamKeys.length === 0) {
-      console.warn("[loadTeams] No valid teamKeys for row:", {
-        name,
-        sports,
-        category,
-      });
+      logger.warn({ event: "TEAMS_SKIP_NO_VALID_TEAMKEYS", name, sports, category }, "[loadTeams] No valid teamKeys for row");
       return null;
     }
 
@@ -224,7 +217,7 @@ function rowToAthlete(row: string[]): Athlete | null {
       emailCin: emailCin || undefined,
     });
   } catch (err) {
-    console.warn("[loadTeams] Skipping invalid row:", row, err);
+    logger.warn({ event: "TEAMS_SKIP_INVALID_ROW", row, error: err }, "[loadTeams] Skipping invalid row");
     return null;
   }
 }
@@ -253,7 +246,7 @@ function groupIntoTeams(athletes: Athlete[]): Team[] {
     try {
       teams.push(teamSchema.parse({ key, athletes: teamAthletes }));
     } catch (err) {
-      console.warn(`[loadTeams] Invalid team "${key}":`, err);
+      logger.warn({ event: "TEAMS_INVALID_TEAM", key, error: err }, "[loadTeams] Invalid team");
     }
   }
   return teams;
@@ -265,9 +258,7 @@ export async function loadTeams(): Promise<Team[]> {
   const spreadsheetId = process.env.GOOGLE_SHEETS_ATHLETS_ID;
 
   if (!spreadsheetId) {
-    console.warn(
-      "[loadTeams] GOOGLE_SHEETS_ATHLETS_ID not set — using static fallback.",
-    );
+    logger.warn({ event: "TEAMS_MISSING_ID" }, "[loadTeams] GOOGLE_SHEETS_ATHLETS_ID not set — using static fallback.");
     return staticTeams as unknown as Team[];
   }
 
@@ -284,10 +275,7 @@ export async function loadTeams(): Promise<Team[]> {
 
     return groupIntoTeams(athletes);
   } catch (err) {
-    console.error(
-      "[loadTeams] Sheets fetch failed — using static fallback:",
-      err,
-    );
+    logger.error({ event: "TEAMS_FETCH_FAILED", error: err }, "[loadTeams] Sheets fetch failed — using static fallback");
     return staticTeams as unknown as Team[];
   }
 }

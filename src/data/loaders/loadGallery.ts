@@ -12,6 +12,7 @@
 import { fetchSheetRows, cell } from "./sheets.client";
 import { galleryImageSchema, stackStyleSchema } from "../schemas/gallery.schema";
 import type { GalleryImage, StackStyle } from "../types";
+import { logger } from "@/lib/logger";
 
 // Static fallback
 import { GALLERY_IMAGES as staticGallery, STACK_STYLES as staticStackStyles } from "../about";
@@ -34,7 +35,7 @@ export async function loadGallery(): Promise<GalleryImage[]> {
     const rows = await fetchSheetRows(RANGE);
 
     if (rows.length === 0) {
-      console.info("[loadGallery] No rows from Sheets, using static data.");
+      logger.info({ event: "GALLERY_NO_ROWS" }, "[loadGallery] No rows from Sheets, using static data.");
       return staticGallery.map(img => galleryImageSchema.parse(img));
     }
 
@@ -50,7 +51,7 @@ export async function loadGallery(): Promise<GalleryImage[]> {
       })
       .filter((img): img is GalleryImage => img !== null);
   } catch (err) {
-    console.error("[loadGallery] Sheets fetch failed, using static fallback:", err);
+    logger.error({ event: "GALLERY_FETCH_FAILED", error: err }, "[loadGallery] Sheets fetch failed, using static fallback");
     return staticGallery.map(img => galleryImageSchema.parse(img));
   }
 }

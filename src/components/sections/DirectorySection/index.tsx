@@ -8,7 +8,7 @@ import { MemberCard } from "@/components/ui/MemberCard";
 import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { memberPhotoUrl } from "@/data/utils/cloudinary";
-import type { Directory, ExecutiveBoard } from "@/data/types";
+import type { Directory, ExecutiveBoard, Member } from "@/data/types";
 
 interface DirectorySectionProps {
   directories: Directory[];
@@ -21,6 +21,13 @@ export const DirectorySection = ({
 }: DirectorySectionProps) => {
   const t = useTranslations("Directory");
   const { refs, state, actions } = useDirectorySection();
+
+  // Issue #3 — unifica presidente e vice em array para evitar JSX duplicado.
+  // filter(Boolean) remove entradas undefined/null e o cast garante tipagem estrita.
+  const boardLeaders = [
+    executiveBoard.president,
+    executiveBoard.vicePresident,
+  ].filter(Boolean) as Member[];
 
   return (
     <section
@@ -40,67 +47,30 @@ export const DirectorySection = ({
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start auto-rows-min"
             ref={refs.cardsRef}
           >
-            {/* President */}
-            {executiveBoard.president && (
-              <div className="col-span-1 h-full">
+            {/* Executive Board (President & Vice-President) */}
+            {boardLeaders.map((member) => (
+              <div key={member.id} className="col-span-1 h-full">
                 <button
-                  onClick={() =>
-                    actions.handleMemberClick(executiveBoard.president!)
-                  }
+                  onClick={() => actions.handleMemberClick(member)}
                   className="w-full text-left h-full"
-                  aria-label={t("common.viewDetails", {
-                    name: executiveBoard.president!.name,
-                  })}
+                  aria-label={t("common.viewDetails", { name: member.name })}
                 >
                   <MemberCard.Root className="h-full">
                     <MemberCard.Avatar
-                      src={memberPhotoUrl(executiveBoard.president!.photo)}
-                      alt={executiveBoard.president!.name}
+                      src={memberPhotoUrl(member.photo)}
+                      alt={member.name}
                       className="w-32 h-32"
                     />
                     <div className="text-center space-y-1">
-                      <MemberCard.Name>
-                        {executiveBoard.president!.name}
-                      </MemberCard.Name>
+                      <MemberCard.Name>{member.name}</MemberCard.Name>
                       <MemberCard.Role>
-                        {t(`roles.${executiveBoard.president!.role}`)}
+                        {t(`roles.${member.role}`)}
                       </MemberCard.Role>
                     </div>
                   </MemberCard.Root>
                 </button>
               </div>
-            )}
-
-            {/* Vice President */}
-            {executiveBoard.vicePresident && (
-              <div className="col-span-1 h-full">
-                <button
-                  onClick={() =>
-                    actions.handleMemberClick(executiveBoard.vicePresident!)
-                  }
-                  className="w-full text-left h-full"
-                  aria-label={t("common.viewDetails", {
-                    name: executiveBoard.vicePresident!.name,
-                  })}
-                >
-                  <MemberCard.Root className="h-full">
-                    <MemberCard.Avatar
-                      src={memberPhotoUrl(executiveBoard.vicePresident!.photo)}
-                      alt={executiveBoard.vicePresident!.name}
-                      className="w-32 h-32"
-                    />
-                    <div className="text-center space-y-1">
-                      <MemberCard.Name>
-                        {executiveBoard.vicePresident!.name}
-                      </MemberCard.Name>
-                      <MemberCard.Role>
-                        {t(`roles.${executiveBoard.vicePresident!.role}`)}
-                      </MemberCard.Role>
-                    </div>
-                  </MemberCard.Root>
-                </button>
-              </div>
-            )}
+            ))}
 
             {/* Directories Grid */}
             {directories.map((directory) => {

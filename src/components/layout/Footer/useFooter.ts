@@ -1,13 +1,22 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 
+/**
+ * Hook para lógica do Footer.
+ *
+ * Atualmente expõe apenas `footerRef` para uso no componente.
+ * Adicione aqui animações GSAP, observadores de scroll ou qualquer
+ * efeito colateral relacionado ao Footer quando necessário.
+ *
+ * @example
+ * const { footerRef } = useFooter();
+ * return <footer ref={footerRef}>...</footer>;
+ */
 export const useFooter = () => {
   const footerRef = useRef<HTMLElement>(null);
 
-  useLayoutEffect(() => {
-    // Subtle animations for footer if needed
-  }, []);
+  // Adicione useLayoutEffect com GSAP ou outros efeitos aqui quando necessário.
 
   return {
     footerRef,

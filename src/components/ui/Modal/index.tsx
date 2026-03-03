@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from "react";
 import { X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useModal } from "./useModal";
@@ -52,7 +52,7 @@ interface ModalOverlayProps {
 function ModalOverlay({ className }: ModalOverlayProps) {
   const { onClose } = useModalContext();
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -72,7 +72,7 @@ interface ModalContentProps {
 function ModalContent({ children, className, ...props }: ModalContentProps) {
   const { modalRef } = useModalContext();
   return (
-    <motion.div
+    <m.div
       ref={modalRef as any}
       tabIndex={-1}
       role="dialog"
@@ -88,7 +88,7 @@ function ModalContent({ children, className, ...props }: ModalContentProps) {
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -3,7 +3,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { useMapSection } from "./useMapSection";
-import { MapPin } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 
 export const MapSection = () => {
@@ -54,9 +54,10 @@ export const MapSection = () => {
               href="https://maps.app.goo.gl/FJKGc7AsxS13Y9bv8"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-primary font-bold hover:underline"
+              className="inline-flex items-center gap-1.5 text-primary font-bold hover:underline"
             >
-              {t("viewOnGoogleMaps")} →
+              {t("viewOnGoogleMaps")}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>

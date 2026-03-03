@@ -54,6 +54,7 @@ import type {
   ExecutiveBoard,
 } from "../schemas/member.schema";
 import { directoriesData as staticDirectories } from "../directory";
+import { logger } from "@/lib/logger";
 
 const RANGE = "'Respostas ao formulário 1'!A2:Z";
 
@@ -190,7 +191,7 @@ function rowToMember(row: string[]): Member | null {
 
     return memberSchema.parse(raw);
   } catch (err) {
-    console.warn("[loadDirectory] Skipping invalid row:", row, err);
+    logger.warn({ event: "DIRECTORY_SKIP_INVALID_ROW", row, error: err }, "[loadDirectory] Skipping invalid row");
     return null;
   }
 }
@@ -252,49 +253,95 @@ function groupIntoDirectories(members: Member[]): Directory[] {
         }),
       );
     } catch (err) {
-      console.warn(`[loadDirectory] Invalid directory "${id}":`, err);
+      logger.warn({ event: "DIRECTORY_INVALID_DIRECTORY", id, error: err }, "[loadDirectory] Invalid directory");
     }
   }
 
   return directories;
 }
 
-// ─── Public API ──────────────────────────────────────────────────────────────
+// ─── Shared rows fetcher (cached per-request) ─────────────────────────────────
 
-export async function loadDirectories(): Promise<Directory[]> {
+/**
+ * Fetches all member rows from Google Sheets once per request.
+ * Both loadDirectories and loadExecutiveBoard reuse this result,
+ * eliminating the duplicate API call that was causing double latency.
+ */
+async function fetchMemberRows(): Promise<string[][]> {
   try {
     const rows = await fetchSheetRows(RANGE);
-    if (rows.length === 0) {
-      return staticDirectories as unknown as Directory[];
-    }
-    const members = rows
-      .map(rowToMember)
-      .filter((m): m is Member => m !== null);
-    return groupIntoDirectories(members);
+    return rows;
   } catch (err) {
-    console.error(
-      "[loadDirectory] Sheets fetch failed, using static fallback:",
-      err,
-    );
-    return staticDirectories as unknown as Directory[];
+    logger.error({ event: "DIRECTORY_FETCH_FAILED", error: err }, "[loadDirectory] Sheets fetch failed");
+    return [];
   }
 }
 
+// ─── Public API ──────────────────────────────────────────────────────────────
+
+export async function loadDirectories(): Promise<Directory[]> {
+  const rows = await fetchMemberRows();
+  if (rows.length === 0) {
+    return staticDirectories as unknown as Directory[];
+  }
+  const members = rows
+    .map(rowToMember)
+    .filter((m): m is Member => m !== null);
+  return groupIntoDirectories(members);
+}
+
 export async function loadExecutiveBoard(): Promise<ExecutiveBoard> {
-  try {
-    const rows = await fetchSheetRows(RANGE);
-    if (rows.length === 0)
-      return { president: undefined, vicePresident: undefined };
-
-    const members = rows
-      .map(rowToMember)
-      .filter((m): m is Member => m !== null);
-    const president = members.find((m) => m.role === "president");
-    const vicePresident = members.find((m) => m.role === "vicePresident");
-
-    return executiveBoardSchema.parse({ president, vicePresident });
-  } catch (err) {
-    console.error("[loadExecutiveBoard] Falling back to empty board:", err);
+  const rows = await fetchMemberRows();
+  if (rows.length === 0) {
     return { president: undefined, vicePresident: undefined };
   }
+  const members = rows
+    .map(rowToMember)
+    .filter((m): m is Member => m !== null);
+  const president = members.find((m) => m.role === "president");
+  const vicePresident = members.find((m) => m.role === "vicePresident");
+  try {
+    return executiveBoardSchema.parse({ president, vicePresident });
+  } catch (err) {
+    logger.error({ event: "DIRECTORY_EMPTY_BOARD", error: err }, "[loadExecutiveBoard] Falling back to empty board");
+    return { president: undefined, vicePresident: undefined };
+  }
+}
+
+/**
+ * Carrega diretórios e board executivo em uma única request ao Google Sheets.
+ * Use esta função na homepage para evitar chamadas duplicadas ao Sheets.
+ *
+ * @example
+ * const { directories, executiveBoard } = await loadDirectoryData();
+ */
+export async function loadDirectoryData(): Promise<{
+  directories: Directory[];
+  executiveBoard: ExecutiveBoard;
+}> {
+  const rows = await fetchMemberRows();
+
+  if (rows.length === 0) {
+    return {
+      directories: staticDirectories as unknown as Directory[],
+      executiveBoard: { president: undefined, vicePresident: undefined },
+    };
+  }
+
+  const members = rows
+    .map(rowToMember)
+    .filter((m): m is Member => m !== null);
+
+  const directories = groupIntoDirectories(members);
+  const president = members.find((m) => m.role === "president");
+  const vicePresident = members.find((m) => m.role === "vicePresident");
+
+  let executiveBoard: ExecutiveBoard;
+  try {
+    executiveBoard = executiveBoardSchema.parse({ president, vicePresident });
+  } catch {
+    executiveBoard = { president: undefined, vicePresident: undefined };
+  }
+
+  return { directories, executiveBoard };
 }

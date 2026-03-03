@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { logger } from "@/lib/logger";
 import { getTranslations } from "next-intl/server";
 import { buildSponsorEmailTemplate } from "@/lib/sponsorEmailTemplate";
 
@@ -60,16 +61,17 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("[Resend] Error sending sponsorship email:", error);
+      logger.error({ error, event: "SPONSORSHIP_EMAIL_SEND_FAILED", company: nomeFantasia }, "[Resend] Error sending sponsorship email");
       return NextResponse.json(
         { error: "Falha ao enviar email." },
         { status: 500 }
       );
     }
 
+    logger.info({ event: "SPONSORSHIP_EMAIL_SENT_SUCCESS", company: nomeFantasia, email });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    console.error("[Sponsorship API] Unexpected error:", err);
+    logger.error({ error: err, event: "SPONSORSHIP_API_UNEXPECTED_ERROR" }, "[Sponsorship API] Unexpected error");
     return NextResponse.json(
       { error: "Erro interno do servidor." },
       { status: 500 }

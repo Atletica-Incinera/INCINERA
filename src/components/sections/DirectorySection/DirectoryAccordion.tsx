@@ -1,47 +1,13 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import type { Directory, Member } from "@/data/types";
 import { cn } from "@/lib/utils";
 import { AppImage } from "@/components/ui/AppImage";
 import { useTranslations } from "next-intl";
-import { memberPhotoUrl, directoryImageUrl } from "@/data/utils/cloudinary";
-
-interface MemberMiniCardProps {
-  member: Member;
-  onClick: (member: Member) => void;
-}
-
-const MemberMiniCard = ({ member, onClick }: MemberMiniCardProps) => {
-  const t = useTranslations("Directory");
-  return (
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick(member);
-      }}
-      aria-label={t("common.viewDetails", { name: member.name })}
-      aria-haspopup="dialog"
-      className="flex flex-col items-center justify-center p-4 rounded-xl bg-white dark:bg-zinc-800/50 border border-border transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/10 hover:border-primary/30 w-full text-center group cursor-pointer"
-    >
-      <AppImage
-        src={memberPhotoUrl(member.photo)}
-        alt={member.name}
-        fill
-        className="object-cover"
-        sizes="64px"
-        containerClassName="relative w-16 h-16 rounded-full overflow-hidden mb-3 border-2 border-transparent group-hover:border-primary transition-colors"
-      />
-      <span className="font-semibold text-foreground text-sm leading-tight mb-1">
-        {member.name}
-      </span>
-      <span className="text-xs text-muted-foreground font-medium">
-        {t(`roles.${member.role}`)}
-      </span>
-    </button>
-  );
-};
+import { directoryImageUrl } from "@/data/utils/cloudinary";
+import { MemberMiniCard } from "./MemberMiniCard";
 
 interface DirectoryAccordionProps {
   directory: Directory;
@@ -60,14 +26,6 @@ export const DirectoryAccordion = ({
 }: DirectoryAccordionProps) => {
   const t = useTranslations("Directory");
   const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isExpanded && contentRef.current) {
-      setTimeout(() => {
-        contentRef.current?.focus();
-      }, 100);
-    }
-  }, [isExpanded]);
 
   return (
     <div
@@ -118,13 +76,16 @@ export const DirectoryAccordion = ({
 
       <AnimatePresence initial={false}>
         {isExpanded && (
-          <motion.div
+          <m.div
             id={`directory-content-${directory.id}`}
             ref={contentRef}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+            onAnimationComplete={() => {
+              if (isExpanded) contentRef.current?.focus();
+            }}
             tabIndex={-1}
             className="w-full"
           >
@@ -164,7 +125,7 @@ export const DirectoryAccordion = ({
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

@@ -11,6 +11,7 @@
  */
 
 import { google, sheets_v4 } from "googleapis";
+import { logger } from "@/lib/logger";
 
 let _sheetsClient: sheets_v4.Sheets | null = null;
 
@@ -55,9 +56,7 @@ export async function fetchSheetRows(
   const id = spreadsheetId ?? process.env.GOOGLE_SHEETS_ID;
 
   if (!id) {
-    console.warn(
-      `[Sheets] No spreadsheetId provided and GOOGLE_SHEETS_ID not set. Returning empty rows for range: ${range}`,
-    );
+    logger.warn({ event: "SHEETS_MISSING_ID", range }, "[Sheets] No spreadsheetId provided and GOOGLE_SHEETS_ID not set. Returning empty rows.");
     return [];
   }
 

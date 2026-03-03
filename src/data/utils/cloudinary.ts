@@ -16,7 +16,7 @@ const PRESETS = {
   /** Large member photo for modal: wider, still face-aware */
   memberPhotoLarge: "w_800,h_800,c_fill,g_face,f_auto,q_auto",
   /** Athlete card photo */
-  athletePhoto: "w_300,h_300,c_fill,g_face,f_auto,q_auto",
+  athletePhoto: "f_auto,q_auto",
   /** Partner/sponsor logo: contained, transparent bg preserved */
   partnerLogo: "w_300,h_200,c_pad,f_auto,q_auto",
   /** Directory section image (header/banner style) */
@@ -25,6 +25,8 @@ const PRESETS = {
   gallery: "w_1200,f_auto,q_auto",
   /** Thumbnail for gallery */
   galleryThumb: "w_400,h_400,c_fill,f_auto,q_auto",
+  /** Brand assets (logos, mascots): auto format and quality, no dimension constraint */
+  brand: "f_auto,q_auto",
 } as const;
 
 function buildUrl(publicId: string, preset: string): string {
@@ -95,7 +97,7 @@ export function galleryImageUrl(publicId: string, thumb = false): string {
  * @param publicId Cloudinary public ID, e.g. "brand/hero-mascot"
  */
 export function brandImageUrl(publicId: string): string {
-  return buildUrl(publicId, "f_auto,q_auto");
+  return buildUrl(publicId, PRESETS.brand);
 }
 
 /**

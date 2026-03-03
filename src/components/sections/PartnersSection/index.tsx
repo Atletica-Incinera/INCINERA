@@ -3,7 +3,8 @@
 import React from "react";
 import { AppImage } from "@/components/ui/AppImage";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import Link from "next/link";
+
 import { usePartnersSection } from "./usePartnersSection";
 import { sponsors, partners } from "@/data/partners";
 import { ArrowRight } from "lucide-react";

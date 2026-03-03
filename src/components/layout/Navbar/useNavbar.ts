@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { usePathname } from "@/i18n/routing";
+import { usePathname } from "next/navigation";
+
 
 export function useNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
