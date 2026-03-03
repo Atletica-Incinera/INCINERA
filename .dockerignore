@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.env*.local
+.vercel
+.next
+.swc
+.agents
+.gemini
+README.md
+PRD.md
+TODO_I18N.md
+skills-lock.json
+implementation_plan.md.resolved

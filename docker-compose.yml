@@ -1,0 +1,39 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: incinera-nginx
+    restart: always
+    ports:
+      - "80:80"
+      # - "443:443" # Descomente quando configurar SSL/HTTPS
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - incinera-web
+
+  incinera-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: incinera-web
+    restart: always # O container reinicia automaticamente se falhar ou a VM reiniciar
+    expose:
+      - "3000" # Expose deixa a porta visível apenas na rede do Docker (para o Nginx), não para a máquina host
+    environment:
+      # Defina as variáveis de ambiente necessárias aqui ou referencie um arquivo .env
+      - NODE_ENV=production
+      # As variáveis abaixo podem ser passadas por um arquivo .env no servidor
+      # - RESEND_API_KEY=${RESEND_API_KEY}
+      # - GOOGLE_SERVICE_ACCOUNT_EMAIL=${GOOGLE_SERVICE_ACCOUNT_EMAIL}
+      # - GOOGLE_SERVICE_ACCOUNT_KEY=${GOOGLE_SERVICE_ACCOUNT_KEY}
+      # - GOOGLE_SHEETS_ID=${GOOGLE_SHEETS_ID}
+      # - GOOGLE_SHEETS_ATHLETS_ID=${GOOGLE_SHEETS_ATHLETS_ID}
+      # - REVALIDATE_SECRET=${REVALIDATE_SECRET}
+    env_file:
+      - .env # Use isso se for criar um arquivo .env na VM
+    # (Opcional) Limites de recursos para não estourar a VM do CIn
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
