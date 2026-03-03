@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Plus, Trash2 } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 
 export default function ButtonShowcase() {
   return (

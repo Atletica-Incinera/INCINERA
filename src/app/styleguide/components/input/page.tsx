@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, Mail, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 
 export default function InputShowcase() {
   return (

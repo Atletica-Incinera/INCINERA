@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -22,15 +22,13 @@ export function AppImage({
 }: AppImageProps) {
   const [imgSrc, setImgSrc] = useState<string>(src || fallbackSrc);
   const [hasError, setHasError] = useState(false);
+  const [prevSrc, setPrevSrc] = useState(src);
 
-  useEffect(() => {
-    if (!src) {
-      setImgSrc(fallbackSrc);
-    } else {
-      setImgSrc(src);
-      setHasError(false);
-    }
-  }, [src, fallbackSrc]);
+  if (src !== prevSrc) {
+    setPrevSrc(src);
+    setImgSrc(src || fallbackSrc);
+    setHasError(false);
+  }
 
   const handleError = () => {
     if (!hasError) {

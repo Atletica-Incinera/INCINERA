@@ -53,6 +53,7 @@ export function useNavbar() {
 
   useEffect(() => {
     if (pathname === "/equipes") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveSection("teams");
     } else if (pathname === "/") {
       window.dispatchEvent(new Event("scroll"));

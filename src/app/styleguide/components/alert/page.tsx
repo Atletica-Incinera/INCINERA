@@ -1,7 +1,7 @@
 "use client";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Info, AlertCircle } from "lucide-react";
 
 export default function AlertShowcase() {
   return (

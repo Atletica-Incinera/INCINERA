@@ -1,7 +1,6 @@
 "use client";
 
 import { MemberCard } from "@/components/ui/MemberCard";
-import { Info } from "lucide-react";
 
 export default function MemberCardShowcase() {
   return (

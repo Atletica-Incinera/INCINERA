@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       to: [DESTINATION_EMAIL],
       replyTo: email,
       subject: t("contact.subject", { subject }),
-      html: buildEmailTemplate({ name, email, subject, message }, (key, props) => t(key as any, props)),
+      html: buildEmailTemplate({ name, email, subject, message }, (key, props) => t(key as Parameters<typeof t>[0], props)),
     });
 
     if (error) {

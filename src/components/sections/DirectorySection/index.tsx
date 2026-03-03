@@ -20,7 +20,7 @@ export const DirectorySection = ({
   executiveBoard,
 }: DirectorySectionProps) => {
   const t = useTranslations("Directory");
-  const { refs, state, actions } = useDirectorySection();
+  const { refs: { sectionRef, titleRef, cardsRef }, state, actions } = useDirectorySection();
 
   // Issue #3 — unifica presidente e vice em array para evitar JSX duplicado.
   // filter(Boolean) remove entradas undefined/null e o cast garante tipagem estrita.
@@ -32,11 +32,11 @@ export const DirectorySection = ({
   return (
     <section
       id="directory"
-      ref={refs.sectionRef}
+      ref={sectionRef}
       className="relative w-full py-24 lg:py-40 bg-background"
     >
       <div className="container mx-auto px-6 md:px-12">
-        <div ref={refs.titleRef} className="text-center mb-20 space-y-4">
+        <div ref={titleRef} className="text-center mb-20 space-y-4">
           <SectionTitle>{t("title")}</SectionTitle>
           <SectionSubtitle>{t("subtitle")}</SectionSubtitle>
         </div>
@@ -45,7 +45,7 @@ export const DirectorySection = ({
           {/* Unified Grid */}
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start auto-rows-min"
-            ref={refs.cardsRef}
+            ref={cardsRef}
           >
             {/* Executive Board (President & Vice-President) */}
             {boardLeaders.map((member) => (

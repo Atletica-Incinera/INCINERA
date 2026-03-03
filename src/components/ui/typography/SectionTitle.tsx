@@ -20,7 +20,7 @@ export const SectionTitle = forwardRef<HTMLElement, SectionTitleProps>(
   ({ children, className, as: Tag = "h2", ...props }, ref) => {
     return (
       <Tag
-        ref={ref as any}
+        ref={ref as React.Ref<HTMLElement>}
         className={cn(
           "text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground",
           className

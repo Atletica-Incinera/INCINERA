@@ -14,12 +14,12 @@ import { partnerLogoUrl } from "@/data/utils/cloudinary";
 
 export const PartnersSection = () => {
   const t = useTranslations("Partners");
-  const { refs, state, actions } = usePartnersSection();
+  const { refs: { sectionRef, sponsorsRef, partnersRef }, state, actions } = usePartnersSection();
 
   return (
     <section
       id="partners"
-      ref={refs.sectionRef}
+      ref={sectionRef}
       className="relative w-full py-24 lg:py-15 bg-background overflow-hidden"
     >
       <div className="container mx-auto px-6 md:px-12">
@@ -38,7 +38,7 @@ export const PartnersSection = () => {
             {t("sponsorsHeading")}
           </h3>
           <div
-            ref={refs.sponsorsRef}
+            ref={sponsorsRef}
             className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center"
           >
             {sponsors.map((sponsor) => (
@@ -67,7 +67,7 @@ export const PartnersSection = () => {
             {t("partnersHeading")}
           </h3>
           <div
-            ref={refs.partnersRef}
+            ref={partnersRef}
             className="flex flex-wrap justify-center gap-6"
           >
             {partners.map((partner) => (

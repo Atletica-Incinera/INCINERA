@@ -8,7 +8,7 @@ export function useHero() {
   const rightContent = useRef<HTMLDivElement>(null);
   const titleSplit1 = useRef<HTMLHeadingElement>(null);
   const titleSplit2 = useRef<HTMLHeadingElement>(null);
-  const mascot = useRef<HTMLImageElement>(null);
+  const mascot = useRef<HTMLDivElement>(null);
   const particles = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {

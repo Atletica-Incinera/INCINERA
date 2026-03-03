@@ -8,12 +8,12 @@ import { useSettingsDropdown } from "./useSettingsDropdown";
 
 export function SettingsDropdown() {
   const t = useTranslations("Settings");
-  const { refs, state, actions } = useSettingsDropdown();
+  const { refs: { buttonRef, menuRef }, state, actions } = useSettingsDropdown();
 
   return (
     <div className="relative inline-block text-left">
       <button
-        ref={refs.buttonRef}
+        ref={buttonRef}
         onClick={actions.toggleDropdown}
         onMouseEnter={actions.openDropdown}
         className="p-2 rounded-full hover:bg-accent transition-colors text-foreground focus-visible:outline-none cursor-pointer focus-visible:ring-2 focus-visible:ring-primary group"
@@ -30,7 +30,7 @@ export function SettingsDropdown() {
       )}
 
       <div
-        ref={refs.menuRef}
+        ref={menuRef}
         className={`absolute right-0 top-[calc(100%+0.5rem)] w-[250px] sm:w-[320px] p-4 sm:p-5 bg-background/80 backdrop-blur-xl border border-primary/20 dark:border-white/10 rounded-[var(--radius-lg)] shadow-2xl transition-all duration-300 origin-top-right z-50 ${
           state.isOpen
             ? "opacity-100 scale-100 pointer-events-auto translate-y-0"

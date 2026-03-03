@@ -28,13 +28,13 @@ const TEAM_KEY_I18N: Record<TeamKey, string> = {
 export const TeamsList = ({ teams }: TeamsListProps) => {
   const t = useTranslations("Teams");
   const tDir = useTranslations("Directory");
-  const { refs, state, actions } = useTeamsList();
+  const { refs: { containerRef }, state, actions } = useTeamsList();
 
   return (
-    <div ref={refs.containerRef} className="space-y-24">
+    <div ref={containerRef} className="space-y-24">
       {teams.map((team) => {
         const i18nKey = TEAM_KEY_I18N[team.key];
-        const teamName = t(i18nKey as any);
+        const teamName = t(i18nKey as Parameters<typeof t>[0]);
 
         return (
           <section key={team.key} className="space-y-12">

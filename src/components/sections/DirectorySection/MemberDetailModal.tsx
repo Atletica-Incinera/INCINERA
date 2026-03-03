@@ -90,7 +90,7 @@ export const MemberDetailModal = ({
                     {t("common.course")}
                   </h3>
                   <p className="text-foreground font-semibold md:text-lg">
-                    {t(`courses.${member.course}` as any)}
+                    {t(`courses.${member.course}` as Parameters<typeof t>[0])}
                   </p>
                 </div>
               )}

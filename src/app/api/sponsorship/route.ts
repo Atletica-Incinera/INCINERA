@@ -56,7 +56,7 @@ export async function POST(request: Request) {
           email,
           visaoParceria,
         },
-        (key, props) => t(key as any, props)
+        (key, props) => t(key as Parameters<typeof t>[0], props)
       ),
     });
 

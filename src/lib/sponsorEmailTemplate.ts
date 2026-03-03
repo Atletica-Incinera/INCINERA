@@ -7,7 +7,7 @@ export interface SponsorEmailTemplateData {
 
 export function buildSponsorEmailTemplate(
   data: SponsorEmailTemplateData,
-  t: (key: string, props?: Record<string, any>) => string
+  t: (key: string, props?: Record<string, string | number>) => string
 ): string {
   const { nomeFantasia, nomeResponsavel, email, visaoParceria } = data;
 

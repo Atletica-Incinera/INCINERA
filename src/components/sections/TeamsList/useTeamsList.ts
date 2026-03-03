@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { Athlete, Team } from "@/data/types";
+import type { Athlete } from "@/data/types";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);

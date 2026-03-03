@@ -7,7 +7,7 @@ export interface EmailTemplateData {
 
 export function buildEmailTemplate(
   data: EmailTemplateData,
-  t: (key: string, props?: Record<string, any>) => string
+  t: (key: string, props?: Record<string, string | number>) => string
 ): string {
   const { name, email, subject, message } = data;
   const escapedMessage = message

@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useHero } from "./useHero";
@@ -8,16 +9,16 @@ import { brandImageUrl } from "@/data/utils/cloudinary";
 
 export function Hero() {
   const t = useTranslations("Hero");
-  const { refs, actions } = useHero();
+  const { refs: { container, redOverlay, leftContent, titleSplit1, titleSplit2, rightContent, mascot }, actions } = useHero();
 
   return (
     <section
-      ref={refs.container}
+      ref={container}
       className="relative w-full h-[100dvh] overflow-hidden bg-background"
     >
       {/* 1. Initial State covering everything, animating to reveal the split */}
       <div
-        ref={refs.redOverlay}
+        ref={redOverlay}
         className="absolute inset-0 bg-primary z-40 pointer-events-none"
         style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
       />
@@ -25,7 +26,7 @@ export function Hero() {
       <div className="absolute inset-0 flex flex-col md:block">
         {/* Left Side (White/Foreground context) */}
         <div
-          ref={refs.leftContent}
+          ref={leftContent}
           className="relative md:absolute md:inset-0 w-full flex-1 flex flex-col justify-center px-8 md:pl-[8%] md:pr-[48%] lg:pl-[10%] lg:pr-[45%] pt-24 pb-12 z-10 bg-background opacity-0"
         >
           <div className="max-w-2xl space-y-6">
@@ -35,13 +36,13 @@ export function Hero() {
 
             <div className="flex flex-col tracking-tighter leading-[0.85]">
               <h1
-                ref={refs.titleSplit1}
+                ref={titleSplit1}
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-foreground uppercase drop-shadow-sm"
               >
                 {t("title1")}
               </h1>
               <h1
-                ref={refs.titleSplit2}
+                ref={titleSplit2}
                 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-primary uppercase mt-[-0.05em] drop-shadow-md"
               >
                 {t("title2")}
@@ -69,19 +70,25 @@ export function Hero() {
 
         {/* Right Side (Red Background with gradient to dark) */}
         <div
-          ref={refs.rightContent}
+          ref={rightContent}
           className="relative md:absolute md:inset-0 w-full bg-gradient-to-br from-primary via-primary/80 to-primary/90 flex items-center justify-end overflow-hidden z-20 md:[clip-path:polygon(75%_0,100%_0,100%_100%,55%_100%)] lg:[clip-path:polygon(65%_0,100%_0,100%_100%,50%_100%)] opacity-0"
         >
           {/* subtle noise/gradient map */}
           
-          <div className="relative z-10 w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl">
-            <img
-              ref={refs.mascot}
-              src={brandImageUrl("brand/hero-mascot")}
-              alt={t("mascotAlt")}
-              className="w-full h-full object-contain transform drop-shadow-2xl"
-            />
-          </div>
+          <div
+              ref={mascot}
+              className="relative w-full max-w-[400px] md:max-w-[450px] lg:max-w-[600px] aspect-square flex items-center justify-center md:mr-[2%] lg:mr-[10%] filter drop-shadow-2xl"
+            >
+              <Image
+                src={brandImageUrl("brand/hero-mascot")}
+                alt={t("mascotAlt")}
+                fill
+                unoptimized
+                priority
+                className="object-contain drop-shadow-2xl"
+                sizes="(max-width: 768px) 400px, (max-width: 1024px) 450px, 600px"
+              />
+            </div>
         </div>
       </div>
 

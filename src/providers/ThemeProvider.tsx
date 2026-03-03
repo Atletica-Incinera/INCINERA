@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -21,7 +21,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Sincroniza estado inicial no cliente baseado no que o script injetou ou localStorage
     const root = document.documentElement;
     let initialTheme = root.getAttribute("data-theme") as Theme | null;
     
@@ -32,6 +31,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       initialTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
     }
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setThemeState(initialTheme);
     setMounted(true);
   }, []);

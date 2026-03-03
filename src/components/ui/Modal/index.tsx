@@ -73,7 +73,7 @@ function ModalContent({ children, className, ...props }: ModalContentProps) {
   const { modalRef } = useModalContext();
   return (
     <m.div
-      ref={modalRef as any}
+      ref={modalRef as React.Ref<HTMLDivElement>}
       tabIndex={-1}
       role="dialog"
       aria-modal="true"
