@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   build-and-test:
@@ -35,10 +33,12 @@ jobs:
         run: npx tsc --noEmit
 
       # Descomente abaixo se for adicionar testes automatizados com Jest/Vitest no futuro
-      # - name: 🧪 Run Tests
+      # - name: Run Tests
       #   run: npm run test
 
-      - name: 🏗️ Build Application
+      - name: Build Application
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
+          # Valor público (aparece no HTML do client-side), seguro para estar aqui
+          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: incinera

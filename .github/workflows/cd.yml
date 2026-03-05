@@ -1,20 +1,20 @@
 name: CD Deploy to VM
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
     branches:
       - main
-      - master
-  workflow_dispatch: # Permite rodar o deploy manualmente na aba Actions do GitHub
+  workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy to CIn Helpdesk VM
+    name: Deploy to CIn VM
     runs-on: ubuntu-latest
 
-    # Executa apenas se o CI (Lint/Build/Types) passar e for na branch main
-    # Se você quiser rodar independente, remova ou comente a linha abaixo (necessário o job build-and-test em outro arquivo ou no mesmo para funcionar)
-    # needs: [build-and-test]
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Deploy via SSH
@@ -23,17 +23,29 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_KEY }}
-          port: ${{ secrets.VM_PORT || 22 }}
+          port: 22
           script: |
-            cd /caminho/do/projeto/na/vm
+            # Define o diretório do projeto
+            PROJECT_DIR="$HOME/INCINERA"
+
+            # Clona o repositório se não existir, senão atualiza
+            if [ ! -d "$PROJECT_DIR" ]; then
+              git clone https://github.com/Atletica-Incinera/INCINERA.git "$PROJECT_DIR"
+            fi
+
+            cd "$PROJECT_DIR"
 
             # Puxa o código mais recente
             git fetch --all
             git reset --hard origin/main
 
-            # Reconstrói os containers e levanta novamente em background
-            # Usamos --build para garantir que a nova versão do Next.js seja gerada
-            docker-compose up -d --build
+            # Escreve o .env a partir do secret do GitHub
+            echo '${{ secrets.DOTENV_FILE }}' > .env
 
-            # Limpa imagens antigas do Docker penduradas para economizar espaço em disco na VM
+            # Reconstrói os containers e levanta em background
+            docker compose up -d --build --remove-orphans
+
+            # Limpa imagens antigas do Docker para economizar espaço
             docker image prune -f
+
+            echo "Deploy finalizado com sucesso!"
