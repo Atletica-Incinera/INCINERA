@@ -40,5 +40,4 @@ jobs:
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
-          # Valor público (aparece no HTML do client-side), seguro para estar aqui
-          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: incinera
+          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: dckupej8j
