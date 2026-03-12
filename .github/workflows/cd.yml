@@ -12,40 +12,34 @@ on:
 jobs:
   deploy:
     name: Deploy to CIn VM
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USERNAME }}
-          key: ${{ secrets.VM_SSH_KEY }}
-          port: 22
-          script: |
-            # Define o diretório do projeto
-            PROJECT_DIR="$HOME/INCINERA"
+      - name: Deploy
+        run: |
+          # Define o diretório do projeto
+          PROJECT_DIR="$HOME/INCINERA"
 
-            # Clona o repositório se não existir, senão atualiza
-            if [ ! -d "$PROJECT_DIR" ]; then
-              git clone https://github.com/Atletica-Incinera/INCINERA.git "$PROJECT_DIR"
-            fi
+          # Clona o repositório se não existir, senão atualiza
+          if [ ! -d "$PROJECT_DIR" ]; then
+            git clone https://github.com/Atletica-Incinera/INCINERA.git "$PROJECT_DIR"
+          fi
 
-            cd "$PROJECT_DIR"
+          cd "$PROJECT_DIR"
 
-            # Puxa o código mais recente
-            git fetch --all
-            git reset --hard origin/main
+          # Puxa o código mais recente
+          git fetch --all
+          git reset --hard origin/main
 
-            # Escreve o .env a partir do secret do GitHub
-            echo '${{ secrets.DOTENV_FILE }}' > .env
+          # Escreve o .env a partir do secret do GitHub
+          echo '${{ secrets.DOTENV_FILE }}' > .env
 
-            # Reconstrói os containers e levanta em background
-            docker compose up -d --build --remove-orphans
+          # Reconstrói os containers e levanta em background
+          docker compose up -d --build --remove-orphans
 
-            # Limpa imagens antigas do Docker para economizar espaço
-            docker image prune -f
+          # Limpa imagens antigas do Docker para economizar espaço
+          docker image prune -f
 
-            echo "Deploy finalizado com sucesso!"
+          echo "Deploy finalizado com sucesso!"
