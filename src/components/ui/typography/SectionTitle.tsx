@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React, { forwardRef } from "react";
 
-interface SectionTitleProps extends React.HTMLAttributes<HTMLElement> {
+interface SectionTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
   /** Classes adicionais para personalização */
   className?: string;
@@ -16,11 +16,11 @@ interface SectionTitleProps extends React.HTMLAttributes<HTMLElement> {
  * <SectionTitle>DIRETORIA</SectionTitle>
  * <SectionTitle as="h3" className="text-3xl">Subtítulo menor</SectionTitle>
  */
-export const SectionTitle = forwardRef<HTMLElement, SectionTitleProps>(
+export const SectionTitle = forwardRef<HTMLHeadingElement, SectionTitleProps>(
   ({ children, className, as: Tag = "h2", ...props }, ref) => {
     return (
       <Tag
-        ref={ref as React.Ref<HTMLElement>}
+        ref={ref as unknown as React.Ref<HTMLHeadingElement>}
         className={cn(
           "text-5xl md:text-7xl font-black uppercase tracking-tighter text-foreground",
           className,
