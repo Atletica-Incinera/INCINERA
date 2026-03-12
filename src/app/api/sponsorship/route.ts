@@ -4,7 +4,6 @@ import { logger } from "@/lib/logger";
 import { getTranslations } from "next-intl/server";
 import { buildSponsorEmailTemplate } from "@/lib/sponsorEmailTemplate";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const DESTINATION_EMAIL = "incinera@cin.ufpe.br";
 
@@ -31,6 +30,8 @@ function validatePayload(body: unknown): body is {
 }
 
 export async function POST(request: Request) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   try {
     const body = await request.json();
 
