@@ -91,6 +91,14 @@
   "Directory": {
     "title": "Diretoria",
     "subtitle": "Os guerreiros que lideram a chama",
+    "recruitment": {
+      "badge": "Vagas abertas",
+      "title": "Quer fazer parte?",
+      "description": "As inscrições para a nova diretoria estão abertas até {deadline}. Essa é sua chance de fazer história no CIn.",
+      "deadline": "21/03 às 23h59",
+      "cta": "Quero me inscrever",
+      "ctaUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeHyMKHz4Ph0G_zQR9icJcCpEpKIrBHM3ob8b4uhINZPirFaw/viewform?usp=sharing&ouid=104252824850290577445"
+    },
     "common": {
       "viewDetails": "Ver detalhes de {name}",
       "closeTeam": "Fechar equipe",

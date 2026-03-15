@@ -91,6 +91,14 @@
   "Directory": {
     "title": "Board of Directors",
     "subtitle": "The warriors leading the flame",
+    "recruitment": {
+      "badge": "Open positions",
+      "title": "Want to be part?",
+      "description": "Applications for the new board are open until {deadline}. This is your chance to make history at CIn.",
+      "deadline": "Mar 21st at 11:59 PM",
+      "cta": "Apply now",
+      "ctaUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeHyMKHz4Ph0G_zQR9icJcCpEpKIrBHM3ob8b4uhINZPirFaw/viewform?usp=sharing&ouid=104252824850290577445"
+    },
     "common": {
       "viewDetails": "View details of {name}",
       "closeTeam": "Close team",

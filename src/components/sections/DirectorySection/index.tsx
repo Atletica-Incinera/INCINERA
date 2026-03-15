@@ -8,6 +8,9 @@ import { MemberCard } from "@/components/ui/MemberCard";
 import { SectionTitle, SectionSubtitle } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { memberPhotoUrl } from "@/data/utils/cloudinary";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Flame } from "lucide-react";
 import type { Directory, ExecutiveBoard, Member } from "@/data/types";
 
 interface DirectorySectionProps {
@@ -44,6 +47,32 @@ export const DirectorySection = ({
           <SectionTitle>{t("title")}</SectionTitle>
           <SectionSubtitle>{t("subtitle")}</SectionSubtitle>
         </div>
+
+        {/* Recruitment Alert */}
+        <Alert className="max-w-6xl mx-auto mb-12 border-primary/30 bg-primary/5">
+          <Flame className="text-primary" />
+          <AlertTitle className="flex items-center gap-2 text-foreground">
+            {t("recruitment.title")}
+            <Badge variant="default" className="text-[10px]">
+              {t("recruitment.badge")}
+            </Badge>
+          </AlertTitle>
+          <AlertDescription>
+            <p>
+              {t("recruitment.description", {
+                deadline: t("recruitment.deadline"),
+              })}
+            </p>
+            <a
+              href={t("recruitment.ctaUrl")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1 font-semibold text-primary hover:underline text-sm"
+            >
+              {t("recruitment.cta")} →
+            </a>
+          </AlertDescription>
+        </Alert>
 
         <div className="max-w-6xl mx-auto space-y-20">
           {/* Unified Grid */}
