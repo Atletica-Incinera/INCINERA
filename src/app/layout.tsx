@@ -4,6 +4,7 @@ import { Sora } from "next/font/google";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { MotionProvider } from "@/providers/MotionProvider";
+import { JsonLd } from "@/components/shared/JsonLd";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -12,13 +13,56 @@ const sora = Sora({
   subsets: ["latin"],
 });
 
+const BASE_URL = "https://incinera.cin.ufpe.br";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Metadata");
+
   return {
-    title: t("title"),
+    metadataBase: new URL(BASE_URL),
+    title: {
+      default: t("title"),
+      template: `%s${t("titleSuffix")}`,
+    },
     description: t("description"),
     icons: {
       icon: "/logo.svg",
+    },
+    openGraph: {
+      type: "website",
+      locale: "pt_BR",
+      url: BASE_URL,
+      siteName: "Atlética Incinera",
+      title: t("title"),
+      description: t("description"),
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: t("ogImageAlt"),
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/og-image.png"],
+    },
+    alternates: {
+      canonical: BASE_URL,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -54,6 +98,7 @@ export default async function RootLayout({
             `,
           }}
         />
+        <JsonLd />
       </head>
       <body
         className={`${sora.variable} font-sans antialiased transition-colors duration-200 ease-in-out`}

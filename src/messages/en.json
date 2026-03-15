@@ -1,8 +1,9 @@
 {
   "Metadata": {
-    "title": "INCINERA - CIn-UFPE Athletic Association",
+    "title": "Atlética Incinera — CIn UFPE",
     "titleSuffix": " | Incinera",
-    "description": "The flame that never goes out. Join the greatest sporting force at the UFPE Informatics Center."
+    "description": "The flame that never goes out. Join the greatest sporting force at the UFPE Informatics Center.",
+    "ogImageAlt": "Atlética Incinera — The flame that never goes out · CIn UFPE"
   },
   "Common": {
     "loading": "Loading...",
@@ -140,6 +141,7 @@
   "Teams": {
     "pageTitle": "Our Teams",
     "subtitle": "CIn's strength on every court",
+    "metaDescription": "Meet the sports teams of Atlética Incinera — representing CIn UFPE in futsal, volleyball, basketball, handball, and more.",
     "backToHome": "Back to Home",
     "sports": {
       "futsalMale": "Men's Futsal",

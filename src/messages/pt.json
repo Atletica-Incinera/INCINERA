@@ -1,8 +1,9 @@
 {
   "Metadata": {
-    "title": "Incinera",
+    "title": "Atlética Incinera",
     "titleSuffix": " | Incinera",
-    "description": "A chama que não se apaga. Junte-se à maior força esportiva do Centro de Informática da UFPE."
+    "description": "A chama que não se apaga. Junte-se à maior força esportiva do Centro de Informática da UFPE.",
+    "ogImageAlt": "Atlética Incinera — A chama que não se apaga · CIn UFPE"
   },
   "Common": {
     "loading": "Carregando...",
@@ -140,6 +141,7 @@
   "Teams": {
     "pageTitle": "Nossas Equipes",
     "subtitle": "A força do CIn em todas as quadras",
+    "metaDescription": "Conheça as equipes esportivas da Atlética Incinera — representando o CIn UFPE em futsal, vôlei, basquete, handebol e muito mais.",
     "backToHome": "Voltar para Início",
     "sports": {
       "futsalMale": "Futsal Masculino",

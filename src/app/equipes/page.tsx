@@ -12,7 +12,17 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Teams");
-  return { title: t("pageTitle") };
+  return {
+    title: t("pageTitle"),
+    description: t("metaDescription"),
+    openGraph: {
+      title: t("pageTitle"),
+      description: t("metaDescription"),
+    },
+    alternates: {
+      canonical: "https://incinera.cin.ufpe.br/equipes",
+    },
+  };
 }
 
 export default async function TeamsPage() {

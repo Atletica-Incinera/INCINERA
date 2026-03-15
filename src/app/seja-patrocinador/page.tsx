@@ -14,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `${t("meta.title")}${tMeta("titleSuffix")}`,
     description: t("meta.description"),
+    openGraph: {
+      title: t("meta.title"),
+      description: t("meta.description"),
+    },
+    alternates: {
+      canonical: "https://incinera.cin.ufpe.br/seja-patrocinador",
+    },
   };
 }
 
