@@ -12,20 +12,21 @@ export function useHero() {
   const particles = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(container);
+
+    mm.add("(max-width: 767px)", () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // Diagonal split reveal
       tl.to(redOverlay.current, {
-        clipPath: "polygon(65% 0%, 100% 0%, 100% 100%, 50% 100%)",
+        clipPath: "polygon(0% 60%, 100% 60%, 100% 100%, 0% 100%)",
         duration: 1.4,
         ease: "power4.inOut",
         delay: 0.2,
       })
         .fromTo(
           leftContent.current,
-          { opacity: 0, x: -50 },
-          { opacity: 1, x: 0, duration: 0.8 },
+          { opacity: 0, y: -40 },
+          { opacity: 1, y: 0, duration: 0.8 },
           "-=1.2",
         )
         .fromTo(
@@ -36,11 +37,7 @@ export function useHero() {
         )
         .to(
           redOverlay.current,
-          {
-            opacity: 0,
-            duration: 0.6,
-            ease: "power2.inOut",
-          },
+          { opacity: 0, duration: 0.6, ease: "power2.inOut" },
           "-=0.6",
         )
         .fromTo(
@@ -67,18 +64,69 @@ export function useHero() {
           { opacity: 1, duration: 1 },
           "-=0.5",
         );
+    });
 
-      // Floating mascot effect
-      gsap.to(mascot.current, {
-        y: -15,
-        duration: 2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      });
-    }, container);
+    mm.add("(min-width: 768px)", () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    return () => ctx.revert();
+      tl.to(redOverlay.current, {
+        clipPath: "polygon(65% 0%, 100% 0%, 100% 100%, 50% 100%)",
+        duration: 1.4,
+        ease: "power4.inOut",
+        delay: 0.2,
+      })
+        .fromTo(
+          leftContent.current,
+          { opacity: 0, x: -50 },
+          { opacity: 1, x: 0, duration: 0.8 },
+          "-=1.2",
+        )
+        .fromTo(
+          rightContent.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8 },
+          "-=1.0",
+        )
+        .to(
+          redOverlay.current,
+          { opacity: 0, duration: 0.6, ease: "power2.inOut" },
+          "-=0.6",
+        )
+        .fromTo(
+          titleSplit1.current,
+          { opacity: 0, y: 30, rotationX: 20 },
+          { opacity: 1, y: 0, rotationX: 0, duration: 0.6 },
+          "-=0.8",
+        )
+        .fromTo(
+          titleSplit2.current,
+          { opacity: 0, y: 30, rotationX: 20 },
+          { opacity: 1, y: 0, rotationX: 0, duration: 0.6 },
+          "-=0.5",
+        )
+        .fromTo(
+          mascot.current,
+          { scale: 0.8, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.5)" },
+          "-=0.6",
+        )
+        .fromTo(
+          particles.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 1 },
+          "-=0.5",
+        );
+    });
+
+    gsap.to(mascot.current, {
+      y: -15,
+      duration: 2,
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut",
+    });
+
+    return () => mm.revert();
   }, []);
 
   const handleScrollToAbout = () => {
