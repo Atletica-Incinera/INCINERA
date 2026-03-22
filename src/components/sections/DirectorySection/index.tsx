@@ -49,7 +49,7 @@ export const DirectorySection = ({
         </div>
 
         {/* Recruitment Alert */}
-        <Alert className="max-w-6xl mx-auto mb-12 border-primary/30 bg-primary/5">
+        {/* <Alert className="max-w-6xl mx-auto mb-12 border-primary/30 bg-primary/5">
           <Flame className="text-primary" />
           <AlertTitle className="flex items-center gap-2 text-foreground">
             {t("recruitment.title")}
@@ -72,7 +72,7 @@ export const DirectorySection = ({
               {t("recruitment.cta")} →
             </a>
           </AlertDescription>
-        </Alert>
+        </Alert> */}
 
         <div className="max-w-6xl mx-auto space-y-20">
           {/* Unified Grid */}
