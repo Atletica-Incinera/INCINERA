@@ -108,7 +108,9 @@ export function parseLocalPathToCloudinaryId(path: string): string {
   if (path.toLowerCase().includes("placeholder")) return DEFAULT_PLACEHOLDER_ID;
 
   // Remove starting / and images/ prefix (slash is optional)
-  return path.replace(/^(\/?images\/)/, "").replace(/\.[^/.]+$/, "");
+  return path
+    .replace(/^(\/?images\/)/, "")
+    .replace(/\.(jpe?g|png|webp|avif|svg|gif|heic)$/i, "");
 }
 
 /**
