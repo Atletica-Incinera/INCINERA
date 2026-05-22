@@ -353,22 +353,22 @@ export const pitchSlides: PitchSlide[] = [
     sectionTitle: "Pacotes",
     title: "Pacotes de Patrocínio",
     featureLabels: FEATURE_LABELS,
-    tiers: [
+    tiers: [// Tanto do intercin quanto a camisa oficial da atletica
       {
         name: "Master",
         emoji: "🔥",
-        price: "R$ 4–6K/ano",
+        price: "R$ 3,000/ano",
         exclusive: true,
         highlighted: true,
         features: {
-          "Camisa — frente": true,
-          "Camisa — costas": false,
+          "Camisa — frente": true, // Tanto do intercin quanto a camisa oficial da atletica
+          "Camisa — costas": false, // Tanto do intercin quanto a camisa oficial da atletica
           "Premiação temática": true,
           "Post dedicado": "Selo Master",
           "Logo no site": "Destaque",
           Palestras: "Até 3",
-          "Divulgação de vagas": "4/mês",
-          "Divulgação comunidade": "4/mês",
+          "Divulgação de vagas": "ilimitado",
+          "Divulgação comunidade": "ilimitado",
           "Logo nos posts": true,
           "Presença em eventos": "Todos",
         },
@@ -376,11 +376,11 @@ export const pitchSlides: PitchSlide[] = [
       {
         name: "Ouro",
         emoji: "🥇",
-        price: "R$ 2,5–4K/ano",
+        price: "R$ 1,500/ano",
         exclusive: true,
         features: {
-          "Camisa — frente": false,
-          "Camisa — costas": true,
+          "Camisa — frente": false,// Tanto do intercin quanto a camisa oficial da atletica
+          "Camisa — costas": true,// Tanto do intercin quanto a camisa oficial da atletica
           "Premiação temática": false,
           "Post dedicado": "Selo Ouro",
           "Logo no site": true,
@@ -394,11 +394,11 @@ export const pitchSlides: PitchSlide[] = [
       {
         name: "Prata",
         emoji: "🥈",
-        price: "R$ 1,2–2K/ano",
+        price: "R$ 1,000/ano",
         exclusive: false,
         features: {
-          "Camisa — frente": false,
-          "Camisa — costas": false,
+          "Camisa — frente": false,// Tanto do intercin quanto a camisa oficial da atletica
+          "Camisa — costas": false,// Tanto do intercin quanto a camisa oficial da atletica
           "Premiação temática": false,
           "Post dedicado": "Selo Prata",
           "Logo no site": true,
@@ -412,11 +412,11 @@ export const pitchSlides: PitchSlide[] = [
       {
         name: "Bronze",
         emoji: "🥉",
-        price: "R$ 0,5–1K/ano",
+        price: "R$ 500/ano",
         exclusive: false,
         features: {
-          "Camisa — frente": false,
-          "Camisa — costas": false,
+          "Camisa — frente": false,// Tanto do intercin quanto a camisa oficial da atletica
+          "Camisa — costas": false,// Tanto do intercin quanto a camisa oficial da atletica
           "Premiação temática": false,
           "Post dedicado": "Selo Apoiador",
           "Logo no site": true,
