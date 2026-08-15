@@ -94,18 +94,18 @@ O app estará disponível em **[http://localhost:3000](http://localhost:3000)**.
 
 ## 🐳 Rodando via Docker
 
-A stack de produção utiliza **dois containers** orquestrados pelo Docker Compose:
+A stack de produção executa o container da aplicação conectado à rede Docker compartilhada `incinera-network`, roteado pelo Nginx Gateway Global da VM:
 
-1. **`incinera-web`** — Aplicação Next.js (modo standalone, porta `3000` interna)
-2. **`incinera-nginx`** — Nginx como reverse proxy (porta `80` externa)
+1. **`incinera-web`** — Aplicação Next.js (modo standalone, porta `3000` interna na rede `incinera-network`)
 
 ### 1. Configure o `.env`
 
 Na raiz do projeto, crie o arquivo `.env` com as variáveis de produção (veja [Variáveis de Ambiente](#-variáveis-de-ambiente)).
 
-### 2. Suba os containers
+### 2. Garanta a rede compartilhada e suba o container
 
 ```bash
+docker network inspect incinera-network >/dev/null 2>&1 || docker network create incinera-network
 docker compose up -d --build
 ```
 
@@ -114,9 +114,9 @@ Isso irá:
 - Instalar dependências (`npm ci`)
 - Gerar o build de produção (`npm run build`)
 - Criar a imagem standalone otimizada (multi-stage build)
-- Iniciar o Nginx como reverse proxy na porta `80`
+- Iniciar o `incinera-web` conectado à rede `incinera-network`
 
-### 3. Verifique os containers
+### 3. Verifique o container
 
 ```bash
 docker compose ps
@@ -125,9 +125,7 @@ docker compose ps
 ### 4. Visualize os logs
 
 ```bash
-docker compose logs -f            # todos os containers
-docker compose logs -f incinera-web  # apenas o Next.js
-docker compose logs -f nginx         # apenas o Nginx
+docker compose logs -f incinera-web
 ```
 
 ### 5. Parar e remover
@@ -139,25 +137,20 @@ docker compose down
 ### Arquitetura Docker
 
 ```
-┌─────────────────────────────────────────────┐
-│                   VM (CIn)                  │
-│                                             │
-│   :80 ──▶ ┌───────────┐    ┌────────────┐  │
-│           │   Nginx    │──▶│  Next.js    │  │
-│           │  (Alpine)  │   │ (Standalone)│  │
-│           │  Port 80   │   │  Port 3000  │  │
-│           └───────────┘    └────────────┘  │
-│           incinera-nginx   incinera-web     │
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                          VM (CIn)                           │
+│                                                             │
+│   :80/:443 ──▶ ┌───────────────────┐                        │
+│                │   nginx-gateway   │ (Global Reverse Proxy) │
+│                └─────────┬─────────┘                        │
+│                          │ incinera-network                 │
+│                          ▼                                  │
+│                ┌───────────────────┐                        │
+│                │   incinera-web    │ (Next.js Standalone)   │
+│                │    Porta 3000     │                        │
+│                └───────────────────┘                        │
+└─────────────────────────────────────────────────────────────┘
 ```
-
-O Nginx cuida de:
-
-- Reverse proxy para o Next.js
-- Compressão Gzip
-- Cache agressivo para assets estáticos (`/_next/static/`)
-- Headers de segurança (`X-Frame-Options`, `X-XSS-Protection`, etc.)
-- Redirecionamento de 404 para a home
 
 ---
 
@@ -347,7 +340,6 @@ O projeto segue regras rigorosas definidas em [`.agents/workflows/development-st
 INCINERA/
 ├── .agents/workflows/        # Workflows e regras de desenvolvimento
 ├── .github/workflows/        # CI/CD (GitHub Actions)
-├── nginx/                    # Configuração do Nginx (reverse proxy)
 ├── public/                   # Assets estáticos
 ├── src/
 │   ├── app/                  # Rotas e páginas (App Router)

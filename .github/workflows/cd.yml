@@ -11,7 +11,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to CIn VM
+    name: Deploy Landing Page to CIn VM
     runs-on: self-hosted
 
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
@@ -19,27 +19,22 @@ jobs:
     steps:
       - name: Deploy
         run: |
-          # Define o diretório do projeto
           PROJECT_DIR="$HOME/INCINERA"
 
-          # Clona o repositório se não existir, senão atualiza
           if [ ! -d "$PROJECT_DIR" ]; then
             git clone https://github.com/Atletica-Incinera/INCINERA.git "$PROJECT_DIR"
           fi
 
           cd "$PROJECT_DIR"
-
-          # Puxa o código mais recente
           git fetch --all
           git reset --hard origin/main
 
-          # Escreve o .env a partir do secret do GitHub
+          # Garante que a rede existe
+          docker network inspect incinera-network >/dev/null 2>&1 || docker network create incinera-network
+
           echo '${{ secrets.DOTENV_FILE }}' > .env
 
-          # Reconstrói os containers e levanta em background
           docker compose up -d --build --remove-orphans
-
-          # Limpa imagens antigas do Docker para economizar espaço
           docker image prune -f
 
-          echo "Deploy finalizado com sucesso!"
+          echo "Deploy da Landing Page finalizado com sucesso!"
