@@ -9,6 +9,9 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/styleguide/"],
       },
     ],
-    sitemap: "https://incinera.cin.ufpe.br/sitemap.xml",
+    sitemap: [
+      "https://incinera.cin.ufpe.br/sitemap.xml",
+      "https://incinera.cin.ufpe.br/intereng/sitemap.xml",
+    ],
   };
 }
