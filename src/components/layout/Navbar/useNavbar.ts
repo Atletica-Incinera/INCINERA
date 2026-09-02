@@ -125,7 +125,6 @@ export function useNavbar() {
     { key: "partners", href: "/#partners" },
     { key: "contact", href: "/#contact" },
     { key: "teams", href: "/equipes" },
-    { key: "intereng", href: "/intereng/public" },
   ];
 
   return {
